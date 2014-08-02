@@ -26,40 +26,40 @@ import data.Province;
 /**
  * 
  * @author rogier_konings
- *
+ * 
  */
 public class RiskBoard extends JFrame {
 
 	private static final long serialVersionUID = 9197101390756616661L;
-	private int SCREEN_WIDTH;
-	private int SCREEN_HEIGHT;
+	private static int SCREEN_WIDTH;
+	private static int SCREEN_HEIGHT;
 	private int BORDER = 50;
-	private int ATTACK_ANSWER;
+	private static int ATTACK_ANSWER;
 
-	private Container game;
-	private JPanel boardPanel;
+	private static Container game;
+	private static JPanel boardPanel;
 	private static JLabel statisticsLabel;
 	private static JLabel gameLabel;
-	private JLabel attackLabel;
-	private JLabel defenceLabel;
-	private JSpinner attackSpinner;
-	private JSpinner defenceSpinner;
-	private JButton attackThrowButton;
-	private JButton defenceThrowButton;
+	private static JLabel attackLabel;
+	private static JLabel defenceLabel;
+	private static JSpinner attackSpinner;
+	private static JSpinner defenceSpinner;
+	private static JButton attackThrowButton;
+	private static JButton defenceThrowButton;
 	private static JButton attackButton;
-	//private JButton defenceButton;
-	private JLabel attackResultLabel;
-	private JLabel defenceResultLabel;
+	// private JButton defenceButton;
+	private static JLabel attackResultLabel;
+	private static JLabel defenceResultLabel;
 	private static JButton addArmyButton;
 	private static JButton removeArmyButton;
-	private JButton nextPlayerButton;
+	private static JButton nextPlayerButton;
 	private static JComboBox destinationBox;
 
 	GameData gamedata;
 	ArrayList<Province> countrydata;
 
-	int[] attackResultArray;
-	int[] defenceResultArray;
+	static int[] attackResultArray;
+	static int[] defenceResultArray;
 
 	public RiskBoard() {
 
@@ -80,186 +80,266 @@ public class RiskBoard extends JFrame {
 		game = getContentPane();
 		game.setLayout(null);
 
-		statisticsLabel = new JLabel();
-		statisticsLabel.setBounds(20, 100, 300, 800);
-		statisticsLabel.setVerticalAlignment(JLabel.TOP);
-
-		game.add(statisticsLabel);
-
-		boardPanel = new JPanel();
-		boardPanel.setBounds(5, 5, SCREEN_WIDTH - 320, SCREEN_HEIGHT - 10);
-		game.add(boardPanel);
-
-		RiskMap riskmap = new RiskMap(
-				new ImageIcon("../Risk/src/img/NL.jpg").getImage());
-		boardPanel.add(riskmap);
-
-		gameLabel = new JLabel("Game Label", SwingConstants.CENTER);
-		gameLabel.setBounds(SCREEN_WIDTH - 300, 5, 300, 220);
-		gameLabel.setText("Game Label");
-		game.add(gameLabel);
-
-		attackButton = new JButton("Attack");
-		attackButton.setEnabled(false);
-		attackButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				String result = (String)destinationBox.getSelectedItem();
-				RiskGame.setTargetProvince(result);
-				
-				//returns 0 in case of a 'Yes' answer, 1 in case of a 'No' answer
-				ATTACK_ANSWER = JOptionPane.showConfirmDialog(game, "Do you want to attack from " + RiskGame.getSelectedProvince().getName() + " to " + RiskGame.getTargetProvince().getName() + "?", "Confirm Attack", JOptionPane.YES_NO_OPTION);
-				
-				if(ATTACK_ANSWER == 0) {
-					RiskGame.setAttack(true);
-					gameLabel.setText("You may now select the amount of armies!");
-					attackSpinner.setEnabled(true);
-					defenceSpinner.setEnabled(true);
-					attackThrowButton.setEnabled(true);
-					defenceThrowButton.setEnabled(true);
-				}
-			}
-		});
-		attackButton.setBounds(SCREEN_WIDTH - 250, 310, 190, 50);
-		game.add(attackButton);
-
-		//defenceButton = new JButton("Defend");
-		//defenceButton.setBounds(SCREEN_WIDTH - 150, 310, 140, 50);
-		//game.add(defenceButton);
-		
-		destinationBox = new JComboBox();
-		destinationBox.setBounds(SCREEN_WIDTH - 225, 370, 140, 50);
-		game.add(destinationBox);
-
-		attackLabel = new JLabel("Attack");
-		attackLabel.setBounds(SCREEN_WIDTH - 260, 460, 60, 15);
-		game.add(attackLabel);
-
-		defenceLabel = new JLabel("Defence");
-		defenceLabel.setBounds(SCREEN_WIDTH - 110, 460, 60, 15);
-		game.add(defenceLabel);
-
-		SpinnerNumberModel attackdice = new SpinnerNumberModel(1, 1, 3, 1);
-		attackSpinner = new JSpinner(attackdice);
-		attackSpinner.setBounds(SCREEN_WIDTH - 260, 485, 40, 30);
-		attackSpinner.setEnabled(false);
-		game.add(attackSpinner);
-
-		SpinnerNumberModel defenddice = new SpinnerNumberModel(1, 1, 2, 1);
-		defenceSpinner = new JSpinner(defenddice);
-		defenceSpinner.setBounds(SCREEN_WIDTH - 110, 485, 40, 30);
-		defenceSpinner.setEnabled(false);
-		game.add(defenceSpinner);
-
-		attackThrowButton = new JButton("Throw");
-		attackThrowButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int dice = (Integer) attackSpinner.getValue();
-				attackResultArray = RiskGame.diceThrow(dice);
-				String result = "";
-
-				for (int i = 0; i < attackResultArray.length; i++) {
-					result = result + " " + attackResultArray[i];
-				}
-				attackResultLabel.setText(result);
-			}
-
-		});
-		attackThrowButton.setBounds(SCREEN_WIDTH - 280, 550, 100, 100);
-		attackThrowButton.setEnabled(false);
-		game.add(attackThrowButton);
-
-		defenceThrowButton = new JButton("Throw");
-		defenceThrowButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int dice = (Integer) defenceSpinner.getValue();
-				defenceResultArray = RiskGame.diceThrow(dice);
-				String result = "";
-
-				for (int i = 0; i < defenceResultArray.length; i++) {
-					result = result + " " + defenceResultArray[i];
-				}
-				defenceResultLabel.setText(result);
-			}
-		});
-		defenceThrowButton.setBounds(SCREEN_WIDTH - 130, 550, 100, 100);
-		defenceThrowButton.setEnabled(false);
-		game.add(defenceThrowButton);
-
-		attackResultLabel = new JLabel("result");
-		attackResultLabel.setBounds(SCREEN_WIDTH - 255, 660, 60, 20);
-		game.add(attackResultLabel);
-
-		defenceResultLabel = new JLabel("result");
-		defenceResultLabel.setBounds(SCREEN_WIDTH - 105, 660, 60, 20);
-		game.add(defenceResultLabel);
-
-		addArmyButton = new JButton("Add Army");
-
-		addArmyButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				RiskGame.addUnit();
-
-			}
-		});
-		addArmyButton.setEnabled(false);
-		addArmyButton.setBounds(SCREEN_WIDTH - 300, 755, 140, 65);
-		game.add(addArmyButton);
-
-		removeArmyButton = new JButton("Remove Army");
-
-		removeArmyButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				RiskGame.removeUnit();
-
-			}
-		});
-		//removeArmyButton.setEnabled(false);
-		removeArmyButton.setBounds(SCREEN_WIDTH - 150, 755, 140, 65);
-		game.add(removeArmyButton);
-
-		nextPlayerButton = new JButton("Next Player");
-
-		nextPlayerButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				RiskGame.nextPlayer();
-				addArmyButton.setEnabled(true);
-
-			}
-		});
-
-		nextPlayerButton.setBounds(SCREEN_WIDTH - 300, 830, 290, 65);
-		game.add(nextPlayerButton);
+		game.add(getStatisticsLabel());
+		game.add(getBoardPanel());
+		game.add(getGameLabel());
+		game.add(getAttackButton());
+		game.add(getDestinationBox());
+		game.add(getAttackLabel());
+		game.add(getDefenceLabel());
+		game.add(getAttackSpinner());
+		game.add(getDefenceSpinner());
+		game.add(getAttackThrowButton());
+		game.add(getDefenceThrowButton());
+		game.add(getAttackResultLabel());
+		game.add(getDefenceResultLabel());
+		game.add(getAddArmyButton());
+		game.add(getRemoveArmyButton());
+		game.add(getNextPlayerButton());
 
 		this.setVisible(true);
 
 	}
 
 	public static JLabel getGameLabel() {
+
+		if (gameLabel == null) {
+			gameLabel = new JLabel("Game Label", SwingConstants.CENTER);
+			gameLabel.setBounds(SCREEN_WIDTH - 300, 5, 300, 220);
+			gameLabel.setText("Game Label");
+		}
 		return gameLabel;
 	}
 
-	public static JLabel getStatisticsLabel() {
-		return statisticsLabel;
-	}
-	
 	public static JButton getAttackButton() {
+
+		if (attackButton == null) {
+			attackButton = new JButton("Attack");
+			attackButton.setEnabled(false);
+			attackButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+
+					String result = (String) destinationBox.getSelectedItem();
+					RiskGame.setTargetProvince(result);
+
+					// returns 0 in case of a 'Yes' answer, 1 in case of a 'No'
+					// answer
+					ATTACK_ANSWER = JOptionPane.showConfirmDialog(game,
+							"Do you want to attack from "
+									+ RiskGame.getSelectedProvince().getName()
+									+ " to "
+									+ RiskGame.getTargetProvince().getName()
+									+ "?", "Confirm Attack",
+							JOptionPane.YES_NO_OPTION);
+
+					if (ATTACK_ANSWER == 0) {
+						RiskGame.setAttack(true);
+						gameLabel
+								.setText("You may now select the amount of armies!");
+						attackSpinner.setEnabled(true);
+						defenceSpinner.setEnabled(true);
+						attackThrowButton.setEnabled(true);
+						defenceThrowButton.setEnabled(true);
+					}
+				}
+			});
+			attackButton.setBounds(SCREEN_WIDTH - 250, 310, 190, 50);
+		}
 		return attackButton;
 	}
 
+	public static JComboBox getDestinationBox() {
+
+		if (destinationBox == null) {
+			destinationBox = new JComboBox();
+			destinationBox.setBounds(SCREEN_WIDTH - 225, 370, 140, 50);
+		}
+		return destinationBox;
+	}
+
+	public static JLabel getStatisticsLabel() {
+
+		if (statisticsLabel == null) {
+			statisticsLabel = new JLabel();
+			statisticsLabel.setBounds(20, 100, 300, 800);
+			statisticsLabel.setVerticalAlignment(JLabel.TOP);
+		}
+
+		return statisticsLabel;
+	}
+	
+	public static JPanel getBoardPanel() {
+		
+		if(boardPanel == null) {
+			boardPanel = new JPanel();
+			boardPanel.setBounds(5, 5, SCREEN_WIDTH - 320, SCREEN_HEIGHT - 10);
+			RiskMap riskmap = new RiskMap(
+					new ImageIcon("../Risk/src/img/NL.jpg").getImage());
+			boardPanel.add(riskmap);
+		}
+		return boardPanel;
+	}
+
+	public static JSpinner getAttackSpinner() {
+
+		if (attackSpinner == null) {
+			SpinnerNumberModel attackdice = new SpinnerNumberModel(1, 1, 3, 1);
+			attackSpinner = new JSpinner(attackdice);
+			attackSpinner.setBounds(SCREEN_WIDTH - 260, 485, 40, 30);
+			attackSpinner.setEnabled(false);
+		}
+		return attackSpinner;
+	}
+
+	public static JSpinner getDefenceSpinner() {
+
+		if (defenceSpinner == null) {
+			SpinnerNumberModel defenddice = new SpinnerNumberModel(1, 1, 2, 1);
+			defenceSpinner = new JSpinner(defenddice);
+			defenceSpinner.setBounds(SCREEN_WIDTH - 110, 485, 40, 30);
+			defenceSpinner.setEnabled(false);
+		}
+		return defenceSpinner;
+	}
+
+	public static JButton getAttackThrowButton() {
+
+		if (attackThrowButton == null) {
+			attackThrowButton = new JButton("Throw");
+			attackThrowButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					int dice = (Integer) attackSpinner.getValue();
+					attackResultArray = RiskGame.diceThrow(dice);
+					String result = "";
+
+					for (int i = 0; i < attackResultArray.length; i++) {
+						result = result + " " + attackResultArray[i];
+					}
+					attackResultLabel.setText(result);
+				}
+
+			});
+			attackThrowButton.setBounds(SCREEN_WIDTH - 280, 550, 100, 100);
+			attackThrowButton.setEnabled(false);
+		}
+		return attackThrowButton;
+	}
+
+	public static JButton getDefenceThrowButton() {
+
+		if (defenceThrowButton == null) {
+
+			defenceThrowButton = new JButton("Throw");
+			defenceThrowButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					int dice = (Integer) defenceSpinner.getValue();
+					defenceResultArray = RiskGame.diceThrow(dice);
+					String result = "";
+
+					for (int i = 0; i < defenceResultArray.length; i++) {
+						result = result + " " + defenceResultArray[i];
+					}
+					defenceResultLabel.setText(result);
+				}
+			});
+			defenceThrowButton.setBounds(SCREEN_WIDTH - 130, 550, 100, 100);
+			defenceThrowButton.setEnabled(false);
+
+		}
+		return defenceThrowButton;
+	}
+	
+	public static JLabel getAttackLabel() {
+		
+		if(attackLabel == null) {
+			attackLabel = new JLabel("Attack");
+			attackLabel.setBounds(SCREEN_WIDTH - 260, 460, 60, 15);
+		}
+		return attackLabel;
+	}
+	
+public static JLabel getDefenceLabel() {
+		
+		if(defenceLabel == null) {
+			defenceLabel = new JLabel("Defence");
+			defenceLabel.setBounds(SCREEN_WIDTH - 110, 460, 60, 15);
+		}
+		return defenceLabel;
+	}
+	
+	public static JLabel getAttackResultLabel() {
+		
+		if(attackResultLabel == null) {
+			attackResultLabel = new JLabel("result");
+			attackResultLabel.setBounds(SCREEN_WIDTH - 255, 660, 60, 20);
+		}
+		return attackResultLabel;
+	}
+	
+	public static JLabel getDefenceResultLabel() {
+		
+		if(defenceResultLabel == null) {
+			defenceResultLabel = new JLabel("result");
+			defenceResultLabel.setBounds(SCREEN_WIDTH - 105, 660, 60, 20);
+		}
+		return defenceResultLabel;
+	}
+
 	public static JButton getAddArmyButton() {
+
+		if (addArmyButton == null) {
+			addArmyButton = new JButton("Add Army");
+
+			addArmyButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+
+					RiskGame.addUnit();
+
+				}
+			});
+			addArmyButton.setEnabled(false);
+			addArmyButton.setBounds(SCREEN_WIDTH - 300, 755, 140, 65);
+		}
+
 		return addArmyButton;
 	}
-	
+
 	public static JButton getRemoveArmyButton() {
+
+		if (removeArmyButton == null) {
+			removeArmyButton = new JButton("Remove Army");
+
+			removeArmyButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+
+					RiskGame.removeUnit();
+
+				}
+			});
+			// removeArmyButton.setEnabled(false);
+			removeArmyButton.setBounds(SCREEN_WIDTH - 150, 755, 140, 65);
+		}
+
 		return removeArmyButton;
 	}
-	
-	public static JComboBox getDestinationBox() {
-		return destinationBox;
+
+	public static JButton getNextPlayerButton() {
+
+		if (nextPlayerButton == null) {
+			nextPlayerButton = new JButton("Next Player");
+
+			nextPlayerButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+
+					RiskGame.nextPlayer();
+					addArmyButton.setEnabled(true);
+
+				}
+			});
+
+			nextPlayerButton.setBounds(SCREEN_WIDTH - 300, 830, 290, 65);
+		}
+		return nextPlayerButton;
 	}
 
 	public static void main(String[] args) {
