@@ -47,7 +47,6 @@ public class RiskBoard extends JFrame {
 	private static JButton attackThrowButton;
 	private static JButton defenceThrowButton;
 	private static JButton attackButton;
-	// private JButton defenceButton;
 	private static JLabel attackResultLabel;
 	private static JLabel defenceResultLabel;
 	private static JButton addArmyButton;
@@ -123,7 +122,6 @@ public class RiskBoard extends JFrame {
 					RiskGame.setTargetProvince(result);
 
 					// returns 0 in case of a 'Yes' answer, 1 in case of a 'No'
-					// answer
 					ATTACK_ANSWER = JOptionPane.showConfirmDialog(game,
 							"Do you want to attack from "
 									+ RiskGame.getSelectedProvince().getName()
@@ -316,7 +314,6 @@ public static JLabel getDefenceLabel() {
 
 				}
 			});
-			// removeArmyButton.setEnabled(false);
 			removeArmyButton.setBounds(SCREEN_WIDTH - 150, 755, 140, 65);
 		}
 
@@ -344,21 +341,8 @@ public static JLabel getDefenceLabel() {
 
 	public static void main(String[] args) {
 
-		// RiskBoard spelletje = new RiskBoard();
 		RiskGame game = new RiskGame();
 		game.newGame();
-
-		/**
-		 * game.divideProvinces(2); game.setUpPlayers(2);
-		 * 
-		 * ArrayList<Province> playerprov =
-		 * RiskGame.player_one.getPlayerProvince();
-		 * 
-		 * for(Province province : playerprov) {
-		 * System.out.println(province.getName()); }
-		 * 
-		 * System.out.println(RiskGame.player_one.getUnplacedArmies());
-		 **/
 
 	}
 }

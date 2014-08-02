@@ -266,23 +266,6 @@ public class RiskGame {
 		ATTACK_RUNNING = attack;
 	}
 
-	// //////////////////////
-	public static void moveToProvince(Province province) {
-		if (isPlayerProvince(SELECTED_PROVINCE) == false) {
-			System.out
-					.println("Please select one of your own provinces to attack from!");
-		} else if (isPlayerProvince(SELECTED_PROVINCE) == true
-				&& isPlayerProvince(province) == false) {
-			SELECTED_PROVINCE.setDestination(province);
-			ATTACK_RUNNING = true;
-			System.out.println("Attacking " + province.getName() + " from "
-					+ SELECTED_PROVINCE.getName());
-		} else if (isPlayerProvince(SELECTED_PROVINCE) == true
-				&& isPlayerProvince(province) == true) {
-			System.out.println("Please select an enemy province to attack!");
-		}
-
-	}
 
 	/**
 	 * The players are randomly assigned provinces, depending on the amount of

@@ -21,7 +21,6 @@ public class Province extends JPanel {
 	private String capital;
 	private Shape province;
 	public boolean SELECTED = false;
-	private Province MOVETO = null;
 	private Province[] destinations;
 
 	/**
@@ -36,7 +35,7 @@ public class Province extends JPanel {
 	 * @param MOVETO whether or not the province is a target
 	 */
 	public Province(int id, Player player, String name, String capital, int army,
-			Shape province, boolean SELECTED, Province MOVETO, Province[] destinations) {
+			Shape province, boolean SELECTED, Province[] destinations) {
 		this.id = id;
 		this.player = player;
 		this.name = name;
@@ -44,7 +43,6 @@ public class Province extends JPanel {
 		this.army = army;
 		this.province = province;
 		this.SELECTED = SELECTED;
-		this.MOVETO = MOVETO;
 		this.destinations = destinations;
 
 	}
@@ -87,10 +85,6 @@ public class Province extends JPanel {
 
 	public void removeArmy() {
 		army--;
-	}
-	
-	public void setDestination(Province province) {
-		MOVETO = province;
 	}
 	
 	public Province[] getDestinations() {
