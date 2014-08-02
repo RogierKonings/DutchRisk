@@ -32,6 +32,7 @@ public class RiskBoard extends JFrame {
 
 	private Container game;
 	private JPanel boardPanel;
+	private static JLabel statisticsLabel;
 	private static JLabel gameLabel;
 	private JLabel attackLabel;
 	private JLabel defenceLabel;
@@ -44,7 +45,7 @@ public class RiskBoard extends JFrame {
 	private JLabel attackResultLabel;
 	private JLabel defenceResultLabel;
 	private JButton nextPlayerButton;
-	private JButton addArmyButton;
+	private static JButton addArmyButton;
 	//private static JOptionPane addArmyMessage;
 	//public static JComboBox provinceSelection;
 	
@@ -75,7 +76,14 @@ public class RiskBoard extends JFrame {
 
 		game = getContentPane();
 		game.setLayout(null);
+		
+		statisticsLabel = new JLabel();
+		statisticsLabel.setBounds(5, 100, 300, 800);
+		statisticsLabel.setVerticalAlignment(JLabel.TOP);
+		
+		game.add(statisticsLabel);
 
+		
 		boardPanel = new JPanel();
 		boardPanel.setBounds(5, 5, SCREEN_WIDTH - 320, SCREEN_HEIGHT - 10);
 		game.add(boardPanel);
@@ -108,11 +116,13 @@ public class RiskBoard extends JFrame {
 		SpinnerNumberModel attackdice = new SpinnerNumberModel(1, 1, 3, 1);
 		attackSpinner = new JSpinner(attackdice);
 		attackSpinner.setBounds(SCREEN_WIDTH - 260, 485, 40, 30);
+		attackSpinner.setEnabled(false);
 		game.add(attackSpinner);
 
 		SpinnerNumberModel defenddice = new SpinnerNumberModel(1, 1, 2, 1);
 		defenceSpinner = new JSpinner(defenddice);
 		defenceSpinner.setBounds(SCREEN_WIDTH - 110, 485, 40, 30);
+		defenceSpinner.setEnabled(false);
 		game.add(defenceSpinner);
 
 		attackThrowButton = new JButton("Throw");
@@ -130,6 +140,7 @@ public class RiskBoard extends JFrame {
 
 		});
 		attackThrowButton.setBounds(SCREEN_WIDTH - 280, 550, 100, 100);
+		attackThrowButton.setEnabled(false);
 		game.add(attackThrowButton);
 
 		defenceThrowButton = new JButton("Throw");
@@ -146,6 +157,7 @@ public class RiskBoard extends JFrame {
 			}
 		});
 		defenceThrowButton.setBounds(SCREEN_WIDTH - 130, 550, 100, 100);
+		defenceThrowButton.setEnabled(false);
 		game.add(defenceThrowButton);
 
 		attackResultLabel = new JLabel("result");
@@ -157,6 +169,16 @@ public class RiskBoard extends JFrame {
 		game.add(defenceResultLabel);
 
 		nextPlayerButton = new JButton("Next Player");
+		
+		nextPlayerButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				RiskGame.nextPlayer();
+				addArmyButton.setEnabled(true);
+				
+			}
+		});
+		
 		nextPlayerButton.setBounds(SCREEN_WIDTH - 300, 755, 290, 65);
 		game.add(nextPlayerButton);
 
@@ -174,7 +196,7 @@ public class RiskBoard extends JFrame {
 				
 			}
 		});
-		
+		addArmyButton.setEnabled(false);
 		addArmyButton.setBounds(SCREEN_WIDTH - 300, 830, 290, 65);
 		game.add(addArmyButton);
 		
@@ -193,6 +215,14 @@ public class RiskBoard extends JFrame {
 
 	public static JLabel getGameLabel() {
 		return gameLabel;
+	}
+	
+	public static JLabel getStatisticsLabel() {
+		return statisticsLabel;
+	}
+	
+	public static JButton getAddArmyButton() {
+		return addArmyButton;
 	}
 	
 	public static void main(String[] args) {

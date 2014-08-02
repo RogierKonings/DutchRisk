@@ -1,5 +1,7 @@
 package data;
 
+import game.Player;
+
 import java.awt.Shape;
 
 import javax.swing.JPanel;
@@ -8,14 +10,14 @@ public class Province extends JPanel {
 
 	private static final long serialVersionUID = -1513276616999805747L;
 	private int id;
-	private int player;
+	private Player player;
 	private int army = 0;
 	private String name;
 	private String capital;
 	private Shape province;
 	public boolean SELECTED = false;
 
-	public Province(int id, int player, String name, String capital, int army,
+	public Province(int id, Player player, String name, String capital, int army,
 			Shape province, boolean SELECTED) {
 		this.id = id;
 		this.player = player;
@@ -31,11 +33,11 @@ public class Province extends JPanel {
 		return id;
 	}
 
-	public int getPlayer() {
+	public Player getPlayer() {
 		return player;
 	}
 
-	public void setPlayer(int plr) {
+	public void setPlayer(Player plr) {
 		player = plr;
 	}
 

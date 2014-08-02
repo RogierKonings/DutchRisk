@@ -93,11 +93,11 @@ public class RiskMap extends JPanel {
 						RiskGame.getSelectedProvince();
 						
 						RiskBoard.getGameLabel().setText(
-								"<html>You have selected: <br><br> Province: <b>"
+								"<html><br><br><br><br><br>You have selected: <br><br> Province: <b>"
 										+ province.getName() + "</b><br>"
 										+ "Capital: <b>" + province.getCapital()
 										+ "</b><br>" + "Army Size: <b>"
-										+ province.getArmy() + "</b><br>Player: <b>" + province.getPlayer() +  "</b></html>");
+										+ province.getArmy() + "</b><br>Player: <b>" + province.getPlayer().getPlayerId() +  "</b></html>");
 
 						repaint();
 
