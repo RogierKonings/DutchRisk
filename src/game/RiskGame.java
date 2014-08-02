@@ -38,30 +38,20 @@ public class RiskGame {
 		updateStatistics();
 
 	}
-
+	
 	public void loadSettings() {
-		
+
 		RiskBoard board = new RiskBoard();
 		board.initialize();
 		gamedata = new GameData();
 		countrydata = gamedata.loadCountryData(new NedData());
 
 	}
+	
 
-	public void selectProvince(int id) {
-
-		for (Province province : countrydata) {
-			if (province.getId() == id) {
-				SELECTED_PROVINCE = province;
-				System.out.println("You have selected: " + "\n" + "Province: "
-						+ province.getName() + "\n" + "Capital: "
-						+ province.getCapital() + "\n" + "Army Size: "
-						+ province.getArmy() + "\n");
-			}
-		}
-
-	}
-
+	/**
+	 * Adds an army to the currently selected province
+	 */
 	public static void addUnit() {
 
 		if (SELECTED_PROVINCE == null) {
@@ -176,6 +166,11 @@ public class RiskGame {
 		return SELECTED_PROVINCE;
 	}
 
+	/**
+	 * Checkc whether the province belongs to the player
+	 * @param province
+	 * @return true if the province belongs to the player
+	 */
 	public static boolean isPlayerProvince(Province province) {
 
 		ArrayList<Province> currentprovince = CURRENT_PLAYER
@@ -189,6 +184,13 @@ public class RiskGame {
 		return false;
 	}
 
+	/**
+	 * The players are randomly assigned provinces, depending on the amount of
+	 * players
+	 * 
+	 * @param players
+	 *            the amount of players that will play the game
+	 */
 	public void setUpPlayers(int players) {
 
 		playeroneprovinces = new ArrayList<Province>();
@@ -212,13 +214,6 @@ public class RiskGame {
 
 		GameData.PLAYER_ONE.setPlayerProvinces(playeroneprovinces);
 		GameData.PLAYER_TWO.setPlayerProvinces(playertwoprovinces);
-		
-
-		
-		//player_one = new Player(GameData.PLAYER_ONE, GameData.starting_armies,
-				//playeroneprovinces);
-		//player_two = new Player(GameData.PLAYER_TWO, GameData.starting_armies,
-			//	playertwoprovinces);
 
 		if (players > 2) {
 
@@ -227,20 +222,27 @@ public class RiskGame {
 
 	}
 
+	/**
+	 * Points out to the player that he/ she has to select a province before
+	 * add-ing armies
+	 */
 	public void placeArmies() {
 
 		if (GAME_RUNNING == true && CURRENT_PLAYER.getUnplacedArmies() > 0) {
 			RiskBoard.getAddArmyButton().setEnabled(true);
 			RiskBoard.getGameLabel().setText(
 					"Place your armies Player " + CURRENT_PLAYER.getPlayerId());
-			
-			if(CURRENT_PLAYER.getUnplacedArmies() == 0) {
-			RiskBoard.getAddArmyButton().setEnabled(false);
+
+			if (CURRENT_PLAYER.getUnplacedArmies() == 0) {
+				RiskBoard.getAddArmyButton().setEnabled(false);
 			}
 		}
 
 	}
 
+	/**
+	 * Selects the next player
+	 */
 	public static void nextPlayer() {
 
 		if (CURRENT_PLAYER.getUnplacedArmies() == 0) {
@@ -249,11 +251,13 @@ public class RiskGame {
 				CURRENT_PLAYER = GameData.PLAYER_TWO;
 				updateStatistics();
 				RiskBoard.getGameLabel().setText("");
-			} else if (CURRENT_PLAYER == GameData.PLAYER_TWO && GameData.PLAYER_AMOUNT == 2) {
+			} else if (CURRENT_PLAYER == GameData.PLAYER_TWO
+					&& GameData.PLAYER_AMOUNT == 2) {
 				CURRENT_PLAYER = GameData.PLAYER_ONE;
 				updateStatistics();
 				RiskBoard.getGameLabel().setText("");
-			} else if (CURRENT_PLAYER == GameData.PLAYER_TWO && GameData.PLAYER_AMOUNT == 3) {
+			} else if (CURRENT_PLAYER == GameData.PLAYER_TWO
+					&& GameData.PLAYER_AMOUNT == 3) {
 				CURRENT_PLAYER = GameData.PLAYER_THREE;
 				updateStatistics();
 				RiskBoard.getGameLabel().setText("");
@@ -263,11 +267,16 @@ public class RiskGame {
 				RiskBoard.getGameLabel().setText("");
 			}
 		} else {
-			RiskBoard.getGameLabel().setText("You still have some unplaced armies!");
+			RiskBoard.getGameLabel().setText(
+					"You still have some unplaced armies!");
 		}
 
 	}
 
+	/**
+	 * Updates the statistics label with updates information about the current
+	 * player's provinces
+	 */
 	public static void updateStatistics() {
 		String result = "Player <b>"
 				+ CURRENT_PLAYER.getPlayerId()
@@ -281,7 +290,5 @@ public class RiskGame {
 		RiskBoard.getStatisticsLabel().setText("<html>" + result + "</html>");
 
 	}
-	
-	
 
 }
