@@ -19,12 +19,11 @@ import data.NedData;
 import data.Province;
 
 public class RiskMap extends JPanel {
-	
+
 	private static final long serialVersionUID = 4646851898036548618L;
 
 	private GameData gamedata;
 	private ArrayList<Province> countrydata;
-	private Province province;
 
 	private Image img;
 
@@ -81,23 +80,25 @@ public class RiskMap extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				super.mouseClicked(e);
-				
-				
+
 				for (Province province : countrydata) {
-					
+
 					province.SELECTED = false;
-					
+
 					if (province.getShapeProvince().contains(e.getPoint())) {
 
 						province.SELECTED = true;
 						RiskGame.getSelectedProvince();
-						
+
 						RiskBoard.getGameLabel().setText(
 								"<html><br><br><br><br><br>You have selected: <br><br> Province: <b>"
 										+ province.getName() + "</b><br>"
-										+ "Capital: <b>" + province.getCapital()
-										+ "</b><br>" + "Army Size: <b>"
-										+ province.getArmy() + "</b><br>Player: <b>" + province.getPlayer().getPlayerId() +  "</b></html>");
+										+ "Capital: <b>"
+										+ province.getCapital() + "</b><br>"
+										+ "Army Size: <b>" + province.getArmy()
+										+ "</b><br>Player: <b>"
+										+ province.getPlayer().getPlayerId()
+										+ "</b></html>");
 
 						repaint();
 
@@ -107,6 +108,5 @@ public class RiskMap extends JPanel {
 		});
 
 	}
-
 
 }

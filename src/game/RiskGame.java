@@ -16,8 +16,6 @@ public class RiskGame {
 
 	private static Province SELECTED_PROVINCE;
 
-	private static int players = 3;
-
 	private ArrayList<Province> playeroneprovinces;
 	private ArrayList<Province> playertwoprovinces;
 	private ArrayList<Province> playerthreeprovinces;
@@ -32,8 +30,8 @@ public class RiskGame {
 	public void newGame() {
 
 		loadSettings();
-		divideProvinces(players);
-		setUpPlayers(players);
+		divideProvinces();
+		setUpPlayers(GameData.PLAYER_AMOUNT);
 		GAME_RUNNING = true;
 		CURRENT_PLAYER = GameData.PLAYER_ONE;
 		placeArmies();
@@ -42,7 +40,9 @@ public class RiskGame {
 	}
 
 	public void loadSettings() {
-
+		
+		RiskBoard board = new RiskBoard();
+		board.initialize();
 		gamedata = new GameData();
 		countrydata = gamedata.loadCountryData(new NedData());
 
@@ -126,7 +126,7 @@ public class RiskGame {
 	 * @param players
 	 *            the amount of selected players
 	 */
-	public void divideProvinces(int players) {
+	public void divideProvinces() {
 
 		Collections.shuffle(countrydata);
 		Collections.shuffle(countrydata);
@@ -134,7 +134,7 @@ public class RiskGame {
 
 		int count = 0;
 
-		if (players == 2) {
+		if (GameData.PLAYER_AMOUNT == 2) {
 			for (Province province : countrydata) {
 
 				if (count % 2 == 0) {
@@ -146,7 +146,7 @@ public class RiskGame {
 			}
 		}
 
-		if (players == 3) {
+		if (GameData.PLAYER_AMOUNT == 3) {
 			for (Province province : countrydata) {
 
 				if (count % 3 == 0) {
@@ -249,11 +249,11 @@ public class RiskGame {
 				CURRENT_PLAYER = GameData.PLAYER_TWO;
 				updateStatistics();
 				RiskBoard.getGameLabel().setText("");
-			} else if (CURRENT_PLAYER == GameData.PLAYER_TWO && players == 2) {
+			} else if (CURRENT_PLAYER == GameData.PLAYER_TWO && GameData.PLAYER_AMOUNT == 2) {
 				CURRENT_PLAYER = GameData.PLAYER_ONE;
 				updateStatistics();
 				RiskBoard.getGameLabel().setText("");
-			} else if (CURRENT_PLAYER == GameData.PLAYER_TWO && players == 3) {
+			} else if (CURRENT_PLAYER == GameData.PLAYER_TWO && GameData.PLAYER_AMOUNT == 3) {
 				CURRENT_PLAYER = GameData.PLAYER_THREE;
 				updateStatistics();
 				RiskBoard.getGameLabel().setText("");

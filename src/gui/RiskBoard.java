@@ -11,10 +11,8 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
@@ -46,19 +44,15 @@ public class RiskBoard extends JFrame {
 	private JLabel defenceResultLabel;
 	private JButton nextPlayerButton;
 	private static JButton addArmyButton;
-	//private static JOptionPane addArmyMessage;
-	//public static JComboBox provinceSelection;
-	
 
 	GameData gamedata;
 	ArrayList<Province> countrydata;
-	
+
 	int[] attackResultArray;
 	int[] defenceResultArray;
 
 	public RiskBoard() {
 
-		initialize();
 
 	}
 
@@ -76,14 +70,13 @@ public class RiskBoard extends JFrame {
 
 		game = getContentPane();
 		game.setLayout(null);
-		
+
 		statisticsLabel = new JLabel();
-		statisticsLabel.setBounds(5, 100, 300, 800);
+		statisticsLabel.setBounds(20, 100, 300, 800);
 		statisticsLabel.setVerticalAlignment(JLabel.TOP);
-		
+
 		game.add(statisticsLabel);
 
-		
 		boardPanel = new JPanel();
 		boardPanel.setBounds(5, 5, SCREEN_WIDTH - 320, SCREEN_HEIGHT - 10);
 		game.add(boardPanel);
@@ -131,8 +124,8 @@ public class RiskBoard extends JFrame {
 				int dice = (Integer) attackSpinner.getValue();
 				attackResultArray = RiskGame.diceThrow(dice);
 				String result = "";
-				
-				for(int i = 0; i < attackResultArray.length; i++) {
+
+				for (int i = 0; i < attackResultArray.length; i++) {
 					result = result + " " + attackResultArray[i];
 				}
 				attackResultLabel.setText(result);
@@ -149,8 +142,8 @@ public class RiskBoard extends JFrame {
 				int dice = (Integer) defenceSpinner.getValue();
 				defenceResultArray = RiskGame.diceThrow(dice);
 				String result = "";
-				
-				for(int i = 0; i < defenceResultArray.length; i++) {
+
+				for (int i = 0; i < defenceResultArray.length; i++) {
 					result = result + " " + defenceResultArray[i];
 				}
 				defenceResultLabel.setText(result);
@@ -169,46 +162,32 @@ public class RiskBoard extends JFrame {
 		game.add(defenceResultLabel);
 
 		nextPlayerButton = new JButton("Next Player");
-		
+
 		nextPlayerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				RiskGame.nextPlayer();
 				addArmyButton.setEnabled(true);
-				
+
 			}
 		});
-		
+
 		nextPlayerButton.setBounds(SCREEN_WIDTH - 300, 755, 290, 65);
 		game.add(nextPlayerButton);
 
 		addArmyButton = new JButton("Add Army");
-		
+
 		addArmyButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				
+
 				RiskGame.addUnit();
-				
-				//System.out.println("Unit added to " + RiskGame.getSelectedProvince().getName());
-				
-				
-				
+
 			}
 		});
 		addArmyButton.setEnabled(false);
 		addArmyButton.setBounds(SCREEN_WIDTH - 300, 830, 290, 65);
 		game.add(addArmyButton);
-		
-		
-		//addArmyMessage = new JOptionPane();
-		//provinceSelection = new JComboBox();
-		//provinceSelection.setEditable(true);
-		
-		//addArmyMessage.showMessageDialog(provinceSelection, "Add your armies");
-		
-		//game.add(addArmyMessage);
-		
+
 		this.setVisible(true);
 
 	}
@@ -216,33 +195,32 @@ public class RiskBoard extends JFrame {
 	public static JLabel getGameLabel() {
 		return gameLabel;
 	}
-	
+
 	public static JLabel getStatisticsLabel() {
 		return statisticsLabel;
 	}
-	
+
 	public static JButton getAddArmyButton() {
 		return addArmyButton;
 	}
-	
+
 	public static void main(String[] args) {
 
-		RiskBoard spelletje = new RiskBoard();
+		//RiskBoard spelletje = new RiskBoard();
 		RiskGame game = new RiskGame();
 		game.newGame();
-		
-		/**game.divideProvinces(2);
-		game.setUpPlayers(2);
-		
-		ArrayList<Province> playerprov = RiskGame.player_one.getPlayerProvince();
-		
-		for(Province province : playerprov) {
-			System.out.println(province.getName());
-		}
-		
-		System.out.println(RiskGame.player_one.getUnplacedArmies());
-		**/
-		
-		
+
+		/**
+		 * game.divideProvinces(2); game.setUpPlayers(2);
+		 * 
+		 * ArrayList<Province> playerprov =
+		 * RiskGame.player_one.getPlayerProvince();
+		 * 
+		 * for(Province province : playerprov) {
+		 * System.out.println(province.getName()); }
+		 * 
+		 * System.out.println(RiskGame.player_one.getUnplacedArmies());
+		 **/
+
 	}
 }
