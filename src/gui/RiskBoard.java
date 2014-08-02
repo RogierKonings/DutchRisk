@@ -11,8 +11,10 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
@@ -21,12 +23,18 @@ import javax.swing.SwingConstants;
 import data.GameData;
 import data.Province;
 
+/**
+ * 
+ * @author rogier_konings
+ *
+ */
 public class RiskBoard extends JFrame {
 
 	private static final long serialVersionUID = 9197101390756616661L;
 	private int SCREEN_WIDTH;
 	private int SCREEN_HEIGHT;
 	private int BORDER = 50;
+	private int ATTACK_ANSWER;
 
 	private Container game;
 	private JPanel boardPanel;
@@ -38,12 +46,14 @@ public class RiskBoard extends JFrame {
 	private JSpinner defenceSpinner;
 	private JButton attackThrowButton;
 	private JButton defenceThrowButton;
-	private JButton attackButton;
-	private JButton defenceButton;
+	private static JButton attackButton;
+	//private JButton defenceButton;
 	private JLabel attackResultLabel;
 	private JLabel defenceResultLabel;
-	private JButton nextPlayerButton;
 	private static JButton addArmyButton;
+	private static JButton removeArmyButton;
+	private JButton nextPlayerButton;
+	private static JComboBox destinationBox;
 
 	GameData gamedata;
 	ArrayList<Province> countrydata;
@@ -52,7 +62,6 @@ public class RiskBoard extends JFrame {
 	int[] defenceResultArray;
 
 	public RiskBoard() {
-
 
 	}
 
@@ -91,12 +100,36 @@ public class RiskBoard extends JFrame {
 		game.add(gameLabel);
 
 		attackButton = new JButton("Attack");
-		attackButton.setBounds(SCREEN_WIDTH - 300, 310, 140, 100);
+		attackButton.setEnabled(false);
+		attackButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String result = (String)destinationBox.getSelectedItem();
+				RiskGame.setTargetProvince(result);
+				
+				//returns 0 in case of a 'Yes' answer, 1 in case of a 'No' answer
+				ATTACK_ANSWER = JOptionPane.showConfirmDialog(game, "Do you want to attack from " + RiskGame.getSelectedProvince().getName() + " to " + RiskGame.getTargetProvince().getName() + "?", "Confirm Attack", JOptionPane.YES_NO_OPTION);
+				
+				if(ATTACK_ANSWER == 0) {
+					RiskGame.setAttack(true);
+					gameLabel.setText("You may now select the amount of armies!");
+					attackSpinner.setEnabled(true);
+					defenceSpinner.setEnabled(true);
+					attackThrowButton.setEnabled(true);
+					defenceThrowButton.setEnabled(true);
+				}
+			}
+		});
+		attackButton.setBounds(SCREEN_WIDTH - 250, 310, 190, 50);
 		game.add(attackButton);
 
-		defenceButton = new JButton("Defend");
-		defenceButton.setBounds(SCREEN_WIDTH - 150, 310, 140, 100);
-		game.add(defenceButton);
+		//defenceButton = new JButton("Defend");
+		//defenceButton.setBounds(SCREEN_WIDTH - 150, 310, 140, 50);
+		//game.add(defenceButton);
+		
+		destinationBox = new JComboBox();
+		destinationBox.setBounds(SCREEN_WIDTH - 225, 370, 140, 50);
+		game.add(destinationBox);
 
 		attackLabel = new JLabel("Attack");
 		attackLabel.setBounds(SCREEN_WIDTH - 260, 460, 60, 15);
@@ -161,6 +194,32 @@ public class RiskBoard extends JFrame {
 		defenceResultLabel.setBounds(SCREEN_WIDTH - 105, 660, 60, 20);
 		game.add(defenceResultLabel);
 
+		addArmyButton = new JButton("Add Army");
+
+		addArmyButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				RiskGame.addUnit();
+
+			}
+		});
+		addArmyButton.setEnabled(false);
+		addArmyButton.setBounds(SCREEN_WIDTH - 300, 755, 140, 65);
+		game.add(addArmyButton);
+
+		removeArmyButton = new JButton("Remove Army");
+
+		removeArmyButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				RiskGame.removeUnit();
+
+			}
+		});
+		//removeArmyButton.setEnabled(false);
+		removeArmyButton.setBounds(SCREEN_WIDTH - 150, 755, 140, 65);
+		game.add(removeArmyButton);
+
 		nextPlayerButton = new JButton("Next Player");
 
 		nextPlayerButton.addActionListener(new ActionListener() {
@@ -172,21 +231,8 @@ public class RiskBoard extends JFrame {
 			}
 		});
 
-		nextPlayerButton.setBounds(SCREEN_WIDTH - 300, 755, 290, 65);
+		nextPlayerButton.setBounds(SCREEN_WIDTH - 300, 830, 290, 65);
 		game.add(nextPlayerButton);
-
-		addArmyButton = new JButton("Add Army");
-
-		addArmyButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				RiskGame.addUnit();
-
-			}
-		});
-		addArmyButton.setEnabled(false);
-		addArmyButton.setBounds(SCREEN_WIDTH - 300, 830, 290, 65);
-		game.add(addArmyButton);
 
 		this.setVisible(true);
 
@@ -199,14 +245,26 @@ public class RiskBoard extends JFrame {
 	public static JLabel getStatisticsLabel() {
 		return statisticsLabel;
 	}
+	
+	public static JButton getAttackButton() {
+		return attackButton;
+	}
 
 	public static JButton getAddArmyButton() {
 		return addArmyButton;
 	}
+	
+	public static JButton getRemoveArmyButton() {
+		return removeArmyButton;
+	}
+	
+	public static JComboBox getDestinationBox() {
+		return destinationBox;
+	}
 
 	public static void main(String[] args) {
 
-		//RiskBoard spelletje = new RiskBoard();
+		// RiskBoard spelletje = new RiskBoard();
 		RiskGame game = new RiskGame();
 		game.newGame();
 

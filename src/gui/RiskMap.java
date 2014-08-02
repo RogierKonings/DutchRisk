@@ -18,6 +18,11 @@ import data.GameData;
 import data.NedData;
 import data.Province;
 
+/**
+ * 
+ * @author rogier_konings
+ *
+ */
 public class RiskMap extends JPanel {
 
 	private static final long serialVersionUID = 4646851898036548618L;
@@ -44,6 +49,9 @@ public class RiskMap extends JPanel {
 		drawProvinces();
 	}
 
+	/**
+	 * Overrides the painComponent function in order to draw clickable circles on the capital of each province
+	 */
 	protected void paintComponent(Graphics g) {
 
 		super.paintComponent(g);
@@ -89,6 +97,8 @@ public class RiskMap extends JPanel {
 
 						province.SELECTED = true;
 						RiskGame.getSelectedProvince();
+						RiskGame.showDestinations();
+						RiskBoard.getAttackButton().setEnabled(true);
 
 						RiskBoard.getGameLabel().setText(
 								"<html><br><br><br><br><br>You have selected: <br><br> Province: <b>"

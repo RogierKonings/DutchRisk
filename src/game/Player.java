@@ -4,6 +4,11 @@ import java.util.ArrayList;
 
 import data.Province;
 
+/**
+ * 
+ * @author rogier_konings
+ *
+ */
 public class Player {
 
 	private int playerid;
@@ -11,8 +16,13 @@ public class Player {
 
 	private ArrayList<Province> player_provinces;
 
-
-	public Player(int playerid, int unplaced_armies) {
+	/**
+	 * Creates a new player
+	 * @param playerid the number by which to identify the player
+	 * @param unplaced_armies the armies that this player still will have to place on their provinces
+	 * @param score the score of the player
+	 */
+	public Player(int playerid, int unplaced_armies, int score) {
 		this.playerid = playerid;
 		this.unplaced_armies = unplaced_armies;
 	}

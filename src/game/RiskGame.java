@@ -9,18 +9,25 @@ import data.GameData;
 import data.NedData;
 import data.Province;
 
+/**
+ * 
+ * @author rogier_konings
+ *
+ */
 public class RiskGame {
 
 	private GameData gamedata;
 	private static ArrayList<Province> countrydata;
 
 	private static Province SELECTED_PROVINCE;
+	private static Province TARGET_PROVINCE;
 
 	private ArrayList<Province> playeroneprovinces;
 	private ArrayList<Province> playertwoprovinces;
 	private ArrayList<Province> playerthreeprovinces;
-
-	private boolean GAME_RUNNING = false;
+	
+	private static boolean GAME_RUNNING = false;
+	private static boolean ATTACK_RUNNING = false;
 	private static Player CURRENT_PLAYER;
 
 	public RiskGame() {
@@ -48,7 +55,6 @@ public class RiskGame {
 
 	}
 	
-
 	/**
 	 * Adds an army to the currently selected province
 	 */
@@ -73,22 +79,52 @@ public class RiskGame {
 								+ "</b> armies left!</html>");
 
 				updateStatistics();
+				RiskBoard.getRemoveArmyButton().setEnabled(true);
 
 			} else if (armies > 0
 					&& isPlayerProvince(SELECTED_PROVINCE) == false) {
 				RiskBoard.getGameLabel().setText(
 						"Please select your own Province!");
 			} else if (armies <= 0) {
-				RiskBoard.getGameLabel().setText("No more armies left!");
+				RiskBoard.getGameLabel().setText("No more armies left to be placed!");
 				RiskBoard.getAddArmyButton().setEnabled(false);
 			}
 		}
 
 	}
 
-	public void removeUnit() {
+	public static void removeUnit() {
 
-		SELECTED_PROVINCE.removeArmy();
+		if (SELECTED_PROVINCE == null) {
+			RiskBoard.getGameLabel().setText("Please select a Province!");
+		} else {
+
+			int armies = CURRENT_PLAYER.getUnplacedArmies();
+
+			if (SELECTED_PROVINCE.getArmy() > 0 && isPlayerProvince(SELECTED_PROVINCE) == true) {
+
+				SELECTED_PROVINCE.removeArmy();
+				armies++;
+				CURRENT_PLAYER.setUnplacedArmies(armies);
+				RiskBoard.getGameLabel().setText(
+						"<html> Unit remove from "
+								+ RiskGame.getSelectedProvince().getName()
+								+ " <br> <br> You have <b>"
+								+ CURRENT_PLAYER.getUnplacedArmies()
+								+ "</b> armies left!</html>");
+
+				updateStatistics();
+				RiskBoard.getAddArmyButton().setEnabled(true);
+
+			} else if (SELECTED_PROVINCE.getArmy() > 0
+					&& isPlayerProvince(SELECTED_PROVINCE) == false) {
+				RiskBoard.getGameLabel().setText(
+						"Please select your own Province!");
+			} else if (SELECTED_PROVINCE.getArmy() <= 0) {
+				RiskBoard.getGameLabel().setText("No more armies left on this province!");
+				RiskBoard.getRemoveArmyButton().setEnabled(false);
+			}
+		}
 
 	}
 
@@ -165,7 +201,23 @@ public class RiskGame {
 		}
 		return SELECTED_PROVINCE;
 	}
-
+	
+	public static Province getTargetProvince() {
+		return TARGET_PROVINCE;
+	}
+	
+	public static void setTargetProvince(String province_name) {
+		
+		for(Province province : countrydata) {
+			
+			if(province.getName() == province_name) {
+				TARGET_PROVINCE = province;
+			}
+			
+		}
+		RiskBoard.getGameLabel().setText("You are attacking from " + SELECTED_PROVINCE.getName() + " to " + TARGET_PROVINCE.getName());
+	}
+	
 	/**
 	 * Checkc whether the province belongs to the player
 	 * @param province
@@ -182,6 +234,23 @@ public class RiskGame {
 			}
 		}
 		return false;
+	}
+	
+	public static void setAttack(boolean attack) {
+		ATTACK_RUNNING = attack;
+	}
+	////////////////////////
+	public static void moveToProvince(Province province) {
+		if(isPlayerProvince(SELECTED_PROVINCE) == false){
+			System.out.println("Please select one of your own provinces to attack from!");
+		} else if(isPlayerProvince(SELECTED_PROVINCE) == true && isPlayerProvince(province) == false) {
+			SELECTED_PROVINCE.setDestination(province);
+			ATTACK_RUNNING = true;
+			System.out.println("Attacking " + province.getName() + " from " + SELECTED_PROVINCE.getName());
+		} else if (isPlayerProvince(SELECTED_PROVINCE) == true && isPlayerProvince(province) == true) {
+			System.out.println("Please select an enemy province to attack!");
+		} 
+		
 	}
 
 	/**
@@ -221,7 +290,25 @@ public class RiskGame {
 		}
 
 	}
+	
+	public static void showDestinations() {
+		if(GAME_RUNNING == true && SELECTED_PROVINCE != null) {
+			
+			RiskBoard.getDestinationBox().removeAllItems();
+			
+			Province[] des = new Province[SELECTED_PROVINCE.getDestinations().length-1];
+					
+			des = SELECTED_PROVINCE.getDestinations();
+			
+			for(int i = 0; i < des.length; i++) {
+				
+				RiskBoard.getDestinationBox().addItem(des[i].getName());
+				
+			}
+		}
 
+	}
+	
 	/**
 	 * Points out to the player that he/ she has to select a province before
 	 * add-ing armies
