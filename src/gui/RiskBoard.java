@@ -118,36 +118,53 @@ public class RiskBoard extends JFrame {
 			attackButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 
+					attackResultLabel.setText("");
+					defenceResultLabel.setText("");
+
 					String result = (String) destinationBox.getSelectedItem();
 					RiskGame.setTargetProvince(result);
 
-					if (RiskGame.getCurrentPlayer().isPlayerProvince(
-							RiskGame.getTargetProvince()) == true) {
+					if (RiskGame.unplacedArmies() == true) {
 
-						gameLabel
-								.setText("You cannot attack your own province!!");
+						gameLabel.setText(
+								"There are still armies to be placed!!");
 
 					} else {
 
-						// returns 0 in case of a 'Yes' answer, 1 in case of a
-						// 'No'
-						ATTACK_ANSWER = JOptionPane.showConfirmDialog(game,
-								"Do you want to attack from "
-										+ RiskGame.getSelectedProvince()
-												.getName()
-										+ " to "
-										+ RiskGame.getTargetProvince()
-												.getName() + "?",
-								"Confirm Attack", JOptionPane.YES_NO_OPTION);
+						if (RiskGame.getCurrentPlayer().isPlayerProvince(
+								RiskGame.getTargetProvince()) == true) {
 
-						if (ATTACK_ANSWER == 0) {
-							RiskGame.setAttack(true);
 							gameLabel
-									.setText("You may now select the amount of armies!");
-							attackSpinner.setEnabled(true);
-							defenceSpinner.setEnabled(true);
-							attackThrowButton.setEnabled(true);
-							defenceThrowButton.setEnabled(true);
+									.setText("You cannot attack your own province!!");
+
+						} else {
+
+							// returns 0 in case of a 'Yes' answer, 1 in case of
+							// a
+							// 'No'
+							ATTACK_ANSWER = JOptionPane
+									.showConfirmDialog(
+											game,
+											"Do you want to attack from "
+													+ RiskGame
+															.getSelectedProvince()
+															.getName()
+													+ " to "
+													+ RiskGame
+															.getTargetProvince()
+															.getName() + "?",
+											"Confirm Attack",
+											JOptionPane.YES_NO_OPTION);
+
+							if (ATTACK_ANSWER == 0) {
+								RiskGame.setAttack(true);
+								gameLabel
+										.setText("You may now select the amount of armies!");
+								attackSpinner.setEnabled(true);
+								defenceSpinner.setEnabled(true);
+								attackThrowButton.setEnabled(true);
+								defenceThrowButton.setEnabled(true);
+							}
 						}
 					}
 				}
@@ -228,6 +245,7 @@ public class RiskBoard extends JFrame {
 						result = result + " " + attackArray[i];
 					}
 					attackResultLabel.setText(result);
+					attackThrowButton.setEnabled(false);
 				}
 
 			});
@@ -255,6 +273,7 @@ public class RiskBoard extends JFrame {
 						result = result + " " + defenceArray[i];
 					}
 					defenceResultLabel.setText(result);
+					defenceThrowButton.setEnabled(false);
 
 					RiskGame.attackInitiated();
 				}

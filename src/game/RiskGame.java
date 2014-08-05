@@ -61,7 +61,7 @@ public class RiskGame {
 		countrydata = gamedata.loadCountryData(new NedData());
 
 	}
-	
+
 	/**
 	 * Adds an army to the currently selected province
 	 */
@@ -169,12 +169,43 @@ public class RiskGame {
 			int diceattack = GameData.getAttackResultArray().length;
 			int dicedefence = GameData.getDefenceResultArray().length;
 
-			System.out.println("Attack initiated!!! " + "Attacking with "
-					+ diceattack + " armies, defending with " + dicedefence
-					+ " armies!!");
+			int attackwin = 0;
+			int defencewin = 0;
+
+			if (GameData.getAttackResultArray()[diceattack - 1] > GameData
+					.getDefenceResultArray()[dicedefence - 1]) {
+				attackwin++;
+				TARGET_PROVINCE.removeArmy();
+				System.out.println("Removing army from "
+						+ TARGET_PROVINCE.getName());
+			} else {
+				defencewin++;
+				SELECTED_PROVINCE.removeArmy();
+				System.out.println("Removing army from "
+						+ SELECTED_PROVINCE.getName());
+			}
+
+			if (dicedefence == 2) {
+				if (GameData.getAttackResultArray()[diceattack - 2] > GameData
+						.getDefenceResultArray()[dicedefence - 2]) {
+					attackwin++;
+					TARGET_PROVINCE.removeArmy();
+					System.out.println("Removing army from "
+							+ TARGET_PROVINCE.getName());
+				} else {
+					defencewin++;
+					SELECTED_PROVINCE.removeArmy();
+					System.out.println("Removing army from "
+							+ SELECTED_PROVINCE.getName());
+				}
+			}
+
+			RiskBoard.getGameLabel().setText(
+					"<html>Attack win: " + attackwin + "<br><br>Defence win: "
+							+ defencewin + "</html>");
+			setAttack(false);
 
 		}
-
 	}
 
 	/**
@@ -338,8 +369,8 @@ public class RiskGame {
 
 			for (int i = 0; i < des.length; i++) {
 
-				//if(CURRENT_PLAYER.isPlayerProvince(province))
-				
+				// if(CURRENT_PLAYER.isPlayerProvince(province))
+
 				RiskBoard.getDestinationBox().addItem(des[i].getName());
 
 			}
@@ -361,6 +392,18 @@ public class RiskGame {
 			if (CURRENT_PLAYER.getUnplacedArmies() == 0) {
 				RiskBoard.getAddArmyButton().setEnabled(false);
 			}
+		}
+
+	}
+
+	public static boolean unplacedArmies() {
+
+		if (GameData.PLAYER_ONE.getUnplacedArmies() == 0
+				&& GameData.PLAYER_TWO.getUnplacedArmies() == 0
+				&& GameData.PLAYER_THREE.getUnplacedArmies() == 0) {
+			return false;
+		} else {
+			return true;
 		}
 
 	}
