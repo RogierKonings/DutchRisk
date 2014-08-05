@@ -90,5 +90,5 @@ public class Province extends JPanel {
 	public Province[] getDestinations() {
 		return destinations;
 	}
-
+	
 }

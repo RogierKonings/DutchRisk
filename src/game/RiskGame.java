@@ -3,6 +3,7 @@ package game;
 import gui.RiskBoard;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 import data.GameData;
@@ -60,7 +61,7 @@ public class RiskGame {
 		countrydata = gamedata.loadCountryData(new NedData());
 
 	}
-
+	
 	/**
 	 * Adds an army to the currently selected province
 	 */
@@ -72,7 +73,7 @@ public class RiskGame {
 
 			int armies = CURRENT_PLAYER.getUnplacedArmies();
 
-			if (armies > 0 && isPlayerProvince(SELECTED_PROVINCE) == true) {
+			if (armies > 0 && isCurrentProvince(SELECTED_PROVINCE) == true) {
 
 				SELECTED_PROVINCE.addArmy();
 				armies--;
@@ -88,7 +89,7 @@ public class RiskGame {
 				RiskBoard.getRemoveArmyButton().setEnabled(true);
 
 			} else if (armies > 0
-					&& isPlayerProvince(SELECTED_PROVINCE) == false) {
+					&& isCurrentProvince(SELECTED_PROVINCE) == false) {
 				RiskBoard.getGameLabel().setText(
 						"Please select your own Province!");
 			} else if (armies <= 0) {
@@ -112,7 +113,7 @@ public class RiskGame {
 			int armies = CURRENT_PLAYER.getUnplacedArmies();
 
 			if (SELECTED_PROVINCE.getArmy() > 0
-					&& isPlayerProvince(SELECTED_PROVINCE) == true) {
+					&& isCurrentProvince(SELECTED_PROVINCE) == true) {
 
 				SELECTED_PROVINCE.removeArmy();
 				armies++;
@@ -128,7 +129,7 @@ public class RiskGame {
 				RiskBoard.getAddArmyButton().setEnabled(true);
 
 			} else if (SELECTED_PROVINCE.getArmy() > 0
-					&& isPlayerProvince(SELECTED_PROVINCE) == false) {
+					&& isCurrentProvince(SELECTED_PROVINCE) == false) {
 				RiskBoard.getGameLabel().setText(
 						"Please select your own Province!");
 			} else if (SELECTED_PROVINCE.getArmy() <= 0) {
@@ -154,8 +155,26 @@ public class RiskGame {
 
 			int randomthrow = (int) (Math.random() * 6 + 1);
 			result[i] = randomthrow;
+
 		}
+		Arrays.sort(result);
 		return result;
+	}
+
+	public static void attackInitiated() {
+
+		if (ATTACK_RUNNING == true && GameData.getAttackResultArray() != null
+				&& GameData.getDefenceResultArray() != null) {
+
+			int diceattack = GameData.getAttackResultArray().length;
+			int dicedefence = GameData.getDefenceResultArray().length;
+
+			System.out.println("Attack initiated!!! " + "Attacking with "
+					+ diceattack + " armies, defending with " + dicedefence
+					+ " armies!!");
+
+		}
+
 	}
 
 	/**
@@ -243,7 +262,7 @@ public class RiskGame {
 	 * @param province
 	 * @return true if the province belongs to the player
 	 */
-	public static boolean isPlayerProvince(Province province) {
+	public static boolean isCurrentProvince(Province province) {
 
 		ArrayList<Province> currentprovince = CURRENT_PLAYER
 				.getPlayerProvince();
@@ -265,7 +284,6 @@ public class RiskGame {
 	public static void setAttack(boolean attack) {
 		ATTACK_RUNNING = attack;
 	}
-
 
 	/**
 	 * The players are randomly assigned provinces, depending on the amount of
@@ -305,6 +323,10 @@ public class RiskGame {
 
 	}
 
+	public static Player getCurrentPlayer() {
+		return CURRENT_PLAYER;
+	}
+
 	public static void showDestinations() {
 		if (GAME_RUNNING == true && SELECTED_PROVINCE != null) {
 
@@ -316,6 +338,8 @@ public class RiskGame {
 
 			for (int i = 0; i < des.length; i++) {
 
+				//if(CURRENT_PLAYER.isPlayerProvince(province))
+				
 				RiskBoard.getDestinationBox().addItem(des[i].getName());
 
 			}

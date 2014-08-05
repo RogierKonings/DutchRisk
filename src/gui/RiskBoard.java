@@ -57,8 +57,8 @@ public class RiskBoard extends JFrame {
 	GameData gamedata;
 	ArrayList<Province> countrydata;
 
-	static int[] attackResultArray;
-	static int[] defenceResultArray;
+	// static int[] attackResultArray;
+	// static int[] defenceResultArray;
 
 	public RiskBoard() {
 
@@ -121,23 +121,34 @@ public class RiskBoard extends JFrame {
 					String result = (String) destinationBox.getSelectedItem();
 					RiskGame.setTargetProvince(result);
 
-					// returns 0 in case of a 'Yes' answer, 1 in case of a 'No'
-					ATTACK_ANSWER = JOptionPane.showConfirmDialog(game,
-							"Do you want to attack from "
-									+ RiskGame.getSelectedProvince().getName()
-									+ " to "
-									+ RiskGame.getTargetProvince().getName()
-									+ "?", "Confirm Attack",
-							JOptionPane.YES_NO_OPTION);
+					if (RiskGame.getCurrentPlayer().isPlayerProvince(
+							RiskGame.getTargetProvince()) == true) {
 
-					if (ATTACK_ANSWER == 0) {
-						RiskGame.setAttack(true);
 						gameLabel
-								.setText("You may now select the amount of armies!");
-						attackSpinner.setEnabled(true);
-						defenceSpinner.setEnabled(true);
-						attackThrowButton.setEnabled(true);
-						defenceThrowButton.setEnabled(true);
+								.setText("You cannot attack your own province!!");
+
+					} else {
+
+						// returns 0 in case of a 'Yes' answer, 1 in case of a
+						// 'No'
+						ATTACK_ANSWER = JOptionPane.showConfirmDialog(game,
+								"Do you want to attack from "
+										+ RiskGame.getSelectedProvince()
+												.getName()
+										+ " to "
+										+ RiskGame.getTargetProvince()
+												.getName() + "?",
+								"Confirm Attack", JOptionPane.YES_NO_OPTION);
+
+						if (ATTACK_ANSWER == 0) {
+							RiskGame.setAttack(true);
+							gameLabel
+									.setText("You may now select the amount of armies!");
+							attackSpinner.setEnabled(true);
+							defenceSpinner.setEnabled(true);
+							attackThrowButton.setEnabled(true);
+							defenceThrowButton.setEnabled(true);
+						}
 					}
 				}
 			});
@@ -165,14 +176,14 @@ public class RiskBoard extends JFrame {
 
 		return statisticsLabel;
 	}
-	
+
 	public static JPanel getBoardPanel() {
-		
-		if(boardPanel == null) {
+
+		if (boardPanel == null) {
 			boardPanel = new JPanel();
 			boardPanel.setBounds(5, 5, SCREEN_WIDTH - 320, SCREEN_HEIGHT - 10);
-			RiskMap riskmap = new RiskMap(
-					new ImageIcon("../Risk/src/img/NL.jpg").getImage());
+			RiskMap riskmap = new RiskMap(new ImageIcon(
+					"../Risk/src/img/NL.jpg").getImage());
 			boardPanel.add(riskmap);
 		}
 		return boardPanel;
@@ -207,11 +218,14 @@ public class RiskBoard extends JFrame {
 			attackThrowButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					int dice = (Integer) attackSpinner.getValue();
-					attackResultArray = RiskGame.diceThrow(dice);
+					GameData.setAttackResultArray(RiskGame.diceThrow(dice));
+					int[] attackArray = new int[dice];
+					attackArray = GameData.getAttackResultArray();
+
 					String result = "";
 
-					for (int i = 0; i < attackResultArray.length; i++) {
-						result = result + " " + attackResultArray[i];
+					for (int i = 0; i < attackArray.length; i++) {
+						result = result + " " + attackArray[i];
 					}
 					attackResultLabel.setText(result);
 				}
@@ -231,13 +245,18 @@ public class RiskBoard extends JFrame {
 			defenceThrowButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					int dice = (Integer) defenceSpinner.getValue();
-					defenceResultArray = RiskGame.diceThrow(dice);
+					GameData.setDefenceResultArray(RiskGame.diceThrow(dice));
+					int[] defenceArray = new int[dice];
+					defenceArray = GameData.getDefenceResultArray();
+
 					String result = "";
 
-					for (int i = 0; i < defenceResultArray.length; i++) {
-						result = result + " " + defenceResultArray[i];
+					for (int i = 0; i < defenceArray.length; i++) {
+						result = result + " " + defenceArray[i];
 					}
 					defenceResultLabel.setText(result);
+
+					RiskGame.attackInitiated();
 				}
 			});
 			defenceThrowButton.setBounds(SCREEN_WIDTH - 130, 550, 100, 100);
@@ -246,38 +265,38 @@ public class RiskBoard extends JFrame {
 		}
 		return defenceThrowButton;
 	}
-	
+
 	public static JLabel getAttackLabel() {
-		
-		if(attackLabel == null) {
+
+		if (attackLabel == null) {
 			attackLabel = new JLabel("Attack");
 			attackLabel.setBounds(SCREEN_WIDTH - 260, 460, 60, 15);
 		}
 		return attackLabel;
 	}
-	
-public static JLabel getDefenceLabel() {
-		
-		if(defenceLabel == null) {
+
+	public static JLabel getDefenceLabel() {
+
+		if (defenceLabel == null) {
 			defenceLabel = new JLabel("Defence");
 			defenceLabel.setBounds(SCREEN_WIDTH - 110, 460, 60, 15);
 		}
 		return defenceLabel;
 	}
-	
+
 	public static JLabel getAttackResultLabel() {
-		
-		if(attackResultLabel == null) {
-			attackResultLabel = new JLabel("result");
+
+		if (attackResultLabel == null) {
+			attackResultLabel = new JLabel();
 			attackResultLabel.setBounds(SCREEN_WIDTH - 255, 660, 60, 20);
 		}
 		return attackResultLabel;
 	}
-	
+
 	public static JLabel getDefenceResultLabel() {
-		
-		if(defenceResultLabel == null) {
-			defenceResultLabel = new JLabel("result");
+
+		if (defenceResultLabel == null) {
+			defenceResultLabel = new JLabel();
 			defenceResultLabel.setBounds(SCREEN_WIDTH - 105, 660, 60, 20);
 		}
 		return defenceResultLabel;

@@ -21,7 +21,7 @@ import data.Province;
 /**
  * 
  * @author rogier_konings
- *
+ * 
  */
 public class RiskMap extends JPanel {
 
@@ -50,7 +50,8 @@ public class RiskMap extends JPanel {
 	}
 
 	/**
-	 * Overrides the painComponent function in order to draw clickable circles on the capital of each province
+	 * Overrides the painComponent function in order to draw clickable circles
+	 * on the capital of each province
 	 */
 	protected void paintComponent(Graphics g) {
 
@@ -95,22 +96,37 @@ public class RiskMap extends JPanel {
 
 					if (province.getShapeProvince().contains(e.getPoint())) {
 
+						RiskBoard.getAttackButton().setEnabled(false);
 						province.SELECTED = true;
 						RiskGame.getSelectedProvince();
 						RiskGame.showDestinations();
-						RiskBoard.getAttackButton().setEnabled(true);
 
-						RiskBoard.getGameLabel().setText(
-								"<html><br><br><br><br><br>You have selected: <br><br> Province: <b>"
-										+ province.getName() + "</b><br>"
-										+ "Capital: <b>"
-										+ province.getCapital() + "</b><br>"
-										+ "Army Size: <b>" + province.getArmy()
-										+ "</b><br>Player: <b>"
-										+ province.getPlayer().getPlayerId()
-										+ "</b></html>");
+						if (province.getPlayer() == RiskGame.getCurrentPlayer()) {
 
-						repaint();
+							RiskBoard.getAttackButton().setEnabled(true);
+
+							RiskBoard.getGameLabel().setText(
+									"<html><br><br><br><br><br>You have selected: <br><br> Province: <b>"
+											+ province.getName()
+											+ "</b><br>"
+											+ "Capital: <b>"
+											+ province.getCapital()
+											+ "</b><br>"
+											+ "Army Size: <b>"
+											+ province.getArmy()
+											+ "</b><br>Player: <b>"
+											+ province.getPlayer()
+													.getPlayerId()
+											+ "</b></html>");
+
+							repaint();
+						} else {
+
+							RiskBoard.getGameLabel().setText(
+									"Please select your own province!");
+							repaint();
+
+						}
 
 					}
 				}

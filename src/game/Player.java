@@ -15,6 +15,7 @@ public class Player {
 	private int unplaced_armies;
 
 	private ArrayList<Province> player_provinces;
+	private int[] playerdicethrow = null;
 
 	/**
 	 * Creates a new player
@@ -45,5 +46,25 @@ public class Player {
 	
 	public void setPlayerProvinces(ArrayList<Province> prov) {
 		player_provinces = prov;
+	}
+	
+	public int[] getPlayerDiceThrow() {
+		return playerdicethrow;
+	}
+	
+	public void setPlayerDiceThrow(int[] dicethrow) {
+		playerdicethrow = dicethrow;
+	}
+	
+	public boolean isPlayerProvince(Province province) {
+		
+		for(Province prov : player_provinces) {
+			
+			if( prov.equals(province)) {
+				return true;
+			}
+			
+		}
+		return false;
 	}
 }
