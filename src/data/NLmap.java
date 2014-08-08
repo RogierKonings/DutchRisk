@@ -10,10 +10,6 @@ import javax.imageio.ImageIO;
 
 public class NLmap {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	public File netherlands = new File(
 			"../DutchRisk/src/img/NL-coordinates.png");
 	public BufferedImage buffimg;
@@ -27,7 +23,6 @@ public class NLmap {
 			System.exit(1);
 		}
 
-		// returnProvince();
 	}
 
 	public Color getPointColor(Point point) {

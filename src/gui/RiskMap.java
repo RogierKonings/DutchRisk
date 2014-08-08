@@ -69,21 +69,35 @@ public class RiskMap extends JPanel {
 			if (province.SELECTED == true) {
 
 				g2d.setColor(Color.MAGENTA);
-			} else if (province.SELECTED == false && province.getPlayer() == GameData.PLAYER_ONE) {
+			} else if (province.SELECTED == false
+					&& province.getPlayer() == GameData.PLAYER_ONE) {
 
 				g2d.setColor(GameData.PLAYER_ONE.getPlayerColor());
-			} else if(province.SELECTED == false && province.getPlayer() == GameData.PLAYER_TWO) {
-				
+			} else if (province.SELECTED == false
+					&& province.getPlayer() == GameData.PLAYER_TWO) {
+
 				g2d.setColor(GameData.PLAYER_TWO.getPlayerColor());
-			} else if(province.SELECTED == false && province.getPlayer() == GameData.PLAYER_THREE) {
-				
+			} else if (province.SELECTED == false
+					&& province.getPlayer() == GameData.PLAYER_THREE) {
+
 				g2d.setColor(GameData.PLAYER_THREE.getPlayerColor());
 			}
 
 			g2d.fill(province.getCapitalShape());
-			
+
 			g2d.setColor(Color.WHITE);
 			g2d.draw(province.getCapitalShape());
+
+
+			if (province.getArmy() < 10) {
+				g2d.drawString("" + province.getArmy(), (int) province
+						.getCapitalShape().getX() + 6, (int) province
+						.getCapitalShape().getY() + 15);
+			} else {
+				g2d.drawString("" + province.getArmy(), (int) province
+						.getCapitalShape().getX() + 3, (int) province
+						.getCapitalShape().getY() + 15);
+			}
 
 		}
 
@@ -98,7 +112,7 @@ public class RiskMap extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				super.mouseClicked(e);
-				
+
 				NLmap nlmap = new NLmap();
 				Color color = nlmap.getPointColor(e.getPoint());
 
@@ -142,8 +156,7 @@ public class RiskMap extends JPanel {
 
 					}
 				}
-				
-				
+
 			}
 		});
 

@@ -334,6 +334,7 @@ public class RiskBoard extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 
 					RiskGame.addUnit();
+					game.repaint();
 
 				}
 			});
@@ -353,6 +354,7 @@ public class RiskBoard extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 
 					RiskGame.removeUnit();
+					game.repaint();
 
 				}
 			});

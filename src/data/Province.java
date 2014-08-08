@@ -4,6 +4,7 @@ import game.Player;
 
 import java.awt.Color;
 import java.awt.Shape;
+import java.awt.geom.Ellipse2D;
 
 import javax.swing.JPanel;
 
@@ -20,7 +21,7 @@ public class Province extends JPanel {
 	private int army = 0;
 	private String name;
 	private String capital;
-	private Shape capitalshape;
+	private Ellipse2D capitalshape;
 	public boolean SELECTED = false;
 	private Province[] destinations;
 	private Color color;
@@ -37,7 +38,7 @@ public class Province extends JPanel {
 	 * @param MOVETO whether or not the province is a target
 	 */
 	public Province(int id, Player player, String name, String capital, Nationality nation, int army,
-			Shape capitalshape, boolean SELECTED, Province[] destinations, Color color) {
+			Ellipse2D capitalshape, boolean SELECTED, Province[] destinations, Color color) {
 		this.id = id;
 		this.player = player;
 		this.name = name;
@@ -78,7 +79,7 @@ public class Province extends JPanel {
 		army = amount;
 	}
 
-	public Shape getCapitalShape() {
+	public Ellipse2D getCapitalShape() {
 		return capitalshape;
 	}
 	
