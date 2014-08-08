@@ -433,7 +433,7 @@ public class RiskGame {
 				CURRENT_PLAYER = GameData.PLAYER_ONE;
 				updateStatistics();
 				RiskBoard.getGameLabel().setText("");
-			}
+			} 
 		} else {
 			RiskBoard.getGameLabel().setText(
 					"You still have some unplaced armies!");

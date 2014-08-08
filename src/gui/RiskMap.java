@@ -69,13 +69,21 @@ public class RiskMap extends JPanel {
 			if (province.SELECTED == true) {
 
 				g2d.setColor(Color.MAGENTA);
-			} else {
+			} else if (province.SELECTED == false && province.getPlayer() == GameData.PLAYER_ONE) {
 
-				g2d.setColor(Color.WHITE);
+				g2d.setColor(GameData.PLAYER_ONE.getPlayerColor());
+			} else if(province.SELECTED == false && province.getPlayer() == GameData.PLAYER_TWO) {
+				
+				g2d.setColor(GameData.PLAYER_TWO.getPlayerColor());
+			} else if(province.SELECTED == false && province.getPlayer() == GameData.PLAYER_THREE) {
+				
+				g2d.setColor(GameData.PLAYER_THREE.getPlayerColor());
 			}
 
-			g2d.fill(province.getShapeProvince());
-			g2d.draw(province.getShapeProvince());
+			g2d.fill(province.getCapitalShape());
+			
+			g2d.setColor(Color.WHITE);
+			g2d.draw(province.getCapitalShape());
 
 		}
 

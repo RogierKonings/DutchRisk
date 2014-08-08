@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import data.Province;
@@ -16,6 +17,7 @@ public class Player {
 
 	private ArrayList<Province> player_provinces;
 	private int[] playerdicethrow = null;
+	private Color playercolor;
 
 	/**
 	 * Creates a new player
@@ -23,9 +25,10 @@ public class Player {
 	 * @param unplaced_armies the armies that this player still will have to place on their provinces
 	 * @param score the score of the player
 	 */
-	public Player(int playerid, int unplaced_armies, int score) {
+	public Player(int playerid, int unplaced_armies, int score, Color playercolor) {
 		this.playerid = playerid;
 		this.unplaced_armies = unplaced_armies;
+		this.playercolor = playercolor;
 	}
 
 	public int getPlayerId() {
@@ -54,6 +57,10 @@ public class Player {
 	
 	public void setPlayerDiceThrow(int[] dicethrow) {
 		playerdicethrow = dicethrow;
+	}
+	
+	public Color getPlayerColor() {
+		return playercolor;
 	}
 	
 	public boolean isPlayerProvince(Province province) {
