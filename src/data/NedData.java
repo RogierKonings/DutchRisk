@@ -54,7 +54,7 @@ public class NedData extends GameData {
 			desutrecht, new Color(0xff6b2f));
 	private static Province HOLLAND = new Province(7, null, "Holland",
 			"Den Haag", 0, new Ellipse2D.Double(234, 342, 14, 14), false,
-			desholland, new Color(0xfefc5a));
+			desholland, new Color(0xfefe08));
 	private static Province NOORD_BRABANT = new Province(8, null,
 			"Noord-Brabant", "Den Bosch", 0, new Ellipse2D.Double(370, 402, 14,
 					14), false, desnoordbrabant, new Color(0xa96744));

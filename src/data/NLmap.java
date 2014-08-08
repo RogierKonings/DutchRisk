@@ -12,13 +12,13 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-public class NLmap extends JPanel {
+public class NLmap  {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public File netherlands = new File("../img/NL-coordinates.png");
+	public File netherlands = new File("../DutchRisk/src/img/NL-coordinates.png");
 	public BufferedImage buffimg;
 
 	private int xcor;
@@ -50,13 +50,16 @@ public class NLmap extends JPanel {
 	public NLmap() {
 		try {
 			buffimg = ImageIO.read(netherlands);
+			
 		} catch (IOException ex) {
 			ex.printStackTrace();
 			System.exit(1);
 		}
+		
+		//returnProvince();
 	}
 
-	public Color getColor(Point point) {
+	public Color getPointColor(Point point) {
 
 		int x = point.x;
 		int y = point.y;
@@ -66,41 +69,40 @@ public class NLmap extends JPanel {
 	}
 	
 	
-	public Province returnProvince() {
+	/**public void returnProvince() {
 		
 		addMouseListener(new MouseAdapter() {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				System.out.println(e);
 				super.mouseClicked(e);
 
 				xcor = e.getX();
 				ycor = e.getY();
 
+				Color clickedcolor = getPointColor(new Point(xcor, ycor));
+				
+				gamedata = new GameData();
+				countrydata = gamedata.loadCountryData(new NedData());
+				
+
+				for (Province province : countrydata) {
+					
+					if(clickedcolor == province.getColor()) {
+						THIS_PROVINCE = province;
+						System.out.println(THIS_PROVINCE.getName());
+					}
+					
+				}
+				
+				
 			}
 		});
-
-		Color clickedcolor = getColor(new Point(xcor, ycor));
+**/
 		
-		gamedata = new GameData();
-		countrydata = gamedata.loadCountryData(new NedData());
-		
+	//}
 
-		for (Province province : countrydata) {
-			
-			if(province.getColor() == clickedcolor) {
-				THIS_PROVINCE = province;
-			}
-			
-		}
-		System.out.println(THIS_PROVINCE.getName());
-		return THIS_PROVINCE;
-	}
 
-	public static void main(String[] args) {
-
-		
-
-	}
 
 }

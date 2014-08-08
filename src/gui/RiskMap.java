@@ -15,6 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import data.GameData;
+import data.NLmap;
 import data.NedData;
 import data.Province;
 
@@ -89,12 +90,15 @@ public class RiskMap extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				super.mouseClicked(e);
+				
+				NLmap nlmap = new NLmap();
+				Color color = nlmap.getPointColor(e.getPoint());
 
 				for (Province province : countrydata) {
 
 					province.SELECTED = false;
 
-					if (province.getShapeProvince().contains(e.getPoint())) {
+					if (province.getColor().equals(color)) {
 
 						RiskBoard.getAttackButton().setEnabled(false);
 						province.SELECTED = true;
@@ -130,6 +134,8 @@ public class RiskMap extends JPanel {
 
 					}
 				}
+				
+				
 			}
 		});
 

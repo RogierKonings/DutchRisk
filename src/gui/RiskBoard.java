@@ -201,7 +201,7 @@ public class RiskBoard extends JFrame {
 			boardPanel = new JPanel();
 			boardPanel.setBounds(5, 5, SCREEN_WIDTH - 320, SCREEN_HEIGHT - 10);
 			RiskMap riskmap = new RiskMap(new ImageIcon(
-					"../Risk/src/img/NL.jpg").getImage());
+					"../DutchRisk/src/img/NL.jpg").getImage());
 			
 			NLmap nlsettings = new NLmap();
 			
