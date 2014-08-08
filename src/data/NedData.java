@@ -1,5 +1,6 @@
 package data;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
@@ -36,57 +37,61 @@ public class NedData extends GameData {
 
 	private static Province GRONINGEN = new Province(1, null, "Groningen",
 			"Groningen", 0, new Ellipse2D.Double(503, 84, 14, 14), false,
-			desgroningen);
+			desgroningen, new Color(0x40a837));
 	private static Province FRIESLAND = new Province(2, null, "Friesland",
 			"Leeuwarden", 0, new Ellipse2D.Double(406, 99, 14, 14), false,
-			desfriesland);
+			desfriesland, new Color(0xfc0d0a));
 	private static Province DRENTHE = new Province(3, null, "Drenthe", "Assen",
-			0, new Ellipse2D.Double(503, 130, 14, 14), false, desdrenthe);
+			0, new Ellipse2D.Double(503, 130, 14, 14), false, desdrenthe, new Color(0xccfe07));
 	private static Province OVERIJSSEL = new Province(4, null, "Overijssel",
 			"Zwolle", 0, new Ellipse2D.Double(457, 230, 14, 14), false,
-			desoverijssel);
+			desoverijssel, new Color(0xc8ab36));
 	private static Province GELDERLAND = new Province(5, null, "Gelderland",
 			"Arnhem", 0, new Ellipse2D.Double(442, 334, 14, 14), false,
-			desgelderland);
+			desgelderland, new Color(0xa368f0));
 	private static Province UTRECHT = new Province(6, null, "Utrecht",
 			"Utrecht", 0, new Ellipse2D.Double(355, 325, 14, 14), false,
-			desutrecht);
+			desutrecht, new Color(0xff6b2f));
 	private static Province HOLLAND = new Province(7, null, "Holland",
 			"Den Haag", 0, new Ellipse2D.Double(234, 342, 14, 14), false,
-			desholland);
+			desholland, new Color(0xfefc5a));
 	private static Province NOORD_BRABANT = new Province(8, null,
 			"Noord-Brabant", "Den Bosch", 0, new Ellipse2D.Double(370, 402, 14,
-					14), false, desnoordbrabant);
+					14), false, desnoordbrabant, new Color(0xa96744));
 	private static Province ZEELAND = new Province(9, null, "Zeeland",
 			"Middelburg", 0, new Ellipse2D.Double(157, 460, 14, 14), false,
-			deszeeland);
+			deszeeland, new Color(0x00f954));
 	private static Province WEST_VLAANDEREN = new Province(10, null,
 			"West-Vlaanderen", "Brugge", 0, new Ellipse2D.Double(112, 530, 14,
-					14), false, deswestvlaanderen);
+					14), false, deswestvlaanderen, new Color(0x9a7b92));
 	private static Province OOST_VLAANDEREN = new Province(11, null,
 			"Oost-Vlaanderen", "Gent", 0,
-			new Ellipse2D.Double(182, 541, 14, 14), false, desoostvlaanderen);
+			new Ellipse2D.Double(182, 541, 14, 14), false, desoostvlaanderen, new Color(0xfd3d86));
 	private static Province ANTWERPEN = new Province(12, null, "Antwerpen",
 			"Antwerpen", 0, new Ellipse2D.Double(268, 505, 14, 14), false,
-			desantwerpen);
+			desantwerpen, new Color(0xc0d671));
 	private static Province LIMBURG = new Province(13, null, "Limburg",
 			"Maastricht", 0, new Ellipse2D.Double(422, 568, 14, 14), false,
-			deslimburg);
+			deslimburg, new Color(0x6f9070));
 	private static Province ZUID_BRABANT = new Province(14, null,
 			"Zuid-Brabant", "Brussel", 0,
-			new Ellipse2D.Double(262, 587, 14, 14), false, deszuidbrabant);
+			new Ellipse2D.Double(262, 587, 14, 14), false, deszuidbrabant, new Color(0xfdcb49));
 	private static Province LUIK = new Province(15, null, "Luik", "Luik", 0,
-			new Ellipse2D.Double(420, 615, 14, 14), false, desluik);
+			new Ellipse2D.Double(420, 615, 14, 14), false, desluik, new Color(0xfd5555));
 	private static Province HENEGOUWEN = new Province(16, null, "Henegouwen",
 			"Bergen", 0, new Ellipse2D.Double(223, 672, 14, 14), false,
-			deshenegouwen);
+			deshenegouwen, new Color(0x89a02b));
 	private static Province NAMEN = new Province(17, null, "Namen", "Namen", 0,
-			new Ellipse2D.Double(349, 665, 14, 14), false, desnamen);
+			new Ellipse2D.Double(349, 665, 14, 14), false, desnamen, new Color(0xaa0187));
 	private static Province LUXEMBURG = new Province(18, null, "Luxemburg",
 			"Luxemburg", 0, new Ellipse2D.Double(521, 813, 14, 14), false,
-			desluxemburg);
+			desluxemburg, new Color(0xa9fed2));
 
 	public static Dimension NL_DIMENSIONS = new Dimension(742, 1042);
+	
+	
+	
+	
 
 	public NedData() {
 

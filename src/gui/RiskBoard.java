@@ -21,6 +21,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 
 import data.GameData;
+import data.NLmap;
 import data.Province;
 
 /**
@@ -201,6 +202,9 @@ public class RiskBoard extends JFrame {
 			boardPanel.setBounds(5, 5, SCREEN_WIDTH - 320, SCREEN_HEIGHT - 10);
 			RiskMap riskmap = new RiskMap(new ImageIcon(
 					"../Risk/src/img/NL.jpg").getImage());
+			
+			NLmap nlsettings = new NLmap();
+			
 			boardPanel.add(riskmap);
 		}
 		return boardPanel;

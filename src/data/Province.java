@@ -2,6 +2,7 @@ package data;
 
 import game.Player;
 
+import java.awt.Color;
 import java.awt.Shape;
 
 import javax.swing.JPanel;
@@ -22,6 +23,7 @@ public class Province extends JPanel {
 	private Shape province;
 	public boolean SELECTED = false;
 	private Province[] destinations;
+	private Color color;
 
 	/**
 	 * Creates a new province
@@ -35,7 +37,7 @@ public class Province extends JPanel {
 	 * @param MOVETO whether or not the province is a target
 	 */
 	public Province(int id, Player player, String name, String capital, int army,
-			Shape province, boolean SELECTED, Province[] destinations) {
+			Shape province, boolean SELECTED, Province[] destinations, Color color) {
 		this.id = id;
 		this.player = player;
 		this.name = name;
@@ -44,6 +46,7 @@ public class Province extends JPanel {
 		this.province = province;
 		this.SELECTED = SELECTED;
 		this.destinations = destinations;
+		this.color = color;
 
 	}
 
@@ -77,6 +80,10 @@ public class Province extends JPanel {
 
 	public Shape getShapeProvince() {
 		return province;
+	}
+	
+	public Color getColor() {
+		return color;
 	}
 
 	public void addArmy() {
