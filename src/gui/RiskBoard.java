@@ -19,6 +19,8 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import data.GameData;
 import data.NLmap;
@@ -225,7 +227,16 @@ public class RiskBoard extends JFrame {
 	}
 
 	public static SpinnerNumberModel getAttackDice() {
-		return new SpinnerNumberModel(1, 1, maxattack, 1);
+		SpinnerNumberModel attackdice = new SpinnerNumberModel(1, 1, maxattack, 1);
+		attackdice.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+                
+            	
+            	
+            }
+        });
+		
+		return attackdice;
 	}
 	
 	
@@ -236,6 +247,7 @@ public class RiskBoard extends JFrame {
 			attackSpinner = new JSpinner(getAttackDice());
 			attackSpinner.setBounds(SCREEN_WIDTH - 260, 485, 40, 30);
 			attackSpinner.setEnabled(false);
+			
 		}
 		return attackSpinner;
 	}
