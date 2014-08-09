@@ -22,12 +22,14 @@ public class RiskGame {
 
 	private static Province SELECTED_PROVINCE;
 	private static Province TARGET_PROVINCE;
+	// private static Province FULL_PROVINCE;
 
-	private ArrayList<Province> playeroneprovinces;
-	private ArrayList<Province> playertwoprovinces;
-	private ArrayList<Province> playerthreeprovinces;
+	private static ArrayList<Province> playeroneprovinces;
+	private static ArrayList<Province> playertwoprovinces;
+	private static ArrayList<Province> playerthreeprovinces;
 
 	private static boolean GAME_RUNNING = false;
+	private static boolean FIRST_ROUND = true;
 	private static boolean ATTACK_RUNNING = false;
 	private static Player CURRENT_PLAYER;
 
@@ -59,6 +61,28 @@ public class RiskGame {
 		board.initialize();
 		gamedata = new GameData();
 		countrydata = gamedata.loadCountryData(new NedData());
+
+	}
+
+	public void setUpGame() {
+
+	}
+
+	public static void checkList() {
+
+	}
+
+	/**
+	 * Checks whether the targetted province has been conquered or not
+	 */
+	public static void checkIfConquered() {
+
+		if (TARGET_PROVINCE.getArmy() == 0) {
+
+			TARGET_PROVINCE.setPlayer(CURRENT_PLAYER);
+			SELECTED_PROVINCE.removeArmy();
+			TARGET_PROVINCE.addArmy();
+		}
 
 	}
 
@@ -112,8 +136,9 @@ public class RiskGame {
 
 			int armies = CURRENT_PLAYER.getUnplacedArmies();
 
-			if (SELECTED_PROVINCE.getArmy() > 0
-					&& isCurrentProvince(SELECTED_PROVINCE) == true) {
+			if (SELECTED_PROVINCE.getArmy() > 1
+					&& isCurrentProvince(SELECTED_PROVINCE) == true
+					&& FIRST_ROUND == true) {
 
 				SELECTED_PROVINCE.removeArmy();
 				armies++;
@@ -132,9 +157,9 @@ public class RiskGame {
 					&& isCurrentProvince(SELECTED_PROVINCE) == false) {
 				RiskBoard.getGameLabel().setText(
 						"Please select your own Province!");
-			} else if (SELECTED_PROVINCE.getArmy() <= 0) {
+			} else if (SELECTED_PROVINCE.getArmy() < 0) {
 				RiskBoard.getGameLabel().setText(
-						"No more armies left on this province!");
+						"You will need at least one army on this province!");
 				RiskBoard.getRemoveArmyButton().setEnabled(false);
 			}
 		}
@@ -203,6 +228,8 @@ public class RiskGame {
 			RiskBoard.getGameLabel().setText(
 					"<html>Attack win: " + attackwin + "<br><br>Defence win: "
 							+ defencewin + "</html>");
+			checkIfConquered();
+			setUpPlayers(GameData.PLAYER_AMOUNT);
 			setAttack(false);
 
 		}
@@ -313,7 +340,9 @@ public class RiskGame {
 	 *            true in case of an attack
 	 */
 	public static void setAttack(boolean attack) {
+
 		ATTACK_RUNNING = attack;
+
 	}
 
 	/**
@@ -323,7 +352,7 @@ public class RiskGame {
 	 * @param players
 	 *            the amount of players that will play the game
 	 */
-	public void setUpPlayers(int players) {
+	public static void setUpPlayers(int players) {
 
 		playeroneprovinces = new ArrayList<Province>();
 		playertwoprovinces = new ArrayList<Province>();
@@ -391,6 +420,7 @@ public class RiskGame {
 
 			if (CURRENT_PLAYER.getUnplacedArmies() == 0) {
 				RiskBoard.getAddArmyButton().setEnabled(false);
+				RiskBoard.getRemoveArmyButton().setText("Move");
 			}
 		}
 
@@ -413,6 +443,8 @@ public class RiskGame {
 	 */
 	public static void nextPlayer() {
 
+		SELECTED_PROVINCE.SELECTED = false;
+
 		if (CURRENT_PLAYER.getUnplacedArmies() == 0) {
 
 			if (CURRENT_PLAYER == GameData.PLAYER_ONE) {
@@ -433,7 +465,7 @@ public class RiskGame {
 				CURRENT_PLAYER = GameData.PLAYER_ONE;
 				updateStatistics();
 				RiskBoard.getGameLabel().setText("");
-			} 
+			}
 		} else {
 			RiskBoard.getGameLabel().setText(
 					"You still have some unplaced armies!");
@@ -446,6 +478,7 @@ public class RiskGame {
 	 * player's provinces
 	 */
 	public static void updateStatistics() {
+
 		String result = "Player <b>"
 				+ CURRENT_PLAYER.getPlayerId()
 				+ " </b> can make a move! <br><br><br> Current Provinces: <br><br>";

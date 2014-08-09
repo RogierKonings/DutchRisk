@@ -68,7 +68,7 @@ public class RiskMap extends JPanel {
 
 			if (province.SELECTED == true) {
 
-				g2d.setColor(Color.MAGENTA);
+				g2d.setColor(Color.BLACK);
 			} else if (province.SELECTED == false
 					&& province.getPlayer() == GameData.PLAYER_ONE) {
 

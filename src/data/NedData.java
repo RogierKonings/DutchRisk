@@ -38,73 +38,73 @@ public class NedData extends GameData {
 	ArrayList<Province> nedprovinces;
 
 	private static Province GRONINGEN = new Province(1, null, "Groningen",
-			"Groningen", Nationality.NEDERLANDS, 0, new Ellipse2D.Double(497,
+			"Groningen", Nationality.NEDERLANDS, 1, new Ellipse2D.Double(497,
 					84, circlesize, circlesize), false, desgroningen,
 			new Color(0x40a837));
 	private static Province FRIESLAND = new Province(2, null, "Friesland",
-			"Leeuwarden", Nationality.NEDERLANDS, 0, new Ellipse2D.Double(405,
+			"Leeuwarden", Nationality.NEDERLANDS, 1, new Ellipse2D.Double(405,
 					90, circlesize, circlesize), false, desfriesland,
 			new Color(0xfc0d0a));
 	private static Province DRENTHE = new Province(3, null, "Drenthe", "Assen",
-			Nationality.NEDERLANDS, 0, new Ellipse2D.Double(500, 122,
+			Nationality.NEDERLANDS, 1, new Ellipse2D.Double(500, 122,
 					circlesize, circlesize), false, desdrenthe, new Color(
 					0xccfe07));
 	private static Province OVERIJSSEL = new Province(4, null, "Overijssel",
-			"Zwolle", Nationality.NEDERLANDS, 0, new Ellipse2D.Double(455, 232,
+			"Zwolle", Nationality.NEDERLANDS, 1, new Ellipse2D.Double(455, 232,
 					circlesize, circlesize), false, desoverijssel, new Color(
 					0xc8ab36));
 	private static Province GELDERLAND = new Province(5, null, "Gelderland",
-			"Arnhem", Nationality.NEDERLANDS, 0, new Ellipse2D.Double(442, 325,
+			"Arnhem", Nationality.NEDERLANDS, 1, new Ellipse2D.Double(442, 325,
 					circlesize, circlesize), false, desgelderland, new Color(
 					0xa368f0));
 	private static Province UTRECHT = new Province(6, null, "Utrecht",
-			"Utrecht", Nationality.NEDERLANDS, 0, new Ellipse2D.Double(355,
+			"Utrecht", Nationality.NEDERLANDS, 1, new Ellipse2D.Double(355,
 					320, circlesize, circlesize), false, desutrecht, new Color(
 					0xff6b2f));
 	private static Province HOLLAND = new Province(7, null, "Holland",
-			"Den Haag", Nationality.NEDERLANDS, 0, new Ellipse2D.Double(234,
+			"Den Haag", Nationality.NEDERLANDS, 1, new Ellipse2D.Double(234,
 					337, circlesize, circlesize), false, desholland, new Color(
 					0xfefe08));
 	private static Province NOORD_BRABANT = new Province(8, null,
-			"Noord-Brabant", "Den Bosch", Nationality.NEDERLANDS, 0,
+			"Noord-Brabant", "Den Bosch", Nationality.NEDERLANDS, 1,
 			new Ellipse2D.Double(363, 402, circlesize, circlesize), false,
 			desnoordbrabant, new Color(0xa96744));
 	private static Province ZEELAND = new Province(9, null, "Zeeland",
-			"Middelburg", Nationality.NEDERLANDS, 0, new Ellipse2D.Double(157,
+			"Middelburg", Nationality.NEDERLANDS, 1, new Ellipse2D.Double(157,
 					452, circlesize, circlesize), false, deszeeland, new Color(
 					0x00f954));
 	private static Province WEST_VLAANDEREN = new Province(10, null,
-			"West-Vlaanderen", "Brugge", Nationality.VLAAMS, 0,
+			"West-Vlaanderen", "Brugge", Nationality.VLAAMS, 1,
 			new Ellipse2D.Double(114, 527, circlesize, circlesize), false,
 			deswestvlaanderen, new Color(0x9a7b92));
 	private static Province OOST_VLAANDEREN = new Province(11, null,
-			"Oost-Vlaanderen", "Gent", Nationality.VLAAMS, 0,
+			"Oost-Vlaanderen", "Gent", Nationality.VLAAMS, 1,
 			new Ellipse2D.Double(180, 542, circlesize, circlesize), false,
 			desoostvlaanderen, new Color(0xfd3d86));
 	private static Province ANTWERPEN = new Province(12, null, "Antwerpen",
-			"Antwerpen", Nationality.VLAAMS, 0, new Ellipse2D.Double(268, 505,
+			"Antwerpen", Nationality.VLAAMS, 1, new Ellipse2D.Double(268, 505,
 					circlesize, circlesize), false, desantwerpen, new Color(
 					0xc0d671));
 	private static Province LIMBURG = new Province(13, null, "Limburg",
-			"Maastricht", Nationality.NEDERLANDS, 0, new Ellipse2D.Double(422,
+			"Maastricht", Nationality.NEDERLANDS, 1, new Ellipse2D.Double(422,
 					562, circlesize, circlesize), false, deslimburg, new Color(
 					0x6f9070));
 	private static Province ZUID_BRABANT = new Province(14, null,
-			"Zuid-Brabant", "Brussel", Nationality.VLAAMS, 0,
+			"Zuid-Brabant", "Brussel", Nationality.VLAAMS, 1,
 			new Ellipse2D.Double(260, 580, circlesize, circlesize), false,
 			deszuidbrabant, new Color(0xfdcb49));
 	private static Province LUIK = new Province(15, null, "Luik", "Luik",
-			Nationality.WAALS, 0, new Ellipse2D.Double(420, 615, circlesize,
+			Nationality.WAALS, 1, new Ellipse2D.Double(420, 615, circlesize,
 					circlesize), false, desluik, new Color(0xfd5555));
 	private static Province HENEGOUWEN = new Province(16, null, "Henegouwen",
-			"Bergen", Nationality.WAALS, 0, new Ellipse2D.Double(217, 672,
+			"Bergen", Nationality.WAALS, 1, new Ellipse2D.Double(217, 672,
 					circlesize, circlesize), false, deshenegouwen, new Color(
 					0x89a02b));
 	private static Province NAMEN = new Province(17, null, "Namen", "Namen",
-			Nationality.WAALS, 0, new Ellipse2D.Double(349, 657, circlesize,
+			Nationality.WAALS, 1, new Ellipse2D.Double(349, 657, circlesize,
 					circlesize), false, desnamen, new Color(0xaa0187));
 	private static Province LUXEMBURG = new Province(18, null, "Luxemburg",
-			"Luxemburg", Nationality.WAALS, 0, new Ellipse2D.Double(521, 813,
+			"Luxemburg", Nationality.WAALS, 1, new Ellipse2D.Double(521, 813,
 					circlesize, circlesize), false, desluxemburg, new Color(
 					0xa9fed2));
 

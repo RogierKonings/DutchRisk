@@ -36,6 +36,10 @@ public class RiskBoard extends JFrame {
 	private static int SCREEN_HEIGHT;
 	private int BORDER = 50;
 	private static int ATTACK_ANSWER;
+	
+
+	private static int maxattack = 3;
+	private static int maxdefence = 2;
 
 	private static Container game;
 	private static JPanel boardPanel;
@@ -127,8 +131,8 @@ public class RiskBoard extends JFrame {
 
 					if (RiskGame.unplacedArmies() == true) {
 
-						gameLabel.setText(
-								"There are still armies to be placed!!");
+						gameLabel
+								.setText("There are still armies to be placed!!");
 
 					} else {
 
@@ -138,9 +142,13 @@ public class RiskBoard extends JFrame {
 							gameLabel
 									.setText("You cannot attack your own province!!");
 
+						} else if (RiskGame.getSelectedProvince().getArmy() == 1) {
+							gameLabel
+									.setText("You will need more than one army to attack!");
 						} else {
 
-							// returns 0 in case of a 'Yes' answer, 1 in case of
+							// returns 0 in case of a 'Yes' answer, 1 in
+							// case of
 							// a
 							// 'No'
 							ATTACK_ANSWER = JOptionPane
@@ -159,6 +167,7 @@ public class RiskBoard extends JFrame {
 
 							if (ATTACK_ANSWER == 0) {
 								RiskGame.setAttack(true);
+								
 								gameLabel
 										.setText("You may now select the amount of armies!");
 								attackSpinner.setEnabled(true);
@@ -169,6 +178,7 @@ public class RiskBoard extends JFrame {
 						}
 					}
 				}
+
 			});
 			attackButton.setBounds(SCREEN_WIDTH - 250, 310, 190, 50);
 		}
@@ -202,30 +212,48 @@ public class RiskBoard extends JFrame {
 			boardPanel.setBounds(5, 5, SCREEN_WIDTH - 320, SCREEN_HEIGHT - 10);
 			RiskMap riskmap = new RiskMap(new ImageIcon(
 					"../DutchRisk/src/img/NL.jpg").getImage());
-			
+
 			NLmap nlsettings = new NLmap();
-			
+
 			boardPanel.add(riskmap);
 		}
 		return boardPanel;
 	}
+	
+	public static void setMaxAttack(int amount) {
+		maxattack = amount;
+	}
+
+	public static SpinnerNumberModel getAttackDice() {
+		return new SpinnerNumberModel(1, 1, maxattack, 1);
+	}
+	
+	
 
 	public static JSpinner getAttackSpinner() {
 
 		if (attackSpinner == null) {
-			SpinnerNumberModel attackdice = new SpinnerNumberModel(1, 1, 3, 1);
-			attackSpinner = new JSpinner(attackdice);
+			attackSpinner = new JSpinner(getAttackDice());
 			attackSpinner.setBounds(SCREEN_WIDTH - 260, 485, 40, 30);
 			attackSpinner.setEnabled(false);
 		}
 		return attackSpinner;
 	}
+	
+	public static void setMaxDefence(int amount) {
+		maxdefence = amount;
+	}
+
+	public static SpinnerNumberModel getDefenceDice() {
+		return new SpinnerNumberModel(1, 1, maxdefence, 1);
+	}
+	
+
 
 	public static JSpinner getDefenceSpinner() {
 
 		if (defenceSpinner == null) {
-			SpinnerNumberModel defenddice = new SpinnerNumberModel(1, 1, 2, 1);
-			defenceSpinner = new JSpinner(defenddice);
+			defenceSpinner = new JSpinner(getDefenceDice());
 			defenceSpinner.setBounds(SCREEN_WIDTH - 110, 485, 40, 30);
 			defenceSpinner.setEnabled(false);
 		}
@@ -280,6 +308,7 @@ public class RiskBoard extends JFrame {
 					defenceThrowButton.setEnabled(false);
 
 					RiskGame.attackInitiated();
+					game.repaint();
 				}
 			});
 			defenceThrowButton.setBounds(SCREEN_WIDTH - 130, 550, 100, 100);
@@ -372,8 +401,11 @@ public class RiskBoard extends JFrame {
 			nextPlayerButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 
-					RiskGame.nextPlayer();
 					addArmyButton.setEnabled(true);
+
+					RiskGame.nextPlayer();
+
+					game.repaint();
 
 				}
 			});

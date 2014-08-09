@@ -20,7 +20,7 @@ public class GameData {
 	
 	public static final Player PLAYER_ONE = new Player(1, STARTING_ARMIES, 0, Color.BLUE);
 	public static final Player PLAYER_TWO = new Player(2, STARTING_ARMIES, 0, Color.RED);
-	public static final Player PLAYER_THREE = new Player(3, STARTING_ARMIES, 0, Color.DARK_GRAY);
+	public static final Player PLAYER_THREE = new Player(3, STARTING_ARMIES, 0, Color.MAGENTA);
 	
 	private static int[] attackResultArray = null;
 	private static int[] defenceResultArray = null;
