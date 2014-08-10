@@ -1,5 +1,7 @@
 package data;
 
+import game.Province;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.geom.Ellipse2D;
@@ -10,7 +12,9 @@ import java.util.ArrayList;
  * @author rogier_konings
  * 
  */
-public class NedData extends GameData {
+public class NedData extends CountryData{
+	
+	private static int circlesize = 20;
 
 	// creates an array of possible provinces to attack
 	private static Province[] desgroningen = new Province[2];
@@ -32,88 +36,87 @@ public class NedData extends GameData {
 	private static Province[] desnamen = new Province[4];
 	private static Province[] desluxemburg = new Province[2];
 
-	private static int circlesize = 20;
-
 	// creates an array with all the provinces
-	ArrayList<Province> nedprovinces;
+	ArrayList<Province> provinces;
 
-	private static Province GRONINGEN = new Province(1, null, "Groningen",
+	private Province GRONINGEN = new Province(1, null, "Groningen",
 			"Groningen", Nationality.NEDERLANDS, 1, new Ellipse2D.Double(497,
 					84, circlesize, circlesize), false, desgroningen,
 			new Color(0x40a837));
-	private static Province FRIESLAND = new Province(2, null, "Friesland",
+	private Province FRIESLAND = new Province(2, null, "Friesland",
 			"Leeuwarden", Nationality.NEDERLANDS, 1, new Ellipse2D.Double(405,
 					90, circlesize, circlesize), false, desfriesland,
 			new Color(0xfc0d0a));
-	private static Province DRENTHE = new Province(3, null, "Drenthe", "Assen",
+	private Province DRENTHE = new Province(3, null, "Drenthe", "Assen",
 			Nationality.NEDERLANDS, 1, new Ellipse2D.Double(500, 122,
 					circlesize, circlesize), false, desdrenthe, new Color(
 					0xccfe07));
-	private static Province OVERIJSSEL = new Province(4, null, "Overijssel",
+	private Province OVERIJSSEL = new Province(4, null, "Overijssel",
 			"Zwolle", Nationality.NEDERLANDS, 1, new Ellipse2D.Double(455, 232,
 					circlesize, circlesize), false, desoverijssel, new Color(
 					0xc8ab36));
-	private static Province GELDERLAND = new Province(5, null, "Gelderland",
+	private Province GELDERLAND = new Province(5, null, "Gelderland",
 			"Arnhem", Nationality.NEDERLANDS, 1, new Ellipse2D.Double(442, 325,
 					circlesize, circlesize), false, desgelderland, new Color(
 					0xa368f0));
-	private static Province UTRECHT = new Province(6, null, "Utrecht",
+	private Province UTRECHT = new Province(6, null, "Utrecht",
 			"Utrecht", Nationality.NEDERLANDS, 1, new Ellipse2D.Double(355,
 					320, circlesize, circlesize), false, desutrecht, new Color(
 					0xff6b2f));
-	private static Province HOLLAND = new Province(7, null, "Holland",
+	private Province HOLLAND = new Province(7, null, "Holland",
 			"Den Haag", Nationality.NEDERLANDS, 1, new Ellipse2D.Double(234,
 					337, circlesize, circlesize), false, desholland, new Color(
 					0xfefe08));
-	private static Province NOORD_BRABANT = new Province(8, null,
+	private Province NOORD_BRABANT = new Province(8, null,
 			"Noord-Brabant", "Den Bosch", Nationality.NEDERLANDS, 1,
 			new Ellipse2D.Double(363, 402, circlesize, circlesize), false,
 			desnoordbrabant, new Color(0xa96744));
-	private static Province ZEELAND = new Province(9, null, "Zeeland",
+	private Province ZEELAND = new Province(9, null, "Zeeland",
 			"Middelburg", Nationality.NEDERLANDS, 1, new Ellipse2D.Double(157,
 					452, circlesize, circlesize), false, deszeeland, new Color(
 					0x00f954));
-	private static Province WEST_VLAANDEREN = new Province(10, null,
+	private Province WEST_VLAANDEREN = new Province(10, null,
 			"West-Vlaanderen", "Brugge", Nationality.VLAAMS, 1,
 			new Ellipse2D.Double(114, 527, circlesize, circlesize), false,
 			deswestvlaanderen, new Color(0x9a7b92));
-	private static Province OOST_VLAANDEREN = new Province(11, null,
+	private Province OOST_VLAANDEREN = new Province(11, null,
 			"Oost-Vlaanderen", "Gent", Nationality.VLAAMS, 1,
 			new Ellipse2D.Double(180, 542, circlesize, circlesize), false,
 			desoostvlaanderen, new Color(0xfd3d86));
-	private static Province ANTWERPEN = new Province(12, null, "Antwerpen",
+	private Province ANTWERPEN = new Province(12, null, "Antwerpen",
 			"Antwerpen", Nationality.VLAAMS, 1, new Ellipse2D.Double(268, 505,
 					circlesize, circlesize), false, desantwerpen, new Color(
 					0xc0d671));
-	private static Province LIMBURG = new Province(13, null, "Limburg",
-			"Maastricht", Nationality.NEDERLANDS, 1, new Ellipse2D.Double(422,
+	private Province LIMBURG = new Province(13, null, "Limburg",
+			"Maastricht", Nationality.VLAAMS, 1, new Ellipse2D.Double(422,
 					562, circlesize, circlesize), false, deslimburg, new Color(
 					0x6f9070));
-	private static Province ZUID_BRABANT = new Province(14, null,
+	private Province ZUID_BRABANT = new Province(14, null,
 			"Zuid-Brabant", "Brussel", Nationality.VLAAMS, 1,
 			new Ellipse2D.Double(260, 580, circlesize, circlesize), false,
 			deszuidbrabant, new Color(0xfdcb49));
-	private static Province LUIK = new Province(15, null, "Luik", "Luik",
+	private Province LUIK = new Province(15, null, "Luik", "Luik",
 			Nationality.WAALS, 1, new Ellipse2D.Double(420, 615, circlesize,
 					circlesize), false, desluik, new Color(0xfd5555));
-	private static Province HENEGOUWEN = new Province(16, null, "Henegouwen",
+	private Province HENEGOUWEN = new Province(16, null, "Henegouwen",
 			"Bergen", Nationality.WAALS, 1, new Ellipse2D.Double(217, 672,
 					circlesize, circlesize), false, deshenegouwen, new Color(
 					0x89a02b));
-	private static Province NAMEN = new Province(17, null, "Namen", "Namen",
+	private Province NAMEN = new Province(17, null, "Namen", "Namen",
 			Nationality.WAALS, 1, new Ellipse2D.Double(349, 657, circlesize,
 					circlesize), false, desnamen, new Color(0xaa0187));
 	private static Province LUXEMBURG = new Province(18, null, "Luxemburg",
 			"Luxemburg", Nationality.WAALS, 1, new Ellipse2D.Double(521, 813,
 					circlesize, circlesize), false, desluxemburg, new Color(
 					0xa9fed2));
+	
 
-	public static Dimension NL_DIMENSIONS = new Dimension(742, 1042);
+	//public Dimension NL_DIMENSIONS = new Dimension(742, 1042);
 
 	public NedData() {
 
-		createProvinces();
-		createDestinations();
+		addProvinces();
+		addDestinations();
 
 	}
 
@@ -122,29 +125,27 @@ public class NedData extends GameData {
 	 * 
 	 * @return the arraylist with the provinces of this current pack
 	 */
-	public ArrayList<Province> createProvinces() {
+	public void addProvinces() {
 
-		nedprovinces = new ArrayList<Province>();
-		nedprovinces.add(GRONINGEN);
-		nedprovinces.add(FRIESLAND);
-		nedprovinces.add(DRENTHE);
-		nedprovinces.add(OVERIJSSEL);
-		nedprovinces.add(GELDERLAND);
-		nedprovinces.add(UTRECHT);
-		nedprovinces.add(HOLLAND);
-		nedprovinces.add(NOORD_BRABANT);
-		nedprovinces.add(ZEELAND);
-		nedprovinces.add(WEST_VLAANDEREN);
-		nedprovinces.add(OOST_VLAANDEREN);
-		nedprovinces.add(ANTWERPEN);
-		nedprovinces.add(LIMBURG);
-		nedprovinces.add(ZUID_BRABANT);
-		nedprovinces.add(LUIK);
-		nedprovinces.add(HENEGOUWEN);
-		nedprovinces.add(NAMEN);
-		nedprovinces.add(LUXEMBURG);
-
-		return nedprovinces;
+		provinces = new ArrayList<Province>();
+		provinces.add(GRONINGEN);
+		provinces.add(FRIESLAND);
+		provinces.add(DRENTHE);
+		provinces.add(OVERIJSSEL);
+		provinces.add(GELDERLAND);
+		provinces.add(UTRECHT);
+		provinces.add(HOLLAND);
+		provinces.add(NOORD_BRABANT);
+		provinces.add(ZEELAND);
+		provinces.add(WEST_VLAANDEREN);
+		provinces.add(OOST_VLAANDEREN);
+		provinces.add(ANTWERPEN);
+		provinces.add(LIMBURG);
+		provinces.add(ZUID_BRABANT);
+		provinces.add(LUIK);
+		provinces.add(HENEGOUWEN);
+		provinces.add(NAMEN);
+		provinces.add(LUXEMBURG);
 
 	}
 
@@ -155,14 +156,14 @@ public class NedData extends GameData {
 	 */
 	public ArrayList<Province> getProvinces() {
 
-		return nedprovinces;
+		return provinces;
 
 	}
 
 	/**
 	 * Adds the possible destinations to an array for each province
 	 */
-	public void createDestinations() {
+	public void addDestinations() {
 		desgroningen[0] = DRENTHE;
 		desgroningen[1] = FRIESLAND;
 

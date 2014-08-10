@@ -1,5 +1,6 @@
 package gui;
 
+import game.Province;
 import game.RiskGame;
 
 import java.awt.Color;
@@ -11,33 +12,22 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import data.GameData;
 import data.NLmap;
 import data.NedData;
-import data.Province;
 
-/**
- * 
- * @author rogier_konings
- * 
- */
+
+
+
 public class RiskMap extends JPanel {
 
 	private static final long serialVersionUID = 4646851898036548618L;
-
-	private GameData gamedata;
-	private ArrayList<Province> countrydata;
-
 	private Image img;
-
-	public RiskMap(String img) {
-		this(new ImageIcon(img).getImage());
-		drawProvinces();
-	}
-
+	
+	
+	
 	public RiskMap(Image img) {
 
 		this.img = img;
@@ -47,13 +37,13 @@ public class RiskMap extends JPanel {
 		setMaximumSize(size);
 		setSize(size);
 		setLayout(null);
+		loadData();
 		drawProvinces();
 	}
+	
+	public void loadData() {
+	}
 
-	/**
-	 * Overrides the painComponent function in order to draw clickable circles
-	 * on the capital of each province
-	 */
 	protected void paintComponent(Graphics g) {
 
 		super.paintComponent(g);
@@ -61,10 +51,7 @@ public class RiskMap extends JPanel {
 
 		g.drawImage(img, 0, 0, null);
 
-		gamedata = new GameData();
-		countrydata = gamedata.loadCountryData(new NedData());
-
-		for (Province province : countrydata) {
+		for (Province province : GameData.provinces) {
 
 			if (province.SELECTED == true) {
 
@@ -83,20 +70,20 @@ public class RiskMap extends JPanel {
 				g2d.setColor(GameData.PLAYER_THREE.getPlayerColor());
 			}
 
-			g2d.fill(province.getCapitalShape());
+			g2d.fill(province.getCapitalLocation());
 
 			g2d.setColor(Color.WHITE);
-			g2d.draw(province.getCapitalShape());
+			g2d.draw(province.getCapitalLocation());
 
 
 			if (province.getArmy() < 10) {
 				g2d.drawString("" + province.getArmy(), (int) province
-						.getCapitalShape().getX() + 6, (int) province
-						.getCapitalShape().getY() + 15);
+						.getCapitalLocation().getX() + 6, (int) province
+						.getCapitalLocation().getY() + 15);
 			} else {
 				g2d.drawString("" + province.getArmy(), (int) province
-						.getCapitalShape().getX() + 3, (int) province
-						.getCapitalShape().getY() + 15);
+						.getCapitalLocation().getX() + 3, (int) province
+						.getCapitalLocation().getY() + 15);
 			}
 
 		}
@@ -105,32 +92,39 @@ public class RiskMap extends JPanel {
 
 	public void drawProvinces() {
 
-		gamedata = new GameData();
-		countrydata = gamedata.loadCountryData(new NedData());
+		
 		addMouseListener(new MouseAdapter() {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				super.mouseClicked(e);
 
-				NLmap nlmap = new NLmap();
-				Color color = nlmap.getPointColor(e.getPoint());
+				
+				Color color = new NLmap().getPointColor(e.getPoint());
 
-				for (Province province : countrydata) {
+				for (Province province : GameData.provinces) {
 
 					province.SELECTED = false;
 
 					if (province.getColor().equals(color)) {
 
 						RiskBoard.getAttackButton().setEnabled(false);
+						RiskBoard.getDestinationBox().setEnabled(false);
+						RiskBoard.getAddArmyButton().setEnabled(false);
+						RiskBoard.getRemoveArmyButton().setEnabled(false);
+						
 						province.SELECTED = true;
-						RiskGame.getSelectedProvince();
-						RiskGame.showDestinations();
-
-						if (province.getPlayer() == RiskGame.getCurrentPlayer()) {
+						GameData.SELECTED_PROVINCE = province;
+						
+						RiskBoard.showDestinations();
+						
+						if (province.getPlayer() == GameData.CURRENT_PLAYER) {
 
 							RiskBoard.getAttackButton().setEnabled(true);
-
+							RiskBoard.getDestinationBox().setEnabled(true);
+							RiskBoard.getAddArmyButton().setEnabled(true);
+							RiskBoard.getRemoveArmyButton().setEnabled(true);
+							
 							RiskBoard.getGameLabel().setText(
 									"<html><br><br><br><br><br>You have selected: <br><br> Province: <b>"
 											+ province.getName()
@@ -142,7 +136,7 @@ public class RiskMap extends JPanel {
 											+ province.getArmy()
 											+ "</b><br>Player: <b>"
 											+ province.getPlayer()
-													.getPlayerId()
+													.getId()
 											+ "</b></html>");
 
 							repaint();

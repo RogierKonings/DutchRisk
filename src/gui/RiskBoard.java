@@ -1,5 +1,6 @@
 package gui;
 
+import game.Province;
 import game.RiskGame;
 
 import java.awt.Container;
@@ -23,8 +24,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import data.GameData;
-import data.NLmap;
-import data.Province;
 
 /**
  * 
@@ -37,18 +36,13 @@ public class RiskBoard extends JFrame {
 	private static int SCREEN_WIDTH;
 	private static int SCREEN_HEIGHT;
 	private int BORDER = 50;
-	private static int ATTACK_ANSWER;
-	
-
-	private static int maxattack = 3;
-	private static int maxdefence = 2;
 
 	private static Container game;
-	private static JPanel boardPanel;
+	private JPanel boardPanel;
 	private static JLabel statisticsLabel;
 	private static JLabel gameLabel;
-	private static JLabel attackLabel;
-	private static JLabel defenceLabel;
+	private JLabel attackLabel;
+	private JLabel defenceLabel;
 	private static JSpinner attackSpinner;
 	private static JSpinner defenceSpinner;
 	private static JButton attackThrowButton;
@@ -58,17 +52,11 @@ public class RiskBoard extends JFrame {
 	private static JLabel defenceResultLabel;
 	private static JButton addArmyButton;
 	private static JButton removeArmyButton;
-	private static JButton nextPlayerButton;
+	private JButton nextPlayerButton;
 	private static JComboBox destinationBox;
 
-	GameData gamedata;
-	ArrayList<Province> countrydata;
-
-	// static int[] attackResultArray;
-	// static int[] defenceResultArray;
-
 	public RiskBoard() {
-
+		initialize();
 	}
 
 	public void initialize() {
@@ -112,7 +100,7 @@ public class RiskBoard extends JFrame {
 		if (gameLabel == null) {
 			gameLabel = new JLabel("Game Label", SwingConstants.CENTER);
 			gameLabel.setBounds(SCREEN_WIDTH - 300, 5, 300, 220);
-			gameLabel.setText("Game Label");
+			gameLabel.setText("");
 		}
 		return gameLabel;
 	}
@@ -129,7 +117,7 @@ public class RiskBoard extends JFrame {
 					defenceResultLabel.setText("");
 
 					String result = (String) destinationBox.getSelectedItem();
-					RiskGame.setTargetProvince(result);
+					GameData.setTargetProvince(result);
 
 					if (RiskGame.unplacedArmies() == true) {
 
@@ -138,13 +126,13 @@ public class RiskBoard extends JFrame {
 
 					} else {
 
-						if (RiskGame.getCurrentPlayer().isPlayerProvince(
-								RiskGame.getTargetProvince()) == true) {
+						if (GameData.CURRENT_PLAYER.isPlayerProvince(
+								GameData.TARGET_PROVINCE) == true) {
 
 							gameLabel
 									.setText("You cannot attack your own province!!");
 
-						} else if (RiskGame.getSelectedProvince().getArmy() == 1) {
+						} else if (GameData.SELECTED_PROVINCE.getArmy() == 1) {
 							gameLabel
 									.setText("You will need more than one army to attack!");
 						} else {
@@ -153,16 +141,16 @@ public class RiskBoard extends JFrame {
 							// case of
 							// a
 							// 'No'
-							ATTACK_ANSWER = JOptionPane
+							int ATTACK_ANSWER = JOptionPane
 									.showConfirmDialog(
 											game,
 											"Do you want to attack from "
-													+ RiskGame
-															.getSelectedProvince()
+													+ GameData
+															.SELECTED_PROVINCE
 															.getName()
 													+ " to "
-													+ RiskGame
-															.getTargetProvince()
+													+ GameData
+															.TARGET_PROVINCE
 															.getName() + "?",
 											"Confirm Attack",
 											JOptionPane.YES_NO_OPTION);
@@ -179,12 +167,13 @@ public class RiskBoard extends JFrame {
 							}
 						}
 					}
-				}
-
-			});
+			
+				}});
+			
 			attackButton.setBounds(SCREEN_WIDTH - 250, 310, 190, 50);
 		}
 		return attackButton;
+
 	}
 
 	public static JComboBox getDestinationBox() {
@@ -207,62 +196,47 @@ public class RiskBoard extends JFrame {
 		return statisticsLabel;
 	}
 
-	public static JPanel getBoardPanel() {
+	public JPanel getBoardPanel() {
 
 		if (boardPanel == null) {
 			boardPanel = new JPanel();
-			boardPanel.setBounds(5, 5, SCREEN_WIDTH - 320, SCREEN_HEIGHT - 10);
+			boardPanel.setBounds(5, 5, SCREEN_WIDTH - 320, SCREEN_HEIGHT);
 			RiskMap riskmap = new RiskMap(new ImageIcon(
-					"../DutchRisk/src/img/NL.jpg").getImage());
+					"../Risk/src/img/NL-map.jpg").getImage());
 
-			NLmap nlsettings = new NLmap();
 
 			boardPanel.add(riskmap);
 		}
 		return boardPanel;
 	}
-	
-	public static void setMaxAttack(int amount) {
-		maxattack = amount;
-	}
 
-	public static SpinnerNumberModel getAttackDice() {
-		SpinnerNumberModel attackdice = new SpinnerNumberModel(1, 1, maxattack, 1);
+	public SpinnerNumberModel getAttackDice() {
+		SpinnerNumberModel attackdice = new SpinnerNumberModel(1, 1, 3, 1);
 		attackdice.addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent e) {
-                
-            	
-            	
-            }
-        });
-		
+			public void stateChanged(ChangeEvent e) {
+
+			}
+		});
+
 		return attackdice;
 	}
-	
-	
 
-	public static JSpinner getAttackSpinner() {
+	public JSpinner getAttackSpinner() {
 
 		if (attackSpinner == null) {
 			attackSpinner = new JSpinner(getAttackDice());
 			attackSpinner.setBounds(SCREEN_WIDTH - 260, 485, 40, 30);
 			attackSpinner.setEnabled(false);
-			
+
 		}
 		return attackSpinner;
 	}
-	
-	public static void setMaxDefence(int amount) {
-		maxdefence = amount;
+
+	public SpinnerNumberModel getDefenceDice() {
+		return new SpinnerNumberModel(1, 1, 2, 1);
 	}
 
-	public static SpinnerNumberModel getDefenceDice() {
-		return new SpinnerNumberModel(1, 1, maxdefence, 1);
-	}
-	
-
-
-	public static JSpinner getDefenceSpinner() {
+	public JSpinner getDefenceSpinner() {
 
 		if (defenceSpinner == null) {
 			defenceSpinner = new JSpinner(getDefenceDice());
@@ -279,9 +253,9 @@ public class RiskBoard extends JFrame {
 			attackThrowButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					int dice = (Integer) attackSpinner.getValue();
-					GameData.setAttackResultArray(RiskGame.diceThrow(dice));
+					GameData.attackResult = RiskGame.diceThrow(dice);
 					int[] attackArray = new int[dice];
-					attackArray = GameData.getAttackResultArray();
+					attackArray = GameData.attackResult;
 
 					String result = "";
 
@@ -307,9 +281,9 @@ public class RiskBoard extends JFrame {
 			defenceThrowButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					int dice = (Integer) defenceSpinner.getValue();
-					GameData.setDefenceResultArray(RiskGame.diceThrow(dice));
+					GameData.defenceResult = RiskGame.diceThrow(dice);
 					int[] defenceArray = new int[dice];
-					defenceArray = GameData.getDefenceResultArray();
+					defenceArray = GameData.defenceResult;
 
 					String result = "";
 
@@ -330,7 +304,7 @@ public class RiskBoard extends JFrame {
 		return defenceThrowButton;
 	}
 
-	public static JLabel getAttackLabel() {
+	public JLabel getAttackLabel() {
 
 		if (attackLabel == null) {
 			attackLabel = new JLabel("Attack");
@@ -339,7 +313,7 @@ public class RiskBoard extends JFrame {
 		return attackLabel;
 	}
 
-	public static JLabel getDefenceLabel() {
+	public JLabel getDefenceLabel() {
 
 		if (defenceLabel == null) {
 			defenceLabel = new JLabel("Defence");
@@ -348,7 +322,7 @@ public class RiskBoard extends JFrame {
 		return defenceLabel;
 	}
 
-	public static JLabel getAttackResultLabel() {
+	public JLabel getAttackResultLabel() {
 
 		if (attackResultLabel == null) {
 			attackResultLabel = new JLabel();
@@ -357,7 +331,7 @@ public class RiskBoard extends JFrame {
 		return attackResultLabel;
 	}
 
-	public static JLabel getDefenceResultLabel() {
+	public JLabel getDefenceResultLabel() {
 
 		if (defenceResultLabel == null) {
 			defenceResultLabel = new JLabel();
@@ -374,12 +348,16 @@ public class RiskBoard extends JFrame {
 			addArmyButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 
-					RiskGame.addUnit();
-					game.repaint();
+					if (GameData.SELECTED_PROVINCE == null) {
+						getGameLabel().setText("Please select a Province!");
+					} else {
 
+						RiskGame.addUnit();
+						game.repaint();
+					}
 				}
 			});
-			addArmyButton.setEnabled(false);
+			addArmyButton.setEnabled(true);
 			addArmyButton.setBounds(SCREEN_WIDTH - 300, 755, 140, 65);
 		}
 
@@ -394,8 +372,14 @@ public class RiskBoard extends JFrame {
 			removeArmyButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 
-					RiskGame.removeUnit();
-					game.repaint();
+					if (GameData.SELECTED_PROVINCE == null) {
+						RiskBoard.getGameLabel().setText(
+								"Please select a Province!");
+					} else {
+						
+						RiskGame.removeUnit();
+						game.repaint();
+					}
 
 				}
 			});
@@ -405,20 +389,17 @@ public class RiskBoard extends JFrame {
 		return removeArmyButton;
 	}
 
-	public static JButton getNextPlayerButton() {
+	public JButton getNextPlayerButton() {
 
 		if (nextPlayerButton == null) {
 			nextPlayerButton = new JButton("Next Player");
 
 			nextPlayerButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-
-					addArmyButton.setEnabled(true);
-
+					
 					RiskGame.nextPlayer();
-
 					game.repaint();
-
+					
 				}
 			});
 
@@ -427,10 +408,23 @@ public class RiskBoard extends JFrame {
 		return nextPlayerButton;
 	}
 
-	public static void main(String[] args) {
+	public static void showDestinations() {
+		if (GameData.GAME_RUNNING == true && GameData.SELECTED_PROVINCE != null) {
 
-		RiskGame game = new RiskGame();
-		game.newGame();
+			getDestinationBox().removeAllItems();
+
+			Province[] des = new Province[GameData.SELECTED_PROVINCE
+					.getDestinations().length - 1];
+
+			des = GameData.SELECTED_PROVINCE.getDestinations();
+
+			for (int i = 0; i < des.length; i++) {
+
+				getDestinationBox().addItem(des[i].getName());
+
+			}
+		}
 
 	}
+
 }

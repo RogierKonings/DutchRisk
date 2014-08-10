@@ -1,12 +1,12 @@
-package data;
-
-import game.Player;
+package game;
 
 import java.awt.Color;
-import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 
 import javax.swing.JPanel;
+
+import data.GameData;
+import data.Nationality;
 
 /**
  * 
@@ -21,7 +21,8 @@ public class Province extends JPanel {
 	private int army = 0;
 	private String name;
 	private String capital;
-	private Ellipse2D capitalshape;
+	private Nationality nation;
+	private Ellipse2D capitallocation;
 	public boolean SELECTED = false;
 	private Province[] destinations;
 	private Color color;
@@ -38,55 +39,44 @@ public class Province extends JPanel {
 	 * @param MOVETO whether or not the province is a target
 	 */
 	public Province(int id, Player player, String name, String capital, Nationality nation, int army,
-			Ellipse2D capitalshape, boolean SELECTED, Province[] destinations, Color color) {
+			Ellipse2D capitallocation, boolean SELECTED, Province[] destinations, Color color) {
 		this.id = id;
 		this.player = player;
 		this.name = name;
 		this.capital = capital;
+		this.nation = nation;
 		this.army = army;
-		this.capitalshape = capitalshape;
+		this.capitallocation = capitallocation;
 		this.SELECTED = SELECTED;
 		this.destinations = destinations;
 		this.color = color;
-
 	}
-
-	public int getId() {
-		return id;
-	}
+	
 
 	public Player getPlayer() {
 		return player;
 	}
-
-	public void setPlayer(Player plr) {
-		player = plr;
+	
+	public void setPlayer(Player player) {
+		this.player = player;
 	}
-
+	
 	public String getName() {
 		return name;
 	}
-
+	
 	public String getCapital() {
 		return capital;
+	}
+	
+	public Nationality getNation() {
+		return nation;
 	}
 
 	public int getArmy() {
 		return army;
 	}
 	
-	public void setArmy(int amount) {
-		army = amount;
-	}
-
-	public Ellipse2D getCapitalShape() {
-		return capitalshape;
-	}
-	
-	public Color getColor() {
-		return color;
-	}
-
 	public void addArmy() {
 		army++;
 	}
@@ -95,8 +85,17 @@ public class Province extends JPanel {
 		army--;
 	}
 	
+	public Ellipse2D getCapitalLocation() {
+		return capitallocation;
+	}
+	
 	public Province[] getDestinations() {
 		return destinations;
 	}
 	
+	public Color getColor() {
+		return color;
+	}
+	
 }
+

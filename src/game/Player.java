@@ -3,36 +3,51 @@ package game;
 import java.awt.Color;
 import java.util.ArrayList;
 
-import data.Province;
+import data.GameData;
 
 /**
  * 
  * @author rogier_konings
- *
+ * 
  */
 public class Player {
 
-	private int playerid;
+	private int id;
+	private String name;
 	private int unplaced_armies;
-
-	private ArrayList<Province> player_provinces;
-	private int[] playerdicethrow = null;
+	private int score;
 	private Color playercolor;
+	private Player player;
 
 	/**
 	 * Creates a new player
-	 * @param playerid the number by which to identify the player
-	 * @param unplaced_armies the armies that this player still will have to place on their provinces
-	 * @param score the score of the player
+	 * 
+	 * @param playerid
+	 *            the number by which to identify the player
+	 * @param unplaced_armies
+	 *            the armies that this player still will have to place on their
+	 *            provinces
+	 * @param score
+	 *            the score of the player
 	 */
-	public Player(int playerid, int unplaced_armies, int score, Color playercolor) {
-		this.playerid = playerid;
+	public Player(int id, String name, int unplaced_armies, int score, Color playercolor) {
+
+		this.id = id;
+		this.name = name;
 		this.unplaced_armies = unplaced_armies;
 		this.playercolor = playercolor;
 	}
 
-	public int getPlayerId() {
-		return playerid;
+	public int getId() {
+		return id;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public Color getPlayerColor() {
+		return playercolor;
 	}
 
 	public int getUnplacedArmies() {
@@ -44,34 +59,34 @@ public class Player {
 	}
 
 	public ArrayList<Province> getPlayerProvince() {
-		return player_provinces;
-	}
-	
-	public void setPlayerProvinces(ArrayList<Province> prov) {
-		player_provinces = prov;
-	}
-	
-	public int[] getPlayerDiceThrow() {
-		return playerdicethrow;
-	}
-	
-	public void setPlayerDiceThrow(int[] dicethrow) {
-		playerdicethrow = dicethrow;
-	}
-	
-	public Color getPlayerColor() {
-		return playercolor;
-	}
-	
-	public boolean isPlayerProvince(Province province) {
-		
-		for(Province prov : player_provinces) {
-			
-			if( prov.equals(province)) {
-				return true;
+
+		ArrayList<Province> playerprovinces = new ArrayList<Province>();
+
+		for (Province province : GameData.provinces) {
+
+			if (province.getPlayer().getId() == getId()) {
+				playerprovinces.add(province);
 			}
-			
+
 		}
+		return playerprovinces;
+	}
+
+	public boolean isPlayerProvince(Province prov) {
+
+		if (getId() == prov.getPlayer().getId()) {
+			return true;
+		}
+
 		return false;
 	}
+
+	// public int[] getPlayerDiceThrow() {
+	// return playerdicethrow;
+	// }
+	//
+	// public void setPlayerDiceThrow(int[] dicethrow) {
+	// playerdicethrow = dicethrow;
+	// }
+
 }
