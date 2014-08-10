@@ -11,7 +11,7 @@ import javax.imageio.ImageIO;
 public class NLmap {
 
 	public File netherlands = new File(
-			"../Risk/src/img/NL-coordinates.png");
+			"../DutchRisk/src/img/maps/NL-coordinates.png");
 	public BufferedImage buffimg;
 
 	public NLmap() {

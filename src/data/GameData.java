@@ -5,7 +5,10 @@ import game.Province;
 import gui.RiskBoard;
 
 import java.awt.Color;
+import java.awt.Image;
 import java.util.ArrayList;
+
+import javax.swing.ImageIcon;
 
 /**
  * 
@@ -39,7 +42,20 @@ public class GameData {
 
 	
 	public static boolean GAME_RUNNING;
+	public static boolean PLACE_ROUND;
 	public static boolean ATTACK_RUNNING;
+	
+	public static int ROUND = 1;
+	
+	public static ImageIcon dice1 = new ImageIcon("../DutchRisk/src/img/dice/dice1.png");
+	public static ImageIcon dice2 = new ImageIcon("../DutchRisk/src/img/dice/dice2.png");
+	public static ImageIcon dice3 = new ImageIcon("../DutchRisk/src/img/dice/dice3.png");
+	public static ImageIcon dice4 = new ImageIcon("../DutchRisk/src/img/dice/dice4.png");
+	public static ImageIcon dice5 = new ImageIcon("../DutchRisk/src/img/dice/dice5.png");
+	public static ImageIcon dice6 = new ImageIcon("../DutchRisk/src/img/dice/dice6.png");
+	
+	public static ImageIcon[] diceimage = new ImageIcon[6];
+	
 	
 	public GameData(CountryData data) {
 		this.data = data;
@@ -49,12 +65,24 @@ public class GameData {
 
 	public void initialize() {
 		loadProvinces();
+		loadDiceImages();
 	}
 
 	public void loadProvinces() {
 
 		provinces = data.getProvinces();
 
+	}
+	
+	public void loadDiceImages() {
+		
+		diceimage[0] = dice1;
+		diceimage[1] = dice2;
+		diceimage[2] = dice3;
+		diceimage[3] = dice4;
+		diceimage[4] = dice5;
+		diceimage[5] = dice6;
+		
 	}
 
 	public Province getSelectedProvince() {
@@ -80,9 +108,6 @@ public class GameData {
 			}
 
 		}
-		RiskBoard.getGameLabel().setText(
-				"You are attacking from " + SELECTED_PROVINCE.getName()
-						+ " to " + TARGET_PROVINCE.getName());
 	}
 	
 }
