@@ -25,8 +25,8 @@ public class RiskGame {
 
 		loadData();
 		loadBoard();
-		loadPlayers();
-
+		loadPlayers(3);
+		loadScenario("historical");
 		updateStatistics();
 
 	}
@@ -39,13 +39,10 @@ public class RiskGame {
 		board = new RiskBoard();
 	}
 
-	public void loadPlayers() {
+	public void loadPlayers(int amount) {
 
-		data.CURRENT_PLAYER = data.PLAYER_ONE;
-		// divideProvinces();
-		// divideProvincesHistorically(GameData.PLAYER_ONE, GameData.PLAYER_TWO,
-		// GameData.PLAYER_THREE);
-		loadScenario("germaninvasion");
+		GameData.CURRENT_PLAYER = GameData.PLAYER_ONE;
+		GameData.PLAYER_AMOUNT = amount;
 	}
 
 	public void loadScenario(String scenario) {
@@ -59,7 +56,7 @@ public class RiskGame {
 
 	public static void attackInitiated() {
 
-		if (GameData.ATTACK_RUNNING == true && GameData.attackResult != null
+		if (GameData.PLACE_ROUND == false && GameData.ATTACK_RUNNING == true && GameData.attackResult != null
 				&& GameData.defenceResult != null) {
 
 			int diceattack = GameData.attackResult.length;
@@ -143,9 +140,9 @@ public class RiskGame {
 			GameData.TARGET_PROVINCE.addArmy();
 
 			RiskBoard.getGameLabel().setText(
-					"Congratulations " + GameData.CURRENT_PLAYER.getName()
-							+ ", you have conquered "
-							+ GameData.TARGET_PROVINCE.getName());
+					"<html>Congratulations " + GameData.CURRENT_PLAYER.getName()
+							+ "!! <br><br>You have conquered <b>"
+							+ GameData.TARGET_PROVINCE.getName() + "</b></html>");
 
 		}
 
@@ -260,7 +257,7 @@ public class RiskGame {
 
 		GameData.ROUND++;
 
-		if (GameData.ROUND > 1) {
+		if (GameData.ROUND > 0) {
 			GameData.PLACE_ROUND = false;
 		}
 
@@ -268,7 +265,16 @@ public class RiskGame {
 
 	public static void updateStatistics() {
 
-		String result = "Round <b>" + GameData.ROUND + "</b><br><br><b>"
+		String roundinfo = "";
+		
+		if(GameData.ROUND == 0) {
+			roundinfo = "PLACING ROUND - PLEASE DIVIDE YOUR ARMIES!";
+		} else {
+			
+			roundinfo = "Round <b>" + GameData.ROUND + "</b>";
+		}
+		
+		String result = "" + roundinfo + "<br><br><b>"
 				+ GameData.CURRENT_PLAYER.getName()
 				+ " </b> can make a move! <br><br>You can place <b>"
 				+ GameData.CURRENT_PLAYER.getUnplacedArmies()

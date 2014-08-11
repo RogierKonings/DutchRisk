@@ -1,6 +1,5 @@
 package data;
 
-import game.Player;
 import game.Province;
 
 import java.util.Collections;
@@ -75,6 +74,7 @@ public class Scenario {
 
 				if (province.getNation() == Nationality.NEDERLANDS) {
 					province.setPlayer(GameData.PLAYER_ONE);
+					GameData.PLAYER_ONE.setUnplacedArmies(12);
 				} else if (province.getNation() == Nationality.VLAAMS) {
 					province.setPlayer(GameData.PLAYER_TWO);
 					GameData.PLAYER_TWO.setUnplacedArmies(16);

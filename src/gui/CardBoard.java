@@ -34,7 +34,7 @@ public class CardBoard extends JFrame {
 
 		this.setSize(640, 350);
 		this.setLocation(500, 200);
-		this.setTitle("CARDS");
+		this.setTitle("CARDS from " + GameData.CURRENT_PLAYER.getName());
 		this.setDefaultCloseOperation(HIDE_ON_CLOSE);
 
 		cardBoard = getContentPane();

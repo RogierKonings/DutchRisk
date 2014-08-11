@@ -45,7 +45,7 @@ public class GameData {
 	public static boolean PLACE_ROUND;
 	public static boolean ATTACK_RUNNING;
 	
-	public static int ROUND = 1;
+	public static int ROUND = 0;
 	
 	public static ImageIcon dice1 = new ImageIcon("../DutchRisk/src/img/dice/dice1.png");
 	public static ImageIcon dice2 = new ImageIcon("../DutchRisk/src/img/dice/dice2.png");

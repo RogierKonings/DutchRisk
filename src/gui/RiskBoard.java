@@ -48,6 +48,7 @@ public class RiskBoard extends JFrame {
 	private static JButton defenceThrowButton;
 	private static JButton attackButton;
 	private static JButton moveButton;
+	private static JButton collectButton;
 	private static JLabel attackResultLabel1;
 	private static JLabel attackResultLabel2;
 	private static JLabel attackResultLabel3;
@@ -72,7 +73,7 @@ public class RiskBoard extends JFrame {
 
 		this.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 		this.setLocation(BORDER, BORDER);
-		this.setTitle("RISK");
+		this.setTitle("RISK - SCENARIO ");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		game = getContentPane();
@@ -83,6 +84,7 @@ public class RiskBoard extends JFrame {
 		game.add(getGameLabel());
 		game.add(getAttackButton());
 		game.add(getMoveButton());
+		game.add(getCollectButton());
 		game.add(getDestinationBox());
 		game.add(getAttackLabel());
 		game.add(getDefenceLabel());
@@ -187,7 +189,7 @@ public class RiskBoard extends JFrame {
 				}
 			});
 
-			attackButton.setBounds(SCREEN_WIDTH - 250, 310, 95, 50);
+			attackButton.setBounds(SCREEN_WIDTH - 300, 310, 95, 50);
 		}
 		return attackButton;
 
@@ -197,7 +199,7 @@ public class RiskBoard extends JFrame {
 
 		if (moveButton == null) {
 			moveButton = new JButton("Move");
-			moveButton.setEnabled(true);
+			moveButton.setEnabled(false);
 			moveButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 
@@ -240,10 +242,21 @@ public class RiskBoard extends JFrame {
 
 			});
 
-			moveButton.setBounds(SCREEN_WIDTH - 155, 310, 95, 50);
+			moveButton.setBounds(SCREEN_WIDTH - 200, 310, 95, 50);
 		}
 		return moveButton;
 
+	}
+	
+	public static JButton getCollectButton() {
+		
+		if(collectButton == null) {
+			collectButton = new JButton();
+			collectButton.setText("Collect");
+			collectButton.setBounds(SCREEN_WIDTH - 100, 310, 95, 50);
+			collectButton.setEnabled(false);
+		}
+		return collectButton;
 	}
 
 	public static JComboBox getDestinationBox() {

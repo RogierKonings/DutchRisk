@@ -117,6 +117,8 @@ public class RiskMap extends JPanel {
 							RiskBoard.getDestinationBox().setEnabled(false);
 							RiskBoard.getAddArmyButton().setEnabled(false);
 							RiskBoard.getRemoveArmyButton().setEnabled(false);
+							RiskBoard.getMoveButton().setEnabled(false);
+							RiskBoard.getCollectButton().setEnabled(false);
 
 							province.SELECTED = true;
 							GameData.SELECTED_PROVINCE = province;
@@ -125,8 +127,14 @@ public class RiskMap extends JPanel {
 
 							if (province.getPlayer() == GameData.CURRENT_PLAYER) {
 
+								if(GameData.PLACE_ROUND == false) {
+								
 								RiskBoard.getAttackButton().setEnabled(true);
 								RiskBoard.getDestinationBox().setEnabled(true);
+								RiskBoard.getMoveButton().setEnabled(true);
+								RiskBoard.getCollectButton().setEnabled(true);
+								}
+								
 								RiskBoard.getRemoveArmyButton().setEnabled(false);
 								
 								
