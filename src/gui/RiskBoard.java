@@ -55,6 +55,7 @@ public class RiskBoard extends JFrame {
 	private static JLabel defenceResultLabel2;
 	private static JButton addArmyButton;
 	private static JButton removeArmyButton;
+	private static JButton showCardsButton;
 	private JButton nextPlayerButton;
 	private static JComboBox destinationBox;
 
@@ -96,7 +97,9 @@ public class RiskBoard extends JFrame {
 		game.add(getDefenceResultLabel2());
 		game.add(getAddArmyButton());
 		game.add(getRemoveArmyButton());
+		game.add(getShowCardsButton());
 		game.add(getNextPlayerButton());
+		
 
 		this.setVisible(true);
 
@@ -262,6 +265,8 @@ public class RiskBoard extends JFrame {
 
 		return statisticsLabel;
 	}
+	
+	
 
 	public JPanel getBoardPanel() {
 
@@ -531,7 +536,7 @@ public class RiskBoard extends JFrame {
 				}
 			});
 			addArmyButton.setEnabled(true);
-			addArmyButton.setBounds(SCREEN_WIDTH - 300, 755, 140, 65);
+			addArmyButton.setBounds(SCREEN_WIDTH - 300, 700, 140, 65);
 		}
 
 		return addArmyButton;
@@ -556,10 +561,28 @@ public class RiskBoard extends JFrame {
 
 				}
 			});
-			removeArmyButton.setBounds(SCREEN_WIDTH - 150, 755, 140, 65);
+			removeArmyButton.setBounds(SCREEN_WIDTH - 150, 700, 140, 65);
 		}
 
 		return removeArmyButton;
+	}
+	
+	public JButton getShowCardsButton() {
+		
+		if (showCardsButton == null) {
+			showCardsButton = new JButton("Show your cards");
+			
+			showCardsButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+					CardBoard cardboard = new CardBoard();
+					
+				}
+			});
+			
+			showCardsButton.setBounds(SCREEN_WIDTH - 300, 765, 290, 65);
+		}
+		return showCardsButton;
 	}
 
 	public JButton getNextPlayerButton() {
@@ -608,5 +631,4 @@ public class RiskBoard extends JFrame {
 		}
 
 	}
-
 }

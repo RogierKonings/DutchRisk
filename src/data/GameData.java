@@ -1,11 +1,10 @@
 package data;
 
+import game.Card;
 import game.Player;
 import game.Province;
-import gui.RiskBoard;
 
 import java.awt.Color;
-import java.awt.Image;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -21,15 +20,16 @@ public class GameData {
 	public static int STARTING_ARMIES = 36 / PLAYER_AMOUNT;
 
 	public final static Player PLAYER_ONE = new Player(1, "Rogier", STARTING_ARMIES, 0,
-			Color.BLUE);
+			Color.BLUE, null);
 	public final static Player PLAYER_TWO = new Player(2, "Jeroen", STARTING_ARMIES, 0,
-			Color.RED);
+			Color.RED, null);
 	public final static Player PLAYER_THREE = new Player(3, "Isaac", STARTING_ARMIES, 0,
-			Color.MAGENTA);
+			Color.MAGENTA, null);
 
 	private CountryData data;
 
 	public static ArrayList<Province> provinces;
+	public static ArrayList<Card> gamecards;
 	public static int[] attackResult = null;
 	public static int[] defenceResult = null;
 	
@@ -66,6 +66,7 @@ public class GameData {
 	public void initialize() {
 		loadProvinces();
 		loadDiceImages();
+		loadGameCards();
 	}
 
 	public void loadProvinces() {
@@ -82,6 +83,12 @@ public class GameData {
 		diceimage[3] = dice4;
 		diceimage[4] = dice5;
 		diceimage[5] = dice6;
+		
+	}
+	
+	public void loadGameCards() {
+		
+		gamecards = NedCardData.getGameCards();
 		
 	}
 

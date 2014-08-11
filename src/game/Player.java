@@ -18,6 +18,7 @@ public class Player {
 	private int score;
 	private Color playercolor;
 	private Player player;
+	private ArrayList<Card> playercards;
 
 	/**
 	 * Creates a new player
@@ -30,12 +31,13 @@ public class Player {
 	 * @param score
 	 *            the score of the player
 	 */
-	public Player(int id, String name, int unplaced_armies, int score, Color playercolor) {
+	public Player(int id, String name, int unplaced_armies, int score, Color playercolor, ArrayList<Card> playercards) {
 
 		this.id = id;
 		this.name = name;
 		this.unplaced_armies = unplaced_armies;
 		this.playercolor = playercolor;
+		this.playercards = playercards;
 	}
 
 	public int getId() {
@@ -81,12 +83,18 @@ public class Player {
 		return false;
 	}
 
-	// public int[] getPlayerDiceThrow() {
-	// return playerdicethrow;
-	// }
-	//
-	// public void setPlayerDiceThrow(int[] dicethrow) {
-	// playerdicethrow = dicethrow;
-	// }
-
+	public ArrayList<Card> getPlayerCards() {
+		
+		ArrayList<Card> playercards = new ArrayList<Card>();
+		
+		for(Card card : GameData.gamecards) {
+			
+			if(card.getPlayer() != null && card.getPlayer().getName().equals(getName())) {
+			
+				playercards.add(card);
+			}
+			
+		}
+		return playercards;
+	}
 }

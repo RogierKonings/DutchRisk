@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import data.GameData;
-import data.NedData;
+import data.NedMapData;
 import data.Scenario;
 
 public class RiskGame {
@@ -32,7 +32,7 @@ public class RiskGame {
 	}
 
 	public void loadData() {
-		GameData data = new GameData(new NedData());
+		GameData data = new GameData(new NedMapData());
 	}
 
 	public void loadBoard() {
@@ -157,11 +157,11 @@ public class RiskGame {
 		for (int i = 0; i < dice; i++) {
 
 			int randomthrow = (int) (Math.random() * 6 + 1);
-			
-			if(randomthrow == 1) {
-				
+
+			if (randomthrow == 1) {
+
 			}
-			
+
 			result[i] = randomthrow;
 
 		}
@@ -194,7 +194,7 @@ public class RiskGame {
 			RiskBoard.getAddArmyButton().setEnabled(false);
 			RiskBoard.getGameLabel().setText(
 					"No more armies left to be placed!");
-			
+
 		}
 
 	}
@@ -233,7 +233,7 @@ public class RiskGame {
 			GameData.CURRENT_PLAYER = GameData.PLAYER_TWO;
 			updateStatistics();
 			RiskBoard.getGameLabel().setText("");
-			
+
 		} else if (GameData.CURRENT_PLAYER == GameData.PLAYER_TWO
 				&& GameData.PLAYER_AMOUNT == 2) {
 			GameData.CURRENT_PLAYER = GameData.PLAYER_ONE;
@@ -248,27 +248,28 @@ public class RiskGame {
 			RiskBoard.getGameLabel().setText("");
 		} else if (GameData.CURRENT_PLAYER == GameData.PLAYER_THREE) {
 			GameData.CURRENT_PLAYER = GameData.PLAYER_ONE;
-			
+
 			nextRound();
 			updateStatistics();
 			RiskBoard.getGameLabel().setText("");
 		}
 
 	}
-	
+
 	public static void nextRound() {
-		
+
 		GameData.ROUND++;
-		
-		if(GameData.ROUND > 1) {
+
+		if (GameData.ROUND > 1) {
 			GameData.PLACE_ROUND = false;
 		}
-		
+
 	}
 
 	public static void updateStatistics() {
 
-		String result = "Round <b>" + GameData.ROUND + "</b><br><br><b>" + GameData.CURRENT_PLAYER.getName()
+		String result = "Round <b>" + GameData.ROUND + "</b><br><br><b>"
+				+ GameData.CURRENT_PLAYER.getName()
 				+ " </b> can make a move! <br><br>You can place <b>"
 				+ GameData.CURRENT_PLAYER.getUnplacedArmies()
 				+ "</b> armies<br><br> Current Provinces: <br><br>";
@@ -286,9 +287,12 @@ public class RiskGame {
 
 		RiskGame game = new RiskGame();
 
-		for (Province prov : GameData.provinces) {
+		for (Card card : GameData.gamecards) {
 
-			System.out.println(prov.getName());
+			if (card.getPlayer() != null) {
+
+				System.out.println(card.getPlayer().getName());
+			}
 
 		}
 
