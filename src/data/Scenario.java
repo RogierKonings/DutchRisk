@@ -21,9 +21,11 @@ public class Scenario {
 	public void divideProvincesRandomly() {
 
 		GameData.CURRENT_SCENARIO = "random";
-		Collections.shuffle(GameData.provinces);
-		Collections.shuffle(GameData.provinces);
-		Collections.shuffle(GameData.provinces);
+
+		for (int i = 0; i < 100; i++) {
+
+			Collections.shuffle(GameData.provinces);
+		}
 
 		int count = 0;
 
@@ -109,7 +111,7 @@ public class Scenario {
 					province.setPlayer(GameData.PLAYER_TWO);
 				}
 			}
-		} else if(GameData.PLAYER_AMOUNT == 3) {
+		} else if (GameData.PLAYER_AMOUNT == 3) {
 			System.out.println("Sorry, this is only a two player map!");
 		}
 

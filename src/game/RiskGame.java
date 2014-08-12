@@ -56,7 +56,8 @@ public class RiskGame {
 
 	public static void attackInitiated() {
 
-		if (GameData.PLACE_ROUND == false && GameData.ATTACK_RUNNING == true && GameData.attackResult != null
+		if (GameData.PLACE_ROUND == false && GameData.ATTACK_RUNNING == true
+				&& GameData.attackResult != null
 				&& GameData.defenceResult != null) {
 
 			int diceattack = GameData.attackResult.length;
@@ -140,10 +141,37 @@ public class RiskGame {
 			GameData.TARGET_PROVINCE.addArmy();
 
 			RiskBoard.getGameLabel().setText(
-					"<html>Congratulations " + GameData.CURRENT_PLAYER.getName()
+					"<html>Congratulations "
+							+ GameData.CURRENT_PLAYER.getName()
 							+ "!! <br><br>You have conquered <b>"
-							+ GameData.TARGET_PROVINCE.getName() + "</b></html>");
+							+ GameData.TARGET_PROVINCE.getName()
+							+ "</b></html>");
+			
+			GameData.RECEIVE_CARD = true;
 
+		}
+
+	}
+
+	public static void checkIfReceiveCard() {
+
+		if (GameData.RECEIVE_CARD == true) {
+
+			System.out.println(GameData.CURRENT_PLAYER.getName() + " receives a card!!");
+			
+			int count = 0;
+			
+			for(Card card : GameData.gamecards) {
+				
+				if(card.getPlayer() == null && count < 1) {
+					card.setPlayer(GameData.CURRENT_PLAYER);
+					count++;
+					System.out.println("Card " + card.getId() + " added to " + GameData.CURRENT_PLAYER.getName() + "'s stock of cards!");
+				}
+				
+			}
+			
+			GameData.RECEIVE_CARD = false;
 		}
 
 	}
@@ -227,12 +255,14 @@ public class RiskGame {
 
 	public static void nextPlayer() {
 		if (GameData.CURRENT_PLAYER == GameData.PLAYER_ONE) {
+			checkIfReceiveCard();
 			GameData.CURRENT_PLAYER = GameData.PLAYER_TWO;
 			updateStatistics();
 			RiskBoard.getGameLabel().setText("");
 
 		} else if (GameData.CURRENT_PLAYER == GameData.PLAYER_TWO
 				&& GameData.PLAYER_AMOUNT == 2) {
+			checkIfReceiveCard();
 			GameData.CURRENT_PLAYER = GameData.PLAYER_ONE;
 
 			nextRound();
@@ -240,10 +270,12 @@ public class RiskGame {
 			RiskBoard.getGameLabel().setText("");
 		} else if (GameData.CURRENT_PLAYER == GameData.PLAYER_TWO
 				&& GameData.PLAYER_AMOUNT == 3) {
+			checkIfReceiveCard();
 			GameData.CURRENT_PLAYER = GameData.PLAYER_THREE;
 			updateStatistics();
 			RiskBoard.getGameLabel().setText("");
 		} else if (GameData.CURRENT_PLAYER == GameData.PLAYER_THREE) {
+			checkIfReceiveCard();
 			GameData.CURRENT_PLAYER = GameData.PLAYER_ONE;
 
 			nextRound();
@@ -266,14 +298,14 @@ public class RiskGame {
 	public static void updateStatistics() {
 
 		String roundinfo = "";
-		
-		if(GameData.ROUND == 0) {
+
+		if (GameData.ROUND == 0) {
 			roundinfo = "PLACING ROUND - PLEASE DIVIDE YOUR ARMIES!";
 		} else {
-			
+
 			roundinfo = "Round <b>" + GameData.ROUND + "</b>";
 		}
-		
+
 		String result = "" + roundinfo + "<br><br><b>"
 				+ GameData.CURRENT_PLAYER.getName()
 				+ " </b> can make a move! <br><br>You can place <b>"

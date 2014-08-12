@@ -1,8 +1,11 @@
 package gui;
 
 import game.Card;
+import game.RiskGame;
 
 import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -44,6 +47,14 @@ public class CardBoard extends JFrame {
 
 		cardTradeButton.setBounds(160, 210, 300, 100);
 		cardTradeButton.setText("Trade your cards");
+		
+		cardTradeButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				
+				
+			}
+		});
 
 		cardBoard.add(cardone);
 		cardBoard.add(cardtwo);
@@ -63,21 +74,28 @@ public class CardBoard extends JFrame {
 
 		for(int i = 0; i < playercards.size(); i++) {
 			
-		
+		if(i == 0) {
 			cardone.setBounds(10, 10, 125, 195);
-			cardone.setIcon(playercards.get(0).getCardIcon());
+			cardone.setIcon(playercards.get(i).getCardIcon());
+		} else if(i == 1) {
 
 			cardtwo.setBounds(135, 10, 125, 195);
-			cardtwo.setIcon(playercards.get(1).getCardIcon());
+			cardtwo.setIcon(playercards.get(i).getCardIcon());
+		} else if(i == 2) {
 
 			cardthree.setBounds(255, 10, 125, 195);
-			cardthree.setIcon(playercards.get(2).getCardIcon());
+			cardthree.setIcon(playercards.get(i).getCardIcon());
+		} else if(i == 3) {
 
 			cardfour.setBounds(380, 10, 125, 195);
-			cardfour.setIcon(playercards.get(3).getCardIcon());
+			cardfour.setIcon(playercards.get(i).getCardIcon());
+		} else if(i == 4) {
 
 			cardfive.setBounds(505, 10, 125, 195);
-			cardfive.setIcon(playercards.get(4).getCardIcon());
+			cardfive.setIcon(playercards.get(i).getCardIcon());
+		} else if(i == 5) {
+			System.out.println("You have too many cards, please trade some in for armies!");
+		}
 
 		}
 	}

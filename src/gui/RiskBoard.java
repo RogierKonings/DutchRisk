@@ -307,25 +307,9 @@ public class RiskBoard extends JFrame {
 	public static JSpinner getAttackSpinner() {
 
 		if (attackSpinner == null) {
-			// attackSpinner = new JSpinner(getAttackDice());
-			// attackSpinner.setBounds(SCREEN_WIDTH - 260, 485, 40, 30);
-
-			// Icon nums[] = new Icon[] { GameData.dice1, GameData.dice2,
-			// GameData.dice3 };
 
 			Dice dices[] = new Dice[] { GameData.dice1, GameData.dice2,
 					GameData.dice3 };
-
-			// ImageIcon icon1 = dice1.getDiceIcon();
-			// ImageIcon icon2 = dice2.getDiceIcon();
-			// ImageIcon icon3 = dice3.getDiceIcon();
-
-			// Icon nums[] = new Icon[] {icon1, icon2, icon3};
-
-			//JSpinner s1 = new JSpinner(new SpinnerListModel(dices));
-//			s1.setEditor(new IconEditor(s1));
-//			c.add(new JLabel(" Icon Spinner"));
-//			c.add(s1);
 
 			attackSpinner = new JSpinner(new SpinnerListModel(dices));
 			attackSpinner.setBounds(SCREEN_WIDTH - 260, 485, 40, 30);
@@ -344,25 +328,13 @@ public class RiskBoard extends JFrame {
 	public static JSpinner getDefenceSpinner() {
 
 		if (defenceSpinner == null) {
-			//defenceSpinner = new JSpinner(getDefenceDice());
-			
-			Dice dices[] = new Dice[] { GameData.dice1, GameData.dice2};
 
-			// ImageIcon icon1 = dice1.getDiceIcon();
-			// ImageIcon icon2 = dice2.getDiceIcon();
-			// ImageIcon icon3 = dice3.getDiceIcon();
-
-			// Icon nums[] = new Icon[] {icon1, icon2, icon3};
-
-			//JSpinner s1 = new JSpinner(new SpinnerListModel(dices));
-//			s1.setEditor(new IconEditor(s1));
-//			c.add(new JLabel(" Icon Spinner"));
-//			c.add(s1);
+			Dice dices[] = new Dice[] { GameData.dice1, GameData.dice2 };
 
 			defenceSpinner = new JSpinner(new SpinnerListModel(dices));
 			defenceSpinner.setBounds(SCREEN_WIDTH - 260, 485, 40, 30);
 			defenceSpinner.setEditor(new IconEditor(defenceSpinner));
-			
+
 			defenceSpinner.setBounds(SCREEN_WIDTH - 110, 485, 40, 30);
 			defenceSpinner.setEnabled(false);
 		}
@@ -375,9 +347,9 @@ public class RiskBoard extends JFrame {
 			attackThrowButton = new JButton("Throw");
 			attackThrowButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					// int dice = (Integer) attackSpinner.getValue();
-					
-					int dice = ((Dice) attackSpinner.getValue()).getDiceNumber();
+
+					int dice = ((Dice) attackSpinner.getValue())
+							.getDiceNumber();
 					System.out.println("Dice " + dice + " selected!");
 
 					if (dice > GameData.SELECTED_PROVINCE.getArmy() - 1) {
@@ -458,11 +430,13 @@ public class RiskBoard extends JFrame {
 			defenceThrowButton = new JButton("Throw");
 			defenceThrowButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					//int dice = (Integer) defenceSpinner.getValue();
-					
-					int dice = ((Dice) defenceSpinner.getValue()).getDiceNumber();
+					// int dice = (Integer) defenceSpinner.getValue();
 
-					if (dice > (Integer) ((Dice)attackSpinner.getValue()).getDiceNumber()
+					int dice = ((Dice) defenceSpinner.getValue())
+							.getDiceNumber();
+
+					if (dice > (Integer) ((Dice) attackSpinner.getValue())
+							.getDiceNumber()
 							&& GameData.SELECTED_PROVINCE.getArmy() < 3) {
 
 						getGameLabel().setText(
@@ -484,7 +458,8 @@ public class RiskBoard extends JFrame {
 							if (dice == 1) {
 
 								int resultnum = defenceArray[0];
-								ImageIcon resultimg = GameData.dices[resultnum - 1].getDiceIcon();
+								ImageIcon resultimg = GameData.dices[resultnum - 1]
+										.getDiceIcon();
 
 								defenceResultLabel1.setIcon(resultimg);
 
@@ -493,8 +468,10 @@ public class RiskBoard extends JFrame {
 
 								int resultnum1 = defenceArray[0];
 								int resultnum2 = defenceArray[1];
-								ImageIcon resultimg1 = GameData.dices[resultnum1 - 1].getDiceIcon();
-								ImageIcon resultimg2 = GameData.dices[resultnum2 - 1].getDiceIcon();
+								ImageIcon resultimg1 = GameData.dices[resultnum1 - 1]
+										.getDiceIcon();
+								ImageIcon resultimg2 = GameData.dices[resultnum2 - 1]
+										.getDiceIcon();
 
 								defenceResultLabel1.setIcon(resultimg1);
 								defenceResultLabel2.setIcon(resultimg2);

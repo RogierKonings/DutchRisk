@@ -8,15 +8,16 @@ import javax.swing.JSpinner;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+/**
+ * 
+ * @author rogier_konings
+ *
+ */
 public class IconEditor extends JLabel implements ChangeListener {
 
-	JSpinner spinner;
-
-	Icon icon;
-	
-	int diceeyes;
-	
-	Dice dice;
+	private JSpinner spinner;
+	private Icon icon;
+	private int diceeyes;
 
 	public IconEditor(JSpinner s) {
 		super((Icon) ((Dice) s.getValue()).getDiceIcon(), CENTER);

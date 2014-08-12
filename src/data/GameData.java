@@ -7,6 +7,7 @@ import game.Province;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.swing.ImageIcon;
 
@@ -31,6 +32,8 @@ public class GameData {
 
 	public static ArrayList<Province> provinces;
 	public static ArrayList<Card> gamecards;
+	
+	
 	public static int[] attackResult = null;
 	public static int[] defenceResult = null;
 	
@@ -45,6 +48,7 @@ public class GameData {
 	public static boolean GAME_RUNNING;
 	public static boolean PLACE_ROUND;
 	public static boolean ATTACK_RUNNING;
+	public static boolean RECEIVE_CARD;
 	
 	public static int ROUND = 0;
 	
@@ -88,13 +92,6 @@ public class GameData {
 	
 	public void loadDice() {
 		
-//		diceimage[0] = dice1;
-//		diceimage[1] = dice2;
-//		diceimage[2] = dice3;
-//		diceimage[3] = dice4;
-//		diceimage[4] = dice5;
-//		diceimage[5] = dice6;
-		
 		dices[0] = dice1;
 		dices[1] = dice2;
 		dices[2] = dice3;
@@ -107,6 +104,11 @@ public class GameData {
 	public void loadGameCards() {
 		
 		gamecards = NedCardData.getGameCards();
+		
+		for (int i = 0; i < 100; i++) {
+
+			Collections.shuffle(GameData.gamecards);
+		}
 		
 	}
 
