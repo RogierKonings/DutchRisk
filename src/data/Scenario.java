@@ -65,9 +65,11 @@ public class Scenario {
 
 				if (province.getNation() == Nationality.NEDERLANDS) {
 					province.setPlayer(GameData.PLAYER_ONE);
+					GameData.PLAYER_ONE.setUnplacedArmies(40);
 				} else if (province.getNation() == Nationality.VLAAMS
 						|| province.getNation() == Nationality.WAALS) {
 					province.setPlayer(GameData.PLAYER_TWO);
+					GameData.PLAYER_TWO.setUnplacedArmies(2);
 
 				}
 			}

@@ -38,7 +38,7 @@ public class RiskBoard extends JFrame {
 	private static int SCREEN_HEIGHT;
 	private int BORDER = 50;
 
-	private static Container game;
+	public static Container game;
 	private JPanel boardPanel;
 	private static JLabel statisticsLabel;
 	private static JLabel gameLabel;
@@ -58,8 +58,8 @@ public class RiskBoard extends JFrame {
 	private static JLabel defenceResultLabel2;
 	private static JButton addArmyButton;
 	private static JButton removeArmyButton;
-	private static JButton showCardsButton;
-	private JButton nextPlayerButton;
+	public static JButton showCardsButton;
+	private static JButton nextPlayerButton;
 	private static JComboBox destinationBox;
 
 	public RiskBoard() {
@@ -358,7 +358,7 @@ public class RiskBoard extends JFrame {
 								.setText("You do not have enough armies!");
 
 					} else {
-
+						GameData.attackResult = null;
 						GameData.attackResult = RiskGame.diceThrow(dice);
 						int[] attackArray = new int[dice];
 						attackArray = GameData.attackResult;
@@ -448,7 +448,7 @@ public class RiskBoard extends JFrame {
 						getGameLabel()
 								.setText("You do not have enough armies!");
 					} else {
-
+						GameData.defenceResult = null;
 						GameData.defenceResult = RiskGame.diceThrow(dice);
 						int[] defenceArray = new int[dice];
 						defenceArray = GameData.defenceResult;
@@ -621,6 +621,7 @@ public class RiskBoard extends JFrame {
 			});
 
 			showCardsButton.setBounds(SCREEN_WIDTH - 300, 765, 290, 65);
+			showCardsButton.setEnabled(false);
 		}
 		return showCardsButton;
 	}
@@ -668,6 +669,17 @@ public class RiskBoard extends JFrame {
 
 			}
 		}
+
+	}
+
+	public static void endGameState() {
+
+		attackButton.setEnabled(false);
+		moveButton.setEnabled(false);
+		collectButton.setEnabled(false);
+		nextPlayerButton.setEnabled(false);
+		showCardsButton.setEnabled(false);
+		destinationBox.setEnabled(false);
 
 	}
 }

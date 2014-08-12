@@ -31,7 +31,8 @@ public class Player {
 	 * @param score
 	 *            the score of the player
 	 */
-	public Player(int id, String name, int unplaced_armies, int score, Color playercolor, ArrayList<Card> playercards) {
+	public Player(int id, String name, int unplaced_armies, int score,
+			Color playercolor, ArrayList<Card> playercards) {
 
 		this.id = id;
 		this.name = name;
@@ -43,7 +44,7 @@ public class Player {
 	public int getId() {
 		return id;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -58,6 +59,10 @@ public class Player {
 
 	public void setUnplacedArmies(int armies) {
 		unplaced_armies = armies;
+	}
+	
+	public void addUnplacedArmies(int armies) {
+		unplaced_armies = unplaced_armies + armies;
 	}
 
 	public ArrayList<Province> getPlayerProvince() {
@@ -82,19 +87,50 @@ public class Player {
 
 		return false;
 	}
-
-	public ArrayList<Card> getPlayerCards() {
+	
+	public int countPlayerProvinces() {
 		
-		ArrayList<Card> playercards = new ArrayList<Card>();
+		int count = 0;
 		
-		for(Card card : GameData.gamecards) {
+		for(Province province : GameData.provinces) {
 			
-			if(card.getPlayer() != null && card.getPlayer().getName().equals(getName())) {
-			
-				playercards.add(card);
+			if(province.getPlayer().getId() == getId()) {
+				count++;
 			}
 			
 		}
+		return count;
+	}
+
+	public ArrayList<Card> getPlayerCards() {
+
+		ArrayList<Card> playercards = new ArrayList<Card>();
+
+		for (Card card : GameData.gamecards) {
+
+			if (card.getPlayer() != null
+					&& card.getPlayer().getName().equals(getName())) {
+
+				playercards.add(card);
+			}
+
+		}
 		return playercards;
 	}
+
+	public int getNumberOfCards() {
+
+		int numberofcards = 0;
+
+		for (Card card : GameData.gamecards) {
+
+			if (card.getPlayer() != null
+					&& card.getPlayer() == GameData.CURRENT_PLAYER) {
+				numberofcards++;
+			}
+
+		}
+		return numberofcards;
+	}
+
 }

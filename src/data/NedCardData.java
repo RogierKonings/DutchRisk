@@ -45,11 +45,11 @@ public class NedCardData {
 	private static Card cardnoordbrabant = new Card(11, CardType.HORSE, NedMapData.NOORD_BRABANT, horsenoordbrabant, null);
 	private static Card cardzuidbrabant = new Card(12, CardType.HORSE, NedMapData.ZUID_BRABANT, horsezuidbrabant, null);
 	
-	private static Card cardfriesland = new Card(13, CardType.SOLDIER, NedMapData.FRIESLAND, soldierfriesland, null);
-	private static Card cardholland = new Card(14, CardType.SOLDIER, NedMapData.HOLLAND, soldierholland, null);
+	private static Card cardfriesland = new Card(13, CardType.SOLDIER, NedMapData.FRIESLAND, soldierfriesland, GameData.PLAYER_ONE);
+	private static Card cardholland = new Card(14, CardType.SOLDIER, NedMapData.HOLLAND, soldierholland, GameData.PLAYER_ONE);
 	private static Card cardluxemburg = new Card(15, CardType.SOLDIER, NedMapData.LUXEMBURG, soldierluxemburg, null);
 	private static Card cardoverijssel = new Card(16, CardType.SOLDIER, NedMapData.OVERIJSSEL, soldieroverijssel, null);
-	private static Card cardutrecht = new Card(17, CardType.SOLDIER, NedMapData.UTRECHT, soldierutrecht, null);
+	private static Card cardutrecht = new Card(17, CardType.SOLDIER, NedMapData.UTRECHT, soldierutrecht, GameData.PLAYER_ONE);
 	private static Card cardwestvlaanderen = new Card(18, CardType.SOLDIER, NedMapData.WEST_VLAANDEREN, soldierwestvlaanderen, null);
 	
 	private static ArrayList<Card> gamecards;

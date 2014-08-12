@@ -5,6 +5,8 @@ import gui.RiskBoard;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.swing.JOptionPane;
+
 import data.GameData;
 import data.NedMapData;
 import data.Scenario;
@@ -25,7 +27,7 @@ public class RiskGame {
 
 		loadData();
 		loadBoard();
-		loadPlayers(3);
+		loadPlayers(2);
 		loadScenario("historical");
 		updateStatistics();
 
@@ -66,20 +68,41 @@ public class RiskGame {
 			int attackwin = 0;
 			int defencewin = 0;
 
-			if (GameData.attackResult[diceattack - 1] > GameData.defenceResult[dicedefence - 1]) {
-				attackwin++;
-				GameData.TARGET_PROVINCE.removeArmy();
-				System.out.println("Removing army from "
-						+ GameData.TARGET_PROVINCE.getName());
-			} else {
-				defencewin++;
-				GameData.SELECTED_PROVINCE.removeArmy();
-				System.out.println("Removing army from "
-						+ GameData.SELECTED_PROVINCE.getName());
+			if (diceattack == 1) {
+
+				if (dicedefence == 1) {
+
+					if (GameData.attackResult[diceattack - 1] > GameData.defenceResult[dicedefence - 1]) {
+						attackwin++;
+						GameData.TARGET_PROVINCE.removeArmy();
+						System.out.println("Removing army from "
+								+ GameData.TARGET_PROVINCE.getName());
+					} else {
+						defencewin++;
+						GameData.SELECTED_PROVINCE.removeArmy();
+						System.out.println("Removing army from "
+								+ GameData.SELECTED_PROVINCE.getName());
+					}
+				}
+
+				if (dicedefence == 2) {
+					if (GameData.attackResult[diceattack - 1] > GameData.defenceResult[dicedefence - 1]) {
+						attackwin++;
+						GameData.TARGET_PROVINCE.removeArmy();
+						System.out.println("Removing army from "
+								+ GameData.TARGET_PROVINCE.getName());
+					} else {
+						defencewin++;
+						GameData.SELECTED_PROVINCE.removeArmy();
+						System.out.println("Removing army from "
+								+ GameData.SELECTED_PROVINCE.getName());
+					}
+				}
 			}
 
-			if (dicedefence == 2) {
-				if (GameData.attackResult[diceattack - 2] > GameData.defenceResult[dicedefence - 2]) {
+			if (diceattack > 1) {
+
+				if (GameData.attackResult[diceattack - 1] > GameData.defenceResult[dicedefence - 1]) {
 					attackwin++;
 					GameData.TARGET_PROVINCE.removeArmy();
 					System.out.println("Removing army from "
@@ -90,12 +113,27 @@ public class RiskGame {
 					System.out.println("Removing army from "
 							+ GameData.SELECTED_PROVINCE.getName());
 				}
+
+				if (dicedefence == 2) {
+					if (GameData.attackResult[diceattack - 2] > GameData.defenceResult[dicedefence - 2]) {
+						attackwin++;
+						GameData.TARGET_PROVINCE.removeArmy();
+						System.out.println("Removing army from "
+								+ GameData.TARGET_PROVINCE.getName());
+					} else {
+						defencewin++;
+						GameData.SELECTED_PROVINCE.removeArmy();
+						System.out.println("Removing army from "
+								+ GameData.SELECTED_PROVINCE.getName());
+					}
+				}
 			}
 
 			RiskBoard.getGameLabel().setText(
 					"<html>Attack win: " + attackwin + "<br><br>Defence win: "
 							+ defencewin + "</html>");
 			checkIfConquered();
+			checkIfGameWon();
 			// setUpPlayers(GameData.PLAYER_AMOUNT);
 			setAttack(false);
 			RiskBoard.getAttackSpinner().setEnabled(false);
@@ -146,9 +184,9 @@ public class RiskGame {
 							+ "!! <br><br>You have conquered <b>"
 							+ GameData.TARGET_PROVINCE.getName()
 							+ "</b></html>");
-			
-			GameData.RECEIVE_CARD = true;
 
+			GameData.RECEIVE_CARD = true;
+			checkIfGameWon();
 		}
 
 	}
@@ -157,21 +195,86 @@ public class RiskGame {
 
 		if (GameData.RECEIVE_CARD == true) {
 
-			System.out.println(GameData.CURRENT_PLAYER.getName() + " receives a card!!");
-			
+			System.out.println(GameData.CURRENT_PLAYER.getName()
+					+ " receives a card!!");
+
 			int count = 0;
-			
-			for(Card card : GameData.gamecards) {
-				
-				if(card.getPlayer() == null && count < 1) {
+
+			for (Card card : GameData.gamecards) {
+
+				if (card.getPlayer() == null && count < 1) {
 					card.setPlayer(GameData.CURRENT_PLAYER);
 					count++;
-					System.out.println("Card " + card.getId() + " added to " + GameData.CURRENT_PLAYER.getName() + "'s stock of cards!");
+					System.out.println("Card " + card.getId() + " added to "
+							+ GameData.CURRENT_PLAYER.getName()
+							+ "'s stock of cards!");
 				}
-				
+
 			}
-			
+
 			GameData.RECEIVE_CARD = false;
+		}
+
+	}
+
+	public static void checkIfGameWon() {
+
+		if (GameData.PLAYER_AMOUNT == 2) {
+
+			if (GameData.PLAYER_ONE.countPlayerProvinces() == 0) {
+
+				JOptionPane.showInternalMessageDialog(RiskBoard.game,
+						"Congratulations " + GameData.PLAYER_TWO.getName()
+								+ " , you have won!", "",
+						JOptionPane.INFORMATION_MESSAGE);
+				GameData.GAME_OVER = true;
+				RiskBoard.endGameState();
+
+			} else if (GameData.PLAYER_TWO.countPlayerProvinces() == 0) {
+
+				JOptionPane.showInternalMessageDialog(RiskBoard.game,
+						"Congratulations " + GameData.PLAYER_ONE.getName()
+								+ " , you have won!", "",
+						JOptionPane.INFORMATION_MESSAGE);
+				GameData.GAME_OVER = true;
+				RiskBoard.endGameState();
+
+			}
+
+		} else if (GameData.PLAYER_AMOUNT == 3) {
+
+			if (GameData.PLAYER_ONE.countPlayerProvinces() == 0
+					&& GameData.PLAYER_TWO.countPlayerProvinces() == 0) {
+
+				JOptionPane.showInternalMessageDialog(RiskBoard.game,
+						"Congratulations " + GameData.PLAYER_THREE.getName()
+								+ " , you have won!", "",
+						JOptionPane.INFORMATION_MESSAGE);
+				GameData.GAME_OVER = true;
+				RiskBoard.endGameState();
+
+			} else if (GameData.PLAYER_TWO.countPlayerProvinces() == 0
+					&& GameData.PLAYER_THREE.countPlayerProvinces() == 0) {
+
+				JOptionPane.showInternalMessageDialog(RiskBoard.game,
+						"Congratulations " + GameData.PLAYER_ONE.getName()
+								+ " , you have won!", "",
+						JOptionPane.INFORMATION_MESSAGE);
+				GameData.GAME_OVER = true;
+				RiskBoard.endGameState();
+
+			} else if (GameData.PLAYER_THREE.countPlayerProvinces() == 0
+					&& GameData.PLAYER_ONE.countPlayerProvinces() == 0) {
+
+				JOptionPane.showInternalMessageDialog(RiskBoard.game,
+						"Congratulations " + GameData.PLAYER_TWO.getName()
+								+ " , you have won!", "",
+						JOptionPane.INFORMATION_MESSAGE);
+				GameData.GAME_OVER = true;
+				RiskBoard.endGameState();
+
+			}
+
 		}
 
 	}
@@ -302,7 +405,7 @@ public class RiskGame {
 		if (GameData.ROUND == 0) {
 			roundinfo = "PLACING ROUND - PLEASE DIVIDE YOUR ARMIES!";
 		} else {
-
+			RiskBoard.showCardsButton.setEnabled(true);
 			roundinfo = "Round <b>" + GameData.ROUND + "</b>";
 		}
 
@@ -318,6 +421,7 @@ public class RiskGame {
 					+ "<br>";
 		}
 		RiskBoard.getStatisticsLabel().setText("<html>" + result + "</html>");
+		RiskBoard.game.repaint();
 
 	}
 

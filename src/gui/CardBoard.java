@@ -11,9 +11,10 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
+import data.CardType;
 import data.GameData;
-import data.NedCardData;
 
 public class CardBoard extends JFrame {
 
@@ -24,12 +25,21 @@ public class CardBoard extends JFrame {
 	private final JLabel cardfour = new JLabel();
 	private final JLabel cardfive = new JLabel();
 
+	private static Card card1;
+	private static Card card2;
+	private static Card card3;
+	private static Card card4;
+	private static Card card5;
+
+	private ArrayList<Card> playercards;
+
 	private final JButton cardTradeButton = new JButton();
 
 	public CardBoard() {
 
 		initialize();
 		showCards();
+		checkIfEnoughCards();
 
 	}
 
@@ -43,16 +53,1093 @@ public class CardBoard extends JFrame {
 		cardBoard = getContentPane();
 		cardBoard.setLayout(null);
 
-
-
 		cardTradeButton.setBounds(160, 210, 300, 100);
 		cardTradeButton.setText("Trade your cards");
-		
+		cardTradeButton.setEnabled(false);
+
 		cardTradeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				
-				
+				int count = 0;
+
+				for (int i = 0; i < playercards.size(); i++) {
+
+					if (i == 0) {
+						card1 = playercards.get(i);
+					} else if (i == 1) {
+						card2 = playercards.get(i);
+					} else if (i == 2) {
+						card3 = playercards.get(i);
+
+						if (count == 0
+								&& card1.getCardType() == card2.getCardType()
+								&& card2.getCardType() == card3.getCardType()) {
+							if (card1.getCardType() == CardType.CANNON) {
+
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three cannons, you get 4 armies!", "",
+										JOptionPane.INFORMATION_MESSAGE);
+
+								GameData.CURRENT_PLAYER.setUnplacedArmies(4);
+
+							} else if (card1.getCardType() == CardType.SOLDIER) {
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three soldiers, you get 6 armies!",
+										"", JOptionPane.INFORMATION_MESSAGE);
+								GameData.CURRENT_PLAYER.setUnplacedArmies(6);
+							} else if (card1.getCardType() == CardType.HORSE) {
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three horses, you get 8 armies!", "",
+										JOptionPane.INFORMATION_MESSAGE);
+								GameData.CURRENT_PLAYER.setUnplacedArmies(8);
+							}
+
+							count++;
+
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card1
+									.getCardProvince()) == true) {
+								card1.getCardProvince().addArmy();
+							}
+
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card2
+									.getCardProvince()) == true) {
+								card2.getCardProvince().addArmy();
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card3
+									.getCardProvince()) == true) {
+								card3.getCardProvince().addArmy();
+							}
+
+							card1.setPlayer(null);
+							card2.setPlayer(null);
+							card3.setPlayer(null);
+
+							cardone.setEnabled(false);
+							cardtwo.setEnabled(false);
+							cardthree.setEnabled(false);
+							RiskGame.updateStatistics();
+
+						} else if (count == 0
+								&& card1.getCardType() != card2.getCardType()
+								&& card2.getCardType() != card3.getCardType()
+								&& card1.getCardType() != card3.getCardType()) {
+							JOptionPane
+									.showInternalMessageDialog(
+											cardBoard,
+											"Three different cards, you get 10 armies!",
+											"", JOptionPane.INFORMATION_MESSAGE);
+							GameData.CURRENT_PLAYER.setUnplacedArmies(10);
+							count++;
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card1
+									.getCardProvince()) == true) {
+								card1.getCardProvince().addArmy();
+							} else if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card2.getCardProvince()) == true) {
+								card2.getCardProvince().addArmy();
+							} else if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card3.getCardProvince()) == true) {
+								card3.getCardProvince().addArmy();
+							}
+							card1.setPlayer(null);
+							card2.setPlayer(null);
+							card3.setPlayer(null);
+							cardone.setEnabled(false);
+							cardtwo.setEnabled(false);
+							cardthree.setEnabled(false);
+							RiskGame.updateStatistics();
+						}
+
+					} else if (i == 3) {
+						card4 = playercards.get(i);
+
+						if (count == 0
+								&& card1.getCardType() == card2.getCardType()
+								&& card2.getCardType() == card3.getCardType()) {
+							if (card1.getCardType() == CardType.CANNON) {
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three cannons, you get 4 armies!", "",
+										JOptionPane.INFORMATION_MESSAGE);
+								GameData.CURRENT_PLAYER.setUnplacedArmies(4);
+
+							} else if (card1.getCardType() == CardType.SOLDIER) {
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three soldiers, you get 6 armies!",
+										"", JOptionPane.INFORMATION_MESSAGE);
+								GameData.CURRENT_PLAYER.setUnplacedArmies(6);
+							} else if (card1.getCardType() == CardType.HORSE) {
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three horses, you get 8 armies!", "",
+										JOptionPane.INFORMATION_MESSAGE);
+								GameData.CURRENT_PLAYER.setUnplacedArmies(8);
+							}
+
+							count++;
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card1
+									.getCardProvince()) == true) {
+								card1.getCardProvince().addArmy();
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card2
+									.getCardProvince()) == true) {
+								card2.getCardProvince().addArmy();
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card3
+									.getCardProvince()) == true) {
+								card3.getCardProvince().addArmy();
+							}
+							card1.setPlayer(null);
+							card2.setPlayer(null);
+							card3.setPlayer(null);
+							cardone.setEnabled(false);
+							cardtwo.setEnabled(false);
+							cardthree.setEnabled(false);
+							RiskGame.updateStatistics();
+
+						} else if (count == 0
+								&& card1.getCardType() == card2.getCardType()
+								&& card2.getCardType() == card4.getCardType()) {
+							if (card1.getCardType() == CardType.CANNON) {
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three cannons, you get 4 armies!", "",
+										JOptionPane.INFORMATION_MESSAGE);
+								GameData.CURRENT_PLAYER.setUnplacedArmies(4);
+
+							} else if (card1.getCardType() == CardType.SOLDIER) {
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three soldiers, you get 6 armies!",
+										"", JOptionPane.INFORMATION_MESSAGE);
+								GameData.CURRENT_PLAYER.setUnplacedArmies(6);
+							} else if (card1.getCardType() == CardType.HORSE) {
+								System.out
+										.println("Three horses, you get 8 armies!");
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three horses, you get 8 armies!", "",
+										JOptionPane.INFORMATION_MESSAGE);
+								GameData.CURRENT_PLAYER.setUnplacedArmies(8);
+							}
+
+							count++;
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card1
+									.getCardProvince()) == true) {
+								card1.getCardProvince().addArmy();
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card2
+									.getCardProvince()) == true) {
+								card2.getCardProvince().addArmy();
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card4
+									.getCardProvince()) == true) {
+								card4.getCardProvince().addArmy();
+							}
+							card1.setPlayer(null);
+							card2.setPlayer(null);
+							card4.setPlayer(null);
+							cardone.setEnabled(false);
+							cardtwo.setEnabled(false);
+							cardfour.setEnabled(false);
+							RiskGame.updateStatistics();
+
+						} else if (count == 0
+								&& card1.getCardType() == card3.getCardType()
+								&& card3.getCardType() == card4.getCardType()) {
+
+							if (card1.getCardType() == CardType.CANNON) {
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three cannons, you get 4 armies!", "",
+										JOptionPane.INFORMATION_MESSAGE);
+								GameData.CURRENT_PLAYER.setUnplacedArmies(4);
+							} else if (card1.getCardType() == CardType.SOLDIER) {
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three soldiers, you get 6 armies!",
+										"", JOptionPane.INFORMATION_MESSAGE);
+								GameData.CURRENT_PLAYER.setUnplacedArmies(6);
+							} else if (card1.getCardType() == CardType.HORSE) {
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three horses, you get 8 armies!", "",
+										JOptionPane.INFORMATION_MESSAGE);
+								GameData.CURRENT_PLAYER.setUnplacedArmies(8);
+							}
+							count++;
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card1
+									.getCardProvince()) == true) {
+								card1.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card3.getCardProvince()) == true) {
+								card3.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card4.getCardProvince()) == true) {
+								card4.getCardProvince().addArmy();
+							}
+							card1.setPlayer(null);
+							card3.setPlayer(null);
+							card4.setPlayer(null);
+							cardone.setEnabled(false);
+							cardthree.setEnabled(false);
+							cardfour.setEnabled(false);
+							RiskGame.updateStatistics();
+
+						} else if (count == 0
+								&& card2.getCardType() == card3.getCardType()
+								&& card3.getCardType() == card4.getCardType()) {
+							if (card2.getCardType() == CardType.CANNON) {
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three cannons, you get 4 armies!", "",
+										JOptionPane.INFORMATION_MESSAGE);
+								GameData.CURRENT_PLAYER.setUnplacedArmies(4);
+							} else if (card2.getCardType() == CardType.SOLDIER) {
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three soldiers, you get 6 armies!",
+										"", JOptionPane.INFORMATION_MESSAGE);
+								GameData.CURRENT_PLAYER.setUnplacedArmies(6);
+							} else if (card2.getCardType() == CardType.HORSE) {
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three horses, you get 8 armies!", "",
+										JOptionPane.INFORMATION_MESSAGE);
+								GameData.CURRENT_PLAYER.setUnplacedArmies(8);
+							}
+							count++;
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card2
+									.getCardProvince()) == true) {
+								card2.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card3.getCardProvince()) == true) {
+								card3.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card4.getCardProvince()) == true) {
+								card4.getCardProvince().addArmy();
+							}
+							card2.setPlayer(null);
+							card3.setPlayer(null);
+							card4.setPlayer(null);
+							cardtwo.setEnabled(false);
+							cardthree.setEnabled(false);
+							cardfour.setEnabled(false);
+							RiskGame.updateStatistics();
+
+						} else if (count == 0
+								&& card1.getCardType() != card2.getCardType()
+								&& card2.getCardType() != card3.getCardType()
+								&& card1.getCardType() != card3.getCardType()) {
+
+							JOptionPane
+									.showInternalMessageDialog(
+											cardBoard,
+											"Three different cards, you get 10 armies!",
+											"", JOptionPane.INFORMATION_MESSAGE);
+							GameData.CURRENT_PLAYER.setUnplacedArmies(10);
+							count++;
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card1
+									.getCardProvince()) == true) {
+								card1.getCardProvince().addArmy();
+							} else if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card2.getCardProvince()) == true) {
+								card2.getCardProvince().addArmy();
+							} else if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card3.getCardProvince()) == true) {
+								card3.getCardProvince().addArmy();
+							}
+							card1.setPlayer(null);
+							card2.setPlayer(null);
+							card3.setPlayer(null);
+							cardone.setEnabled(false);
+							cardtwo.setEnabled(false);
+							cardthree.setEnabled(false);
+							RiskGame.updateStatistics();
+
+						} else if (count == 0
+								&& card1.getCardType() != card2.getCardType()
+								&& card2.getCardType() != card4.getCardType()
+								&& card1.getCardType() != card4.getCardType()) {
+							JOptionPane
+									.showInternalMessageDialog(
+											cardBoard,
+											"Three different cards, you get 10 armies!",
+											"", JOptionPane.INFORMATION_MESSAGE);
+							GameData.CURRENT_PLAYER.setUnplacedArmies(10);
+							count++;
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card1
+									.getCardProvince()) == true) {
+								card1.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card2.getCardProvince()) == true) {
+								card2.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card4.getCardProvince()) == true) {
+								card4.getCardProvince().addArmy();
+							}
+							card1.setPlayer(null);
+							card2.setPlayer(null);
+							card4.setPlayer(null);
+							cardone.setEnabled(false);
+							cardtwo.setEnabled(false);
+							cardfour.setEnabled(false);
+							RiskGame.updateStatistics();
+
+						} else if (count == 0
+								&& card1.getCardType() != card3.getCardType()
+								&& card3.getCardType() != card4.getCardType()
+								&& card1.getCardType() != card4.getCardType()) {
+							JOptionPane
+									.showInternalMessageDialog(
+											cardBoard,
+											"Three different cards, you get 10 armies!",
+											"", JOptionPane.INFORMATION_MESSAGE);
+							GameData.CURRENT_PLAYER.setUnplacedArmies(10);
+							count++;
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card1
+									.getCardProvince()) == true) {
+								card1.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card3.getCardProvince()) == true) {
+								card3.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card4.getCardProvince()) == true) {
+								card4.getCardProvince().addArmy();
+							}
+							card1.setPlayer(null);
+							card3.setPlayer(null);
+							card4.setPlayer(null);
+							cardone.setEnabled(false);
+							cardthree.setEnabled(false);
+							cardfour.setEnabled(false);
+							RiskGame.updateStatistics();
+
+						} else if (count == 0
+								&& card2.getCardType() != card3.getCardType()
+								&& card3.getCardType() != card4.getCardType()
+								&& card2.getCardType() != card4.getCardType()) {
+							JOptionPane
+									.showInternalMessageDialog(
+											cardBoard,
+											"Three different cards, you get 10 armies!",
+											"", JOptionPane.INFORMATION_MESSAGE);
+							GameData.CURRENT_PLAYER.setUnplacedArmies(10);
+							count++;
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card2
+									.getCardProvince()) == true) {
+								card2.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card3.getCardProvince()) == true) {
+								card3.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card4.getCardProvince()) == true) {
+								card4.getCardProvince().addArmy();
+							}
+							card2.setPlayer(null);
+							card3.setPlayer(null);
+							card4.setPlayer(null);
+							cardtwo.setEnabled(false);
+							cardthree.setEnabled(false);
+							cardfour.setEnabled(false);
+							RiskGame.updateStatistics();
+
+						}
+
+					} else if (i == 4) {
+						card5 = playercards.get(i);
+
+						if (count == 0
+								&& card1.getCardType() == card2.getCardType()
+								&& card2.getCardType() == card3.getCardType()) {
+							if (card1.getCardType() == CardType.CANNON) {
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three cannons, you get 4 armies!", "",
+										JOptionPane.INFORMATION_MESSAGE);
+								GameData.CURRENT_PLAYER.setUnplacedArmies(4);
+							} else if (card1.getCardType() == CardType.SOLDIER) {
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three soldiers, you get 6 armies!",
+										"", JOptionPane.INFORMATION_MESSAGE);
+								GameData.CURRENT_PLAYER.setUnplacedArmies(6);
+							} else if (card1.getCardType() == CardType.HORSE) {
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three horses, you get 8 armies!", "",
+										JOptionPane.INFORMATION_MESSAGE);
+								GameData.CURRENT_PLAYER.setUnplacedArmies(8);
+							}
+							count++;
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card1
+									.getCardProvince()) == true) {
+								card1.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card2.getCardProvince()) == true) {
+								card2.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card3.getCardProvince()) == true) {
+								card3.getCardProvince().addArmy();
+							}
+							card1.setPlayer(null);
+							card2.setPlayer(null);
+							card3.setPlayer(null);
+							cardone.setEnabled(false);
+							cardtwo.setEnabled(false);
+							cardthree.setEnabled(false);
+							RiskGame.updateStatistics();
+						} else if (count == 0
+								&& card1.getCardType() == card2.getCardType()
+								&& card2.getCardType() == card4.getCardType()) {
+							if (card1.getCardType() == CardType.CANNON) {
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three cannons, you get 4 armies!", "",
+										JOptionPane.INFORMATION_MESSAGE);
+								GameData.CURRENT_PLAYER.setUnplacedArmies(4);
+							} else if (card1.getCardType() == CardType.SOLDIER) {
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three soldiers, you get 6 armies!",
+										"", JOptionPane.INFORMATION_MESSAGE);
+								GameData.CURRENT_PLAYER.setUnplacedArmies(6);
+							} else if (card1.getCardType() == CardType.HORSE) {
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three horses, you get 8 armies!", "",
+										JOptionPane.INFORMATION_MESSAGE);
+								GameData.CURRENT_PLAYER.setUnplacedArmies(8);
+							}
+							count++;
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card1
+									.getCardProvince()) == true) {
+								card1.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card2.getCardProvince()) == true) {
+								card2.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card4.getCardProvince()) == true) {
+								card4.getCardProvince().addArmy();
+							}
+							card1.setPlayer(null);
+							card2.setPlayer(null);
+							card4.setPlayer(null);
+							cardone.setEnabled(false);
+							cardtwo.setEnabled(false);
+							cardfour.setEnabled(false);
+							RiskGame.updateStatistics();
+						} else if (count == 0
+								&& card1.getCardType() == card3.getCardType()
+								&& card3.getCardType() == card4.getCardType()) {
+							if (card1.getCardType() == CardType.CANNON) {
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three cannons, you get 4 armies!", "",
+										JOptionPane.INFORMATION_MESSAGE);
+								GameData.CURRENT_PLAYER.setUnplacedArmies(4);
+							} else if (card1.getCardType() == CardType.SOLDIER) {
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three soldiers, you get 6 armies!",
+										"", JOptionPane.INFORMATION_MESSAGE);
+								GameData.CURRENT_PLAYER.setUnplacedArmies(6);
+							} else if (card1.getCardType() == CardType.HORSE) {
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three horses, you get 8 armies!", "",
+										JOptionPane.INFORMATION_MESSAGE);
+								GameData.CURRENT_PLAYER.setUnplacedArmies(8);
+							}
+							count++;
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card1
+									.getCardProvince()) == true) {
+								card1.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card3.getCardProvince()) == true) {
+								card3.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card4.getCardProvince()) == true) {
+								card4.getCardProvince().addArmy();
+							}
+							card1.setPlayer(null);
+							card3.setPlayer(null);
+							card4.setPlayer(null);
+							cardone.setEnabled(false);
+							cardthree.setEnabled(false);
+							cardfour.setEnabled(false);
+							RiskGame.updateStatistics();
+						} else if (count == 0
+								&& card1.getCardType() == card2.getCardType()
+								&& card2.getCardType() == card5.getCardType()) {
+							if (card1.getCardType() == CardType.CANNON) {
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three cannons, you get 4 armies!", "",
+										JOptionPane.INFORMATION_MESSAGE);
+								GameData.CURRENT_PLAYER.setUnplacedArmies(4);
+							} else if (card1.getCardType() == CardType.SOLDIER) {
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three soldiers, you get 6 armies!",
+										"", JOptionPane.INFORMATION_MESSAGE);
+								GameData.CURRENT_PLAYER.setUnplacedArmies(6);
+							} else if (card1.getCardType() == CardType.HORSE) {
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three horses, you get 8 armies!", "",
+										JOptionPane.INFORMATION_MESSAGE);
+								GameData.CURRENT_PLAYER.setUnplacedArmies(8);
+							}
+							count++;
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card1
+									.getCardProvince()) == true) {
+								card1.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card2.getCardProvince()) == true) {
+								card2.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card5.getCardProvince()) == true) {
+								card5.getCardProvince().addArmy();
+							}
+							card1.setPlayer(null);
+							card2.setPlayer(null);
+							card5.setPlayer(null);
+							cardone.setEnabled(false);
+							cardtwo.setEnabled(false);
+							cardfive.setEnabled(false);
+							RiskGame.updateStatistics();
+						} else if (count == 0
+								&& card1.getCardType() == card3.getCardType()
+								&& card3.getCardType() == card5.getCardType()) {
+							if (card1.getCardType() == CardType.CANNON) {
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three cannons, you get 4 armies!", "",
+										JOptionPane.INFORMATION_MESSAGE);
+								GameData.CURRENT_PLAYER.setUnplacedArmies(4);
+							} else if (card1.getCardType() == CardType.SOLDIER) {
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three soldiers, you get 6 armies!",
+										"", JOptionPane.INFORMATION_MESSAGE);
+								GameData.CURRENT_PLAYER.setUnplacedArmies(6);
+							} else if (card1.getCardType() == CardType.HORSE) {
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three horses, you get 8 armies!", "",
+										JOptionPane.INFORMATION_MESSAGE);
+								GameData.CURRENT_PLAYER.setUnplacedArmies(8);
+							}
+							count++;
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card1
+									.getCardProvince()) == true) {
+								card1.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card3.getCardProvince()) == true) {
+								card3.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card5.getCardProvince()) == true) {
+								card5.getCardProvince().addArmy();
+							}
+							card1.setPlayer(null);
+							card3.setPlayer(null);
+							card5.setPlayer(null);
+							cardone.setEnabled(false);
+							cardthree.setEnabled(false);
+							cardfive.setEnabled(false);
+							RiskGame.updateStatistics();
+						} else if (count == 0
+								&& card1.getCardType() == card4.getCardType()
+								&& card4.getCardType() == card5.getCardType()) {
+							if (card1.getCardType() == CardType.CANNON) {
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three cannons, you get 4 armies!", "",
+										JOptionPane.INFORMATION_MESSAGE);
+								GameData.CURRENT_PLAYER.setUnplacedArmies(4);
+							} else if (card1.getCardType() == CardType.SOLDIER) {
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three soldiers, you get 6 armies!",
+										"", JOptionPane.INFORMATION_MESSAGE);
+								GameData.CURRENT_PLAYER.setUnplacedArmies(6);
+							} else if (card1.getCardType() == CardType.HORSE) {
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three horses, you get 8 armies!", "",
+										JOptionPane.INFORMATION_MESSAGE);
+								GameData.CURRENT_PLAYER.setUnplacedArmies(8);
+							}
+							count++;
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card1
+									.getCardProvince()) == true) {
+								card1.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card4.getCardProvince()) == true) {
+								card4.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card5.getCardProvince()) == true) {
+								card5.getCardProvince().addArmy();
+							}
+							card1.setPlayer(null);
+							card4.setPlayer(null);
+							card5.setPlayer(null);
+							cardone.setEnabled(false);
+							cardfour.setEnabled(false);
+							cardfive.setEnabled(false);
+							RiskGame.updateStatistics();
+						} else if (count == 0
+								&& card2.getCardType() == card3.getCardType()
+								&& card3.getCardType() == card4.getCardType()) {
+							if (card1.getCardType() == CardType.CANNON) {
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three cannons, you get 4 armies!", "",
+										JOptionPane.INFORMATION_MESSAGE);
+								GameData.CURRENT_PLAYER.setUnplacedArmies(4);
+							} else if (card1.getCardType() == CardType.SOLDIER) {
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three soldiers, you get 6 armies!",
+										"", JOptionPane.INFORMATION_MESSAGE);
+								GameData.CURRENT_PLAYER.setUnplacedArmies(6);
+							} else if (card1.getCardType() == CardType.HORSE) {
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three horses, you get 8 armies!", "",
+										JOptionPane.INFORMATION_MESSAGE);
+								GameData.CURRENT_PLAYER.setUnplacedArmies(8);
+							}
+							count++;
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card2
+									.getCardProvince()) == true) {
+								card2.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card3.getCardProvince()) == true) {
+								card3.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card4.getCardProvince()) == true) {
+								card4.getCardProvince().addArmy();
+							}
+							card2.setPlayer(null);
+							card3.setPlayer(null);
+							card4.setPlayer(null);
+							cardtwo.setEnabled(false);
+							cardthree.setEnabled(false);
+							cardfour.setEnabled(false);
+							RiskGame.updateStatistics();
+						} else if (count == 0
+								&& card2.getCardType() == card3.getCardType()
+								&& card3.getCardType() == card5.getCardType()) {
+							if (card1.getCardType() == CardType.CANNON) {
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three cannons, you get 4 armies!", "",
+										JOptionPane.INFORMATION_MESSAGE);
+								GameData.CURRENT_PLAYER.setUnplacedArmies(4);
+							} else if (card1.getCardType() == CardType.SOLDIER) {
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three soldiers, you get 6 armies!",
+										"", JOptionPane.INFORMATION_MESSAGE);
+								GameData.CURRENT_PLAYER.setUnplacedArmies(6);
+							} else if (card1.getCardType() == CardType.HORSE) {
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three horses, you get 8 armies!", "",
+										JOptionPane.INFORMATION_MESSAGE);
+								GameData.CURRENT_PLAYER.setUnplacedArmies(8);
+							}
+							count++;
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card2
+									.getCardProvince()) == true) {
+								card2.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card3.getCardProvince()) == true) {
+								card3.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card5.getCardProvince()) == true) {
+								card5.getCardProvince().addArmy();
+							}
+							card2.setPlayer(null);
+							card3.setPlayer(null);
+							card5.setPlayer(null);
+							cardtwo.setEnabled(false);
+							cardthree.setEnabled(false);
+							cardfive.setEnabled(false);
+							RiskGame.updateStatistics();
+						} else if (count == 0
+								&& card2.getCardType() == card4.getCardType()
+								&& card4.getCardType() == card5.getCardType()) {
+							if (card2.getCardType() == CardType.CANNON) {
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three cannons, you get 4 armies!", "",
+										JOptionPane.INFORMATION_MESSAGE);
+								GameData.CURRENT_PLAYER.setUnplacedArmies(4);
+							} else if (card2.getCardType() == CardType.SOLDIER) {
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three soldiers, you get 6 armies!",
+										"", JOptionPane.INFORMATION_MESSAGE);
+								GameData.CURRENT_PLAYER.setUnplacedArmies(6);
+							} else if (card2.getCardType() == CardType.HORSE) {
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three horses, you get 8 armies!", "",
+										JOptionPane.INFORMATION_MESSAGE);
+								GameData.CURRENT_PLAYER.setUnplacedArmies(8);
+							}
+							count++;
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card2
+									.getCardProvince()) == true) {
+								card2.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card4.getCardProvince()) == true) {
+								card4.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card5.getCardProvince()) == true) {
+								card5.getCardProvince().addArmy();
+							}
+							card2.setPlayer(null);
+							card4.setPlayer(null);
+							card5.setPlayer(null);
+							cardtwo.setEnabled(false);
+							cardfour.setEnabled(false);
+							cardfive.setEnabled(false);
+							RiskGame.updateStatistics();
+
+						} else if (count == 0
+								&& card3.getCardType() == card4.getCardType()
+								&& card4.getCardType() == card5.getCardType()) {
+							if (card3.getCardType() == CardType.CANNON) {
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three cannons, you get 4 armies!", "",
+										JOptionPane.INFORMATION_MESSAGE);
+								GameData.CURRENT_PLAYER.setUnplacedArmies(4);
+							} else if (card3.getCardType() == CardType.SOLDIER) {
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three soldiers, you get 6 armies!",
+										"", JOptionPane.INFORMATION_MESSAGE);
+								GameData.CURRENT_PLAYER.setUnplacedArmies(6);
+							} else if (card3.getCardType() == CardType.HORSE) {
+								JOptionPane.showInternalMessageDialog(
+										cardBoard,
+										"Three horses, you get 8 armies!", "",
+										JOptionPane.INFORMATION_MESSAGE);
+
+							}
+							count++;
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card3
+									.getCardProvince()) == true) {
+								card3.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card4.getCardProvince()) == true) {
+								card4.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card5.getCardProvince()) == true) {
+								card5.getCardProvince().addArmy();
+							}
+							card3.setPlayer(null);
+							card4.setPlayer(null);
+							card5.setPlayer(null);
+							cardthree.setEnabled(false);
+							cardfour.setEnabled(false);
+							cardfive.setEnabled(false);
+							RiskGame.updateStatistics();
+
+						} else if (count == 0
+								&& card1.getCardType() != card2.getCardType()
+								&& card2.getCardType() != card3.getCardType()
+								&& card1.getCardType() != card3.getCardType()) {
+							JOptionPane
+									.showInternalMessageDialog(
+											cardBoard,
+											"Three different cards, you get 10 armies!",
+											"", JOptionPane.INFORMATION_MESSAGE);
+							GameData.CURRENT_PLAYER.setUnplacedArmies(10);
+							count++;
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card1
+									.getCardProvince()) == true) {
+								card1.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card2.getCardProvince()) == true) {
+								card2.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card3.getCardProvince()) == true) {
+								card3.getCardProvince().addArmy();
+							}
+							card1.setPlayer(null);
+							card2.setPlayer(null);
+							card3.setPlayer(null);
+							cardone.setEnabled(false);
+							cardtwo.setEnabled(false);
+							cardthree.setEnabled(false);
+							RiskGame.updateStatistics();
+
+						} else if (count == 0
+								&& card1.getCardType() != card2.getCardType()
+								&& card2.getCardType() != card4.getCardType()
+								&& card1.getCardType() != card4.getCardType()) {
+							JOptionPane
+									.showInternalMessageDialog(
+											cardBoard,
+											"Three different cards, you get 10 armies!",
+											"", JOptionPane.INFORMATION_MESSAGE);
+							GameData.CURRENT_PLAYER.setUnplacedArmies(10);
+							count++;
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card1
+									.getCardProvince()) == true) {
+								card1.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card2.getCardProvince()) == true) {
+								card2.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card4.getCardProvince()) == true) {
+								card4.getCardProvince().addArmy();
+							}
+							card1.setPlayer(null);
+							card2.setPlayer(null);
+							card4.setPlayer(null);
+							cardone.setEnabled(false);
+							cardtwo.setEnabled(false);
+							cardfour.setEnabled(false);
+							RiskGame.updateStatistics();
+						} else if (count == 0
+								&& card1.getCardType() != card3.getCardType()
+								&& card3.getCardType() != card4.getCardType()
+								&& card1.getCardType() != card4.getCardType()) {
+							JOptionPane
+									.showInternalMessageDialog(
+											cardBoard,
+											"Three different cards, you get 10 armies!",
+											"", JOptionPane.INFORMATION_MESSAGE);
+							GameData.CURRENT_PLAYER.setUnplacedArmies(10);
+							count++;
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card1
+									.getCardProvince()) == true) {
+								card1.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card3.getCardProvince()) == true) {
+								card3.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card4.getCardProvince()) == true) {
+								card4.getCardProvince().addArmy();
+							}
+							card1.setPlayer(null);
+							card3.setPlayer(null);
+							card4.setPlayer(null);
+							cardone.setEnabled(false);
+							cardthree.setEnabled(false);
+							cardfour.setEnabled(false);
+							RiskGame.updateStatistics();
+						} else if (count == 0
+								&& card2.getCardType() != card3.getCardType()
+								&& card3.getCardType() != card4.getCardType()
+								&& card2.getCardType() != card4.getCardType()) {
+							JOptionPane
+									.showInternalMessageDialog(
+											cardBoard,
+											"Three different cards, you get 10 armies!",
+											"", JOptionPane.INFORMATION_MESSAGE);
+							GameData.CURRENT_PLAYER.setUnplacedArmies(10);
+							count++;
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card2
+									.getCardProvince()) == true) {
+								card2.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card3.getCardProvince()) == true) {
+								card3.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card4.getCardProvince()) == true) {
+								card4.getCardProvince().addArmy();
+							}
+							card2.setPlayer(null);
+							card3.setPlayer(null);
+							card4.setPlayer(null);
+							cardtwo.setEnabled(false);
+							cardthree.setEnabled(false);
+							cardfour.setEnabled(false);
+							RiskGame.updateStatistics();
+						} else if (count == 0
+								&& card1.getCardType() != card2.getCardType()
+								&& card2.getCardType() != card5.getCardType()
+								&& card1.getCardType() != card5.getCardType()) {
+							JOptionPane
+									.showInternalMessageDialog(
+											cardBoard,
+											"Three different cards, you get 10 armies!",
+											"", JOptionPane.INFORMATION_MESSAGE);
+							GameData.CURRENT_PLAYER.setUnplacedArmies(10);
+							count++;
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card1
+									.getCardProvince()) == true) {
+								card1.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card2.getCardProvince()) == true) {
+								card2.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card5.getCardProvince()) == true) {
+								card5.getCardProvince().addArmy();
+							}
+							card1.setPlayer(null);
+							card2.setPlayer(null);
+							card5.setPlayer(null);
+							cardone.setEnabled(false);
+							cardtwo.setEnabled(false);
+							cardfive.setEnabled(false);
+							RiskGame.updateStatistics();
+						} else if (count == 0
+								&& card1.getCardType() != card3.getCardType()
+								&& card3.getCardType() != card5.getCardType()
+								&& card1.getCardType() != card5.getCardType()) {
+							JOptionPane
+									.showInternalMessageDialog(
+											cardBoard,
+											"Three different cards, you get 10 armies!",
+											"", JOptionPane.INFORMATION_MESSAGE);
+							GameData.CURRENT_PLAYER.setUnplacedArmies(10);
+							count++;
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card1
+									.getCardProvince()) == true) {
+								card1.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card3.getCardProvince()) == true) {
+								card3.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card5.getCardProvince()) == true) {
+								card5.getCardProvince().addArmy();
+							}
+							card1.setPlayer(null);
+							card3.setPlayer(null);
+							card5.setPlayer(null);
+							cardone.setEnabled(false);
+							cardthree.setEnabled(false);
+							cardfive.setEnabled(false);
+							RiskGame.updateStatistics();
+						} else if (count == 0
+								&& card1.getCardType() != card4.getCardType()
+								&& card4.getCardType() != card5.getCardType()
+								&& card1.getCardType() != card5.getCardType()) {
+							JOptionPane
+									.showInternalMessageDialog(
+											cardBoard,
+											"Three different cards, you get 10 armies!",
+											"", JOptionPane.INFORMATION_MESSAGE);
+							GameData.CURRENT_PLAYER.setUnplacedArmies(10);
+							count++;
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card1
+									.getCardProvince()) == true) {
+								card1.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card4.getCardProvince()) == true) {
+								card4.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card5.getCardProvince()) == true) {
+								card5.getCardProvince().addArmy();
+							}
+							card1.setPlayer(null);
+							card4.setPlayer(null);
+							card5.setPlayer(null);
+							cardone.setEnabled(false);
+							cardfour.setEnabled(false);
+							cardfive.setEnabled(false);
+							RiskGame.updateStatistics();
+						} else if (count == 0
+								&& card2.getCardType() != card3.getCardType()
+								&& card3.getCardType() != card5.getCardType()
+								&& card2.getCardType() != card5.getCardType()) {
+							JOptionPane
+									.showInternalMessageDialog(
+											cardBoard,
+											"Three different cards, you get 10 armies!",
+											"", JOptionPane.INFORMATION_MESSAGE);
+							GameData.CURRENT_PLAYER.setUnplacedArmies(10);
+							count++;
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card2
+									.getCardProvince()) == true) {
+								card2.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card3.getCardProvince()) == true) {
+								card3.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card5.getCardProvince()) == true) {
+								card5.getCardProvince().addArmy();
+							}
+							card2.setPlayer(null);
+							card3.setPlayer(null);
+							card5.setPlayer(null);
+							cardtwo.setEnabled(false);
+							cardthree.setEnabled(false);
+							cardfive.setEnabled(false);
+							RiskGame.updateStatistics();
+						} else if (count == 0
+								&& card2.getCardType() != card4.getCardType()
+								&& card4.getCardType() != card5.getCardType()
+								&& card2.getCardType() != card5.getCardType()) {
+							JOptionPane
+									.showInternalMessageDialog(
+											cardBoard,
+											"Three different cards, you get 10 armies!",
+											"", JOptionPane.INFORMATION_MESSAGE);
+							GameData.CURRENT_PLAYER.setUnplacedArmies(10);
+							count++;
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card2
+									.getCardProvince()) == true) {
+								card2.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card4.getCardProvince()) == true) {
+								card4.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card5.getCardProvince()) == true) {
+								card5.getCardProvince().addArmy();
+							}
+							card2.setPlayer(null);
+							card4.setPlayer(null);
+							card5.setPlayer(null);
+							cardtwo.setEnabled(false);
+							cardfour.setEnabled(false);
+							cardfive.setEnabled(false);
+							RiskGame.updateStatistics();
+						} else if (count == 0
+								&& card3.getCardType() != card4.getCardType()
+								&& card4.getCardType() != card5.getCardType()
+								&& card3.getCardType() != card5.getCardType()) {
+							JOptionPane
+									.showInternalMessageDialog(
+											cardBoard,
+											"Three different cards, you get 10 armies!",
+											"", JOptionPane.INFORMATION_MESSAGE);
+							GameData.CURRENT_PLAYER.setUnplacedArmies(10);
+							count++;
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card3
+									.getCardProvince()) == true) {
+								card3.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card4.getCardProvince()) == true) {
+								card4.getCardProvince().addArmy();
+							} if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(card5.getCardProvince()) == true) {
+								card5.getCardProvince().addArmy();
+							}
+							card3.setPlayer(null);
+							card4.setPlayer(null);
+							card5.setPlayer(null);
+							cardthree.setEnabled(false);
+							cardfour.setEnabled(false);
+							cardfive.setEnabled(false);
+							RiskGame.updateStatistics();
+						}
+
+					}
+				}
+
 			}
 		});
 
@@ -66,37 +1153,48 @@ public class CardBoard extends JFrame {
 		this.setVisible(true);
 
 	}
-	
+
 	public void showCards() {
-		
-		ArrayList<Card> playercards = GameData.CURRENT_PLAYER.getPlayerCards();
 
+		playercards = GameData.CURRENT_PLAYER.getPlayerCards();
 
-		for(int i = 0; i < playercards.size(); i++) {
-			
-		if(i == 0) {
-			cardone.setBounds(10, 10, 125, 195);
-			cardone.setIcon(playercards.get(i).getCardIcon());
-		} else if(i == 1) {
+		for (int i = 0; i < playercards.size(); i++) {
 
-			cardtwo.setBounds(135, 10, 125, 195);
-			cardtwo.setIcon(playercards.get(i).getCardIcon());
-		} else if(i == 2) {
+			if (i == 0) {
+				cardone.setBounds(10, 10, 125, 195);
+				cardone.setIcon(playercards.get(i).getCardIcon());
+			} else if (i == 1) {
 
-			cardthree.setBounds(255, 10, 125, 195);
-			cardthree.setIcon(playercards.get(i).getCardIcon());
-		} else if(i == 3) {
+				cardtwo.setBounds(135, 10, 125, 195);
+				cardtwo.setIcon(playercards.get(i).getCardIcon());
+			} else if (i == 2) {
 
-			cardfour.setBounds(380, 10, 125, 195);
-			cardfour.setIcon(playercards.get(i).getCardIcon());
-		} else if(i == 4) {
+				cardthree.setBounds(255, 10, 125, 195);
+				cardthree.setIcon(playercards.get(i).getCardIcon());
+			} else if (i == 3) {
 
-			cardfive.setBounds(505, 10, 125, 195);
-			cardfive.setIcon(playercards.get(i).getCardIcon());
-		} else if(i == 5) {
-			System.out.println("You have too many cards, please trade some in for armies!");
+				cardfour.setBounds(380, 10, 125, 195);
+				cardfour.setIcon(playercards.get(i).getCardIcon());
+			} else if (i == 4) {
+
+				cardfive.setBounds(505, 10, 125, 195);
+				cardfive.setIcon(playercards.get(i).getCardIcon());
+			} else if (i == 5) {
+				System.out
+						.println("You have too many cards, please trade some in for armies!");
+			}
+
 		}
+	}
 
+	public void checkIfEnoughCards() {
+		if (playercards.size() >= 3) {
+
+			cardTradeButton.setEnabled(true);
 		}
+	}
+
+	public void removeUsedCards() {
+
 	}
 }

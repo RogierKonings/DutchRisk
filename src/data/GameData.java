@@ -49,6 +49,7 @@ public class GameData {
 	public static boolean PLACE_ROUND;
 	public static boolean ATTACK_RUNNING;
 	public static boolean RECEIVE_CARD;
+	public static boolean GAME_OVER;
 	
 	public static int ROUND = 0;
 	
