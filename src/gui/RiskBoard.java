@@ -1,5 +1,6 @@
 package gui;
 
+import game.Dice;
 import game.Province;
 import game.RiskGame;
 
@@ -17,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
+import javax.swing.SpinnerListModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
@@ -101,7 +103,6 @@ public class RiskBoard extends JFrame {
 		game.add(getRemoveArmyButton());
 		game.add(getShowCardsButton());
 		game.add(getNextPlayerButton());
-		
 
 		this.setVisible(true);
 
@@ -247,10 +248,10 @@ public class RiskBoard extends JFrame {
 		return moveButton;
 
 	}
-	
+
 	public static JButton getCollectButton() {
-		
-		if(collectButton == null) {
+
+		if (collectButton == null) {
 			collectButton = new JButton();
 			collectButton.setText("Collect");
 			collectButton.setBounds(SCREEN_WIDTH - 100, 310, 95, 50);
@@ -278,8 +279,6 @@ public class RiskBoard extends JFrame {
 
 		return statisticsLabel;
 	}
-	
-	
 
 	public JPanel getBoardPanel() {
 
@@ -308,8 +307,30 @@ public class RiskBoard extends JFrame {
 	public static JSpinner getAttackSpinner() {
 
 		if (attackSpinner == null) {
-			attackSpinner = new JSpinner(getAttackDice());
+			// attackSpinner = new JSpinner(getAttackDice());
+			// attackSpinner.setBounds(SCREEN_WIDTH - 260, 485, 40, 30);
+
+			// Icon nums[] = new Icon[] { GameData.dice1, GameData.dice2,
+			// GameData.dice3 };
+
+			Dice dices[] = new Dice[] { GameData.dice1, GameData.dice2,
+					GameData.dice3 };
+
+			// ImageIcon icon1 = dice1.getDiceIcon();
+			// ImageIcon icon2 = dice2.getDiceIcon();
+			// ImageIcon icon3 = dice3.getDiceIcon();
+
+			// Icon nums[] = new Icon[] {icon1, icon2, icon3};
+
+			//JSpinner s1 = new JSpinner(new SpinnerListModel(dices));
+//			s1.setEditor(new IconEditor(s1));
+//			c.add(new JLabel(" Icon Spinner"));
+//			c.add(s1);
+
+			attackSpinner = new JSpinner(new SpinnerListModel(dices));
 			attackSpinner.setBounds(SCREEN_WIDTH - 260, 485, 40, 30);
+			attackSpinner.setEditor(new IconEditor(attackSpinner));
+
 			attackSpinner.setEnabled(false);
 
 		}
@@ -323,7 +344,25 @@ public class RiskBoard extends JFrame {
 	public static JSpinner getDefenceSpinner() {
 
 		if (defenceSpinner == null) {
-			defenceSpinner = new JSpinner(getDefenceDice());
+			//defenceSpinner = new JSpinner(getDefenceDice());
+			
+			Dice dices[] = new Dice[] { GameData.dice1, GameData.dice2};
+
+			// ImageIcon icon1 = dice1.getDiceIcon();
+			// ImageIcon icon2 = dice2.getDiceIcon();
+			// ImageIcon icon3 = dice3.getDiceIcon();
+
+			// Icon nums[] = new Icon[] {icon1, icon2, icon3};
+
+			//JSpinner s1 = new JSpinner(new SpinnerListModel(dices));
+//			s1.setEditor(new IconEditor(s1));
+//			c.add(new JLabel(" Icon Spinner"));
+//			c.add(s1);
+
+			defenceSpinner = new JSpinner(new SpinnerListModel(dices));
+			defenceSpinner.setBounds(SCREEN_WIDTH - 260, 485, 40, 30);
+			defenceSpinner.setEditor(new IconEditor(defenceSpinner));
+			
 			defenceSpinner.setBounds(SCREEN_WIDTH - 110, 485, 40, 30);
 			defenceSpinner.setEnabled(false);
 		}
@@ -336,7 +375,10 @@ public class RiskBoard extends JFrame {
 			attackThrowButton = new JButton("Throw");
 			attackThrowButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					int dice = (Integer) attackSpinner.getValue();
+					// int dice = (Integer) attackSpinner.getValue();
+					
+					int dice = ((Dice) attackSpinner.getValue()).getDiceNumber();
+					System.out.println("Dice " + dice + " selected!");
 
 					if (dice > GameData.SELECTED_PROVINCE.getArmy() - 1) {
 
@@ -356,7 +398,8 @@ public class RiskBoard extends JFrame {
 							if (dice == 1) {
 
 								int resultnum = attackArray[0];
-								ImageIcon resultimg = GameData.diceimage[resultnum - 1];
+								ImageIcon resultimg = GameData.dices[resultnum - 1]
+										.getDiceIcon();
 
 								attackResultLabel1.setIcon(resultimg);
 
@@ -365,8 +408,10 @@ public class RiskBoard extends JFrame {
 
 								int resultnum1 = attackArray[0];
 								int resultnum2 = attackArray[1];
-								ImageIcon resultimg1 = GameData.diceimage[resultnum1 - 1];
-								ImageIcon resultimg2 = GameData.diceimage[resultnum2 - 1];
+								ImageIcon resultimg1 = GameData.dices[resultnum1 - 1]
+										.getDiceIcon();
+								ImageIcon resultimg2 = GameData.dices[resultnum2 - 1]
+										.getDiceIcon();
 
 								attackResultLabel1.setIcon(resultimg1);
 								attackResultLabel2.setIcon(resultimg2);
@@ -377,9 +422,12 @@ public class RiskBoard extends JFrame {
 								int resultnum2 = attackArray[1];
 								int resultnum3 = attackArray[2];
 
-								ImageIcon resultimg1 = GameData.diceimage[resultnum1 - 1];
-								ImageIcon resultimg2 = GameData.diceimage[resultnum2 - 1];
-								ImageIcon resultimg3 = GameData.diceimage[resultnum3 - 1];
+								ImageIcon resultimg1 = GameData.dices[resultnum1 - 1]
+										.getDiceIcon();
+								ImageIcon resultimg2 = GameData.dices[resultnum2 - 1]
+										.getDiceIcon();
+								ImageIcon resultimg3 = GameData.dices[resultnum3 - 1]
+										.getDiceIcon();
 
 								attackResultLabel1.setIcon(resultimg1);
 								attackResultLabel2.setIcon(resultimg2);
@@ -410,9 +458,11 @@ public class RiskBoard extends JFrame {
 			defenceThrowButton = new JButton("Throw");
 			defenceThrowButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					int dice = (Integer) defenceSpinner.getValue();
+					//int dice = (Integer) defenceSpinner.getValue();
+					
+					int dice = ((Dice) defenceSpinner.getValue()).getDiceNumber();
 
-					if (dice > (Integer) attackSpinner.getValue()
+					if (dice > (Integer) ((Dice)attackSpinner.getValue()).getDiceNumber()
 							&& GameData.SELECTED_PROVINCE.getArmy() < 3) {
 
 						getGameLabel().setText(
@@ -434,7 +484,7 @@ public class RiskBoard extends JFrame {
 							if (dice == 1) {
 
 								int resultnum = defenceArray[0];
-								ImageIcon resultimg = GameData.diceimage[resultnum - 1];
+								ImageIcon resultimg = GameData.dices[resultnum - 1].getDiceIcon();
 
 								defenceResultLabel1.setIcon(resultimg);
 
@@ -443,8 +493,8 @@ public class RiskBoard extends JFrame {
 
 								int resultnum1 = defenceArray[0];
 								int resultnum2 = defenceArray[1];
-								ImageIcon resultimg1 = GameData.diceimage[resultnum1 - 1];
-								ImageIcon resultimg2 = GameData.diceimage[resultnum2 - 1];
+								ImageIcon resultimg1 = GameData.dices[resultnum1 - 1].getDiceIcon();
+								ImageIcon resultimg2 = GameData.dices[resultnum2 - 1].getDiceIcon();
 
 								defenceResultLabel1.setIcon(resultimg1);
 								defenceResultLabel2.setIcon(resultimg2);
@@ -579,20 +629,20 @@ public class RiskBoard extends JFrame {
 
 		return removeArmyButton;
 	}
-	
+
 	public JButton getShowCardsButton() {
-		
+
 		if (showCardsButton == null) {
 			showCardsButton = new JButton("Show your cards");
-			
+
 			showCardsButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					
+
 					CardBoard cardboard = new CardBoard();
-					
+
 				}
 			});
-			
+
 			showCardsButton.setBounds(SCREEN_WIDTH - 300, 765, 290, 65);
 		}
 		return showCardsButton;
@@ -605,11 +655,10 @@ public class RiskBoard extends JFrame {
 
 			nextPlayerButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					
+
 					addArmyButton.setEnabled(false);
 					removeArmyButton.setEnabled(false);
 
-					
 					if (GameData.CURRENT_PLAYER.getUnplacedArmies() > 0) {
 						gameLabel.setText("Place your armies first!");
 					} else {

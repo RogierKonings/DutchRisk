@@ -1,6 +1,7 @@
 package data;
 
 import game.Card;
+import game.Dice;
 import game.Player;
 import game.Province;
 
@@ -47,14 +48,24 @@ public class GameData {
 	
 	public static int ROUND = 0;
 	
-	public static ImageIcon dice1 = new ImageIcon("../DutchRisk/src/img/dice/dice1.png");
-	public static ImageIcon dice2 = new ImageIcon("../DutchRisk/src/img/dice/dice2.png");
-	public static ImageIcon dice3 = new ImageIcon("../DutchRisk/src/img/dice/dice3.png");
-	public static ImageIcon dice4 = new ImageIcon("../DutchRisk/src/img/dice/dice4.png");
-	public static ImageIcon dice5 = new ImageIcon("../DutchRisk/src/img/dice/dice5.png");
-	public static ImageIcon dice6 = new ImageIcon("../DutchRisk/src/img/dice/dice6.png");
+	public static ImageIcon dice1img = new ImageIcon("../DutchRisk/src/img/dice/dice1.png");
+	public static ImageIcon dice2img = new ImageIcon("../DutchRisk/src/img/dice/dice2.png");
+	public static ImageIcon dice3img = new ImageIcon("../DutchRisk/src/img/dice/dice3.png");
+	public static ImageIcon dice4img = new ImageIcon("../DutchRisk/src/img/dice/dice4.png");
+	public static ImageIcon dice5img = new ImageIcon("../DutchRisk/src/img/dice/dice5.png");
+	public static ImageIcon dice6img = new ImageIcon("../DutchRisk/src/img/dice/dice6.png");
 	
-	public static ImageIcon[] diceimage = new ImageIcon[6];
+	public static Dice dice1 = new Dice(1, dice1img);
+	public static Dice dice2 = new Dice(2, dice2img);
+	public static Dice dice3 = new Dice(3, dice3img);
+	public static Dice dice4 = new Dice(4, dice4img);
+	public static Dice dice5 = new Dice(5, dice5img);
+	public static Dice dice6 = new Dice(6, dice6img);
+	
+	public static Dice[] dices = new Dice[6];
+	
+	
+	//public static ImageIcon[] diceimage = new ImageIcon[6];
 	
 	
 	public GameData(CountryData data) {
@@ -65,7 +76,7 @@ public class GameData {
 
 	public void initialize() {
 		loadProvinces();
-		loadDiceImages();
+		loadDice();
 		loadGameCards();
 	}
 
@@ -75,14 +86,21 @@ public class GameData {
 
 	}
 	
-	public void loadDiceImages() {
+	public void loadDice() {
 		
-		diceimage[0] = dice1;
-		diceimage[1] = dice2;
-		diceimage[2] = dice3;
-		diceimage[3] = dice4;
-		diceimage[4] = dice5;
-		diceimage[5] = dice6;
+//		diceimage[0] = dice1;
+//		diceimage[1] = dice2;
+//		diceimage[2] = dice3;
+//		diceimage[3] = dice4;
+//		diceimage[4] = dice5;
+//		diceimage[5] = dice6;
+		
+		dices[0] = dice1;
+		dices[1] = dice2;
+		dices[2] = dice3;
+		dices[3] = dice4;
+		dices[4] = dice5;
+		dices[5] = dice6;
 		
 	}
 	
