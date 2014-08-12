@@ -101,6 +101,20 @@ public class Player {
 		}
 		return count;
 	}
+	
+	public int countPlayerArmies() {
+		
+		int count = 0;
+		
+		for(Province province : GameData.provinces){
+			
+			if(province.getPlayer().getId() == getId()) {
+				count = count + province.getArmy();
+			}
+			
+		}
+		return count;
+	}
 
 	public ArrayList<Card> getPlayerCards() {
 

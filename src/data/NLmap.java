@@ -10,13 +10,12 @@ import javax.imageio.ImageIO;
 
 public class NLmap {
 
-	public File netherlands = new File(
-			"../DutchRisk/src/img/maps/NL-coordinates.png");
+	public String netherlands = "/img/maps/NL-coordinates.png";
 	public BufferedImage buffimg;
 
 	public NLmap() {
 		try {
-			buffimg = ImageIO.read(netherlands);
+			buffimg = ImageIO.read(getClass().getResource(netherlands));
 
 		} catch (IOException ex) {
 			ex.printStackTrace();

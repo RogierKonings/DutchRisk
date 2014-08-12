@@ -8,26 +8,26 @@ import javax.swing.ImageIcon;
 
 public class NedCardData {
 	
-	public static ImageIcon cannonantwerpen = new ImageIcon("../DutchRisk/src/img/cards/cannon-Antwerpen.png");
-	public static ImageIcon cannongroningen = new ImageIcon("../DutchRisk/src/img/cards/cannon-Groningen.png");
-	public static ImageIcon cannonlimburg = new ImageIcon("../DutchRisk/src/img/cards/cannon-Limburg.png");
-	public static ImageIcon cannonluik = new ImageIcon("../DutchRisk/src/img/cards/cannon-Luik.png");
-	public static ImageIcon cannonoostvlaanderen = new ImageIcon("../DutchRisk/src/img/cards/cannon-Oost-Vlaanderen.png");
-	public static ImageIcon cannonzeeland = new ImageIcon("../DutchRisk/src/img/cards/cannon-Zeeland.png");
+	public static ImageIcon cannonantwerpen = new ImageIcon(GameData.class.getClass().getResource("/img/cards/cannon-Antwerpen.png"));
+	public static ImageIcon cannongroningen = new ImageIcon(GameData.class.getClass().getResource("/img/cards/cannon-Groningen.png"));
+	public static ImageIcon cannonlimburg = new ImageIcon(GameData.class.getClass().getResource("/img/cards/cannon-Limburg.png"));
+	public static ImageIcon cannonluik = new ImageIcon(GameData.class.getClass().getResource("/img/cards/cannon-Luik.png"));
+	public static ImageIcon cannonoostvlaanderen = new ImageIcon(GameData.class.getClass().getResource("/img/cards/cannon-Oost-Vlaanderen.png"));
+	public static ImageIcon cannonzeeland = new ImageIcon(GameData.class.getClass().getResource("/img/cards/cannon-Zeeland.png"));
 	
-	public static ImageIcon horsedrenthe = new ImageIcon("../DutchRisk/src/img/cards/horse-Drenthe.png");
-	public static ImageIcon horsegelderland = new ImageIcon("../DutchRisk/src/img/cards/horse-Gelderland.png");
-	public static ImageIcon horsehenegouwen = new ImageIcon("../DutchRisk/src/img/cards/horse-Henegouwen.png");
-	public static ImageIcon horsenamen = new ImageIcon("../DutchRisk/src/img/cards/horse-Namen.png");
-	public static ImageIcon horsenoordbrabant = new ImageIcon("../DutchRisk/src/img/cards/horse-Noord-Brabant.png");
-	public static ImageIcon horsezuidbrabant = new ImageIcon("../DutchRisk/src/img/cards/horse-Zuid-Brabant.png");
+	public static ImageIcon horsedrenthe = new ImageIcon(GameData.class.getClass().getResource("/img/cards/horse-Drenthe.png"));
+	public static ImageIcon horsegelderland = new ImageIcon(GameData.class.getClass().getResource("/img/cards/horse-Gelderland.png"));
+	public static ImageIcon horsehenegouwen = new ImageIcon(GameData.class.getClass().getResource("/img/cards/horse-Henegouwen.png"));
+	public static ImageIcon horsenamen = new ImageIcon(GameData.class.getClass().getResource("/img/cards/horse-Namen.png"));
+	public static ImageIcon horsenoordbrabant = new ImageIcon(GameData.class.getClass().getResource("/img/cards/horse-Noord-Brabant.png"));
+	public static ImageIcon horsezuidbrabant = new ImageIcon(GameData.class.getClass().getResource("/img/cards/horse-Zuid-Brabant.png"));
 	
-	public static ImageIcon soldierfriesland = new ImageIcon("../DutchRisk/src/img/cards/soldier-Friesland.png");
-	public static ImageIcon soldierholland = new ImageIcon("../DutchRisk/src/img/cards/soldier-Holland.png");
-	public static ImageIcon soldierluxemburg = new ImageIcon("../DutchRisk/src/img/cards/soldier-Luxemburg.png");
-	public static ImageIcon soldieroverijssel = new ImageIcon("../DutchRisk/src/img/cards/soldier-Overijssel.png");
-	public static ImageIcon soldierutrecht = new ImageIcon("../DutchRisk/src/img/cards/soldier-Utrecht.png");
-	public static ImageIcon soldierwestvlaanderen = new ImageIcon("../DutchRisk/src/img/cards/soldier-West-Vlaanderen.png");
+	public static ImageIcon soldierfriesland = new ImageIcon(GameData.class.getClass().getResource("/img/cards/soldier-Friesland.png"));
+	public static ImageIcon soldierholland = new ImageIcon(GameData.class.getClass().getResource("/img/cards/soldier-Holland.png"));
+	public static ImageIcon soldierluxemburg = new ImageIcon(GameData.class.getClass().getResource("/img/cards/soldier-Luxemburg.png"));
+	public static ImageIcon soldieroverijssel = new ImageIcon(GameData.class.getClass().getResource("/img/cards/soldier-Overijssel.png"));
+	public static ImageIcon soldierutrecht = new ImageIcon(GameData.class.getClass().getResource("/img/cards/soldier-Utrecht.png"));
+	public static ImageIcon soldierwestvlaanderen = new ImageIcon(GameData.class.getClass().getResource("/img/cards/soldier-West-Vlaanderen.png"));
 	
 	
 	
@@ -45,11 +45,11 @@ public class NedCardData {
 	private static Card cardnoordbrabant = new Card(11, CardType.HORSE, NedMapData.NOORD_BRABANT, horsenoordbrabant, null);
 	private static Card cardzuidbrabant = new Card(12, CardType.HORSE, NedMapData.ZUID_BRABANT, horsezuidbrabant, null);
 	
-	private static Card cardfriesland = new Card(13, CardType.SOLDIER, NedMapData.FRIESLAND, soldierfriesland, GameData.PLAYER_ONE);
-	private static Card cardholland = new Card(14, CardType.SOLDIER, NedMapData.HOLLAND, soldierholland, GameData.PLAYER_ONE);
+	private static Card cardfriesland = new Card(13, CardType.SOLDIER, NedMapData.FRIESLAND, soldierfriesland, null);
+	private static Card cardholland = new Card(14, CardType.SOLDIER, NedMapData.HOLLAND, soldierholland, null);
 	private static Card cardluxemburg = new Card(15, CardType.SOLDIER, NedMapData.LUXEMBURG, soldierluxemburg, null);
 	private static Card cardoverijssel = new Card(16, CardType.SOLDIER, NedMapData.OVERIJSSEL, soldieroverijssel, null);
-	private static Card cardutrecht = new Card(17, CardType.SOLDIER, NedMapData.UTRECHT, soldierutrecht, GameData.PLAYER_ONE);
+	private static Card cardutrecht = new Card(17, CardType.SOLDIER, NedMapData.UTRECHT, soldierutrecht, null);
 	private static Card cardwestvlaanderen = new Card(18, CardType.SOLDIER, NedMapData.WEST_VLAANDEREN, soldierwestvlaanderen, null);
 	
 	private static ArrayList<Card> gamecards;

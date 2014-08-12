@@ -135,7 +135,7 @@ public class RiskGame {
 			checkIfConquered();
 			checkIfGameWon();
 			// setUpPlayers(GameData.PLAYER_AMOUNT);
-			setAttack(false);
+			//setAttack(false);
 			RiskBoard.getAttackSpinner().setEnabled(false);
 			RiskBoard.getDefenceSpinner().setEnabled(false);
 
@@ -361,6 +361,7 @@ public class RiskGame {
 			checkIfReceiveCard();
 			GameData.CURRENT_PLAYER = GameData.PLAYER_TWO;
 			updateStatistics();
+			GameData.COLLECT_ROUND = false;
 			RiskBoard.getGameLabel().setText("");
 
 		} else if (GameData.CURRENT_PLAYER == GameData.PLAYER_TWO
@@ -370,12 +371,14 @@ public class RiskGame {
 
 			nextRound();
 			updateStatistics();
+			GameData.COLLECT_ROUND = false;
 			RiskBoard.getGameLabel().setText("");
 		} else if (GameData.CURRENT_PLAYER == GameData.PLAYER_TWO
 				&& GameData.PLAYER_AMOUNT == 3) {
 			checkIfReceiveCard();
 			GameData.CURRENT_PLAYER = GameData.PLAYER_THREE;
 			updateStatistics();
+			GameData.COLLECT_ROUND = false;
 			RiskBoard.getGameLabel().setText("");
 		} else if (GameData.CURRENT_PLAYER == GameData.PLAYER_THREE) {
 			checkIfReceiveCard();
@@ -383,6 +386,7 @@ public class RiskGame {
 
 			nextRound();
 			updateStatistics();
+			GameData.COLLECT_ROUND = false;
 			RiskBoard.getGameLabel().setText("");
 		}
 
@@ -413,10 +417,10 @@ public class RiskGame {
 				+ GameData.CURRENT_PLAYER.getName()
 				+ " </b> can make a move! <br><br>You can place <b>"
 				+ GameData.CURRENT_PLAYER.getUnplacedArmies()
-				+ "</b> armies<br><br> Current Provinces: <br><br>";
+				+ "</b> armies<br><br>You have <b>" + GameData.CURRENT_PLAYER.countPlayerArmies() + "</b> armies on the map <br><br><br> <i>Current Provinces:</i> <br><br>";
 		ArrayList<Province> prov = GameData.CURRENT_PLAYER.getPlayerProvince();
 		for (Province province : prov) {
-			result = result + province.getName() + " - "
+			result = result + "<b>" + province.getName() + "</b> - "
 					+ province.getCapital() + " - " + province.getArmy()
 					+ "<br>";
 		}

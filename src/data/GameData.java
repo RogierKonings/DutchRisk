@@ -47,18 +47,19 @@ public class GameData {
 	
 	public static boolean GAME_RUNNING;
 	public static boolean PLACE_ROUND;
+	public static boolean COLLECT_ROUND;
 	public static boolean ATTACK_RUNNING;
 	public static boolean RECEIVE_CARD;
 	public static boolean GAME_OVER;
 	
 	public static int ROUND = 0;
 	
-	public static ImageIcon dice1img = new ImageIcon("../DutchRisk/src/img/dice/dice1.png");
-	public static ImageIcon dice2img = new ImageIcon("../DutchRisk/src/img/dice/dice2.png");
-	public static ImageIcon dice3img = new ImageIcon("../DutchRisk/src/img/dice/dice3.png");
-	public static ImageIcon dice4img = new ImageIcon("../DutchRisk/src/img/dice/dice4.png");
-	public static ImageIcon dice5img = new ImageIcon("../DutchRisk/src/img/dice/dice5.png");
-	public static ImageIcon dice6img = new ImageIcon("../DutchRisk/src/img/dice/dice6.png");
+	public static ImageIcon dice1img = new ImageIcon(GameData.class.getClass().getResource("/img/dice/dice1.png"));
+	public static ImageIcon dice2img = new ImageIcon(GameData.class.getClass().getResource("/img/dice/dice2.png"));
+	public static ImageIcon dice3img = new ImageIcon(GameData.class.getClass().getResource("/img/dice/dice3.png"));
+	public static ImageIcon dice4img = new ImageIcon(GameData.class.getClass().getResource("/img/dice/dice4.png"));
+	public static ImageIcon dice5img = new ImageIcon(GameData.class.getClass().getResource("/img/dice/dice5.png"));
+	public static ImageIcon dice6img = new ImageIcon(GameData.class.getClass().getResource("/img/dice/dice6.png"));
 	
 	public static Dice dice1 = new Dice(1, dice1img);
 	public static Dice dice2 = new Dice(2, dice2img);

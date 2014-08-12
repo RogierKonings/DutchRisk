@@ -126,67 +126,75 @@ public class RiskBoard extends JFrame {
 			attackButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 
-					attackResultLabel1.setText("");
-					attackResultLabel2.setText("");
-					attackResultLabel3.setText("");
-					defenceResultLabel1.setText("");
-					defenceResultLabel2.setText("");
-
-					String result = (String) destinationBox.getSelectedItem();
-					GameData.setTargetProvince(result);
-
-					if (RiskGame.unplacedArmies() == true) {
-
-						gameLabel
-								.setText("There are still armies to be placed!!");
-
+					if (GameData.COLLECT_ROUND == true) {
+						gameLabel.setText("You have already collected!");
 					} else {
 
-						if (GameData.CURRENT_PLAYER
-								.isPlayerProvince(GameData.TARGET_PROVINCE) == true) {
+						attackResultLabel1.setText("");
+						attackResultLabel2.setText("");
+						attackResultLabel3.setText("");
+						defenceResultLabel1.setText("");
+						defenceResultLabel2.setText("");
+
+						String result = (String) destinationBox
+								.getSelectedItem();
+						GameData.setTargetProvince(result);
+
+						if (RiskGame.unplacedArmies() == true) {
 
 							gameLabel
-									.setText("You cannot attack your own province!!");
+									.setText("There are still armies to be placed!!");
 
-						} else if (GameData.SELECTED_PROVINCE.getArmy() == 1) {
-							gameLabel
-									.setText("You will need more than one army to attack!");
 						} else {
 
-							// returns 0 in case of a 'Yes' answer, 1 in
-							// case of
-							// a
-							// 'No'
-							int ATTACK_ANSWER = JOptionPane.showConfirmDialog(
-									game,
-									"Do you want to attack from "
-											+ GameData.SELECTED_PROVINCE
-													.getName()
-											+ " to "
-											+ GameData.TARGET_PROVINCE
-													.getName() + "?",
-									"Confirm Attack", JOptionPane.YES_NO_OPTION);
-
-							if (ATTACK_ANSWER == 0) {
-								RiskGame.setAttack(true);
-
-								attackResultLabel1.setIcon(null);
-								attackResultLabel2.setIcon(null);
-								attackResultLabel3.setIcon(null);
-								defenceResultLabel1.setIcon(null);
-								defenceResultLabel2.setIcon(null);
+							if (GameData.CURRENT_PLAYER
+									.isPlayerProvince(GameData.TARGET_PROVINCE) == true) {
 
 								gameLabel
-										.setText("You may now select the amount of armies!");
-								attackSpinner.setEnabled(true);
-								defenceSpinner.setEnabled(true);
-								attackThrowButton.setEnabled(true);
-								defenceThrowButton.setEnabled(true);
+										.setText("You cannot attack your own province!!");
 
+							} else if (GameData.SELECTED_PROVINCE.getArmy() == 1) {
+								gameLabel
+										.setText("You will need more than one army to attack!");
+							} else {
+
+								// returns 0 in case of a 'Yes' answer, 1 in
+								// case of
+								// a
+								// 'No'
+								int ATTACK_ANSWER = JOptionPane
+										.showConfirmDialog(
+												game,
+												"Do you want to attack from "
+														+ GameData.SELECTED_PROVINCE
+																.getName()
+														+ " to "
+														+ GameData.TARGET_PROVINCE
+																.getName()
+														+ "?",
+												"Confirm Attack",
+												JOptionPane.YES_NO_OPTION);
+
+								if (ATTACK_ANSWER == 0) {
+									RiskGame.setAttack(true);
+
+									attackResultLabel1.setIcon(null);
+									attackResultLabel2.setIcon(null);
+									attackResultLabel3.setIcon(null);
+									defenceResultLabel1.setIcon(null);
+									defenceResultLabel2.setIcon(null);
+
+									gameLabel
+											.setText("You may now select the amount of armies!");
+									attackSpinner.setEnabled(true);
+									defenceSpinner.setEnabled(true);
+									attackThrowButton.setEnabled(true);
+									defenceThrowButton.setEnabled(true);
+
+								}
 							}
 						}
 					}
-
 				}
 			});
 
@@ -256,6 +264,34 @@ public class RiskBoard extends JFrame {
 			collectButton.setText("Collect");
 			collectButton.setBounds(SCREEN_WIDTH - 100, 310, 95, 50);
 			collectButton.setEnabled(false);
+
+			collectButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+
+					if (GameData.COLLECT_ROUND == true) {
+						gameLabel.setText("You have already collected!");
+					} else {
+
+						if (GameData.ATTACK_RUNNING == true) {
+
+							gameLabel
+									.setText("<html>You cannot collect! <br><br> You have already attacked!!</html>");
+
+						} else {
+							
+							int armiestobereceived = GameData.CURRENT_PLAYER.countPlayerProvinces() / 3;
+							GameData.CURRENT_PLAYER.setUnplacedArmies(armiestobereceived);
+							gameLabel.setText("You get " + armiestobereceived + " armies!");
+							RiskGame.updateStatistics();
+
+							GameData.COLLECT_ROUND = true;
+
+						}
+					}
+				}
+
+			});
+
 		}
 		return collectButton;
 	}
@@ -285,8 +321,8 @@ public class RiskBoard extends JFrame {
 		if (boardPanel == null) {
 			boardPanel = new JPanel();
 			boardPanel.setBounds(5, 5, SCREEN_WIDTH - 320, SCREEN_HEIGHT);
-			RiskMap riskmap = new RiskMap(new ImageIcon(
-					"../DutchRisk/src/img/maps/NL-map.jpg").getImage());
+			RiskMap riskmap = new RiskMap(new ImageIcon(getClass().getResource(
+					"/img/maps/NL-map.jpg")).getImage());
 
 			boardPanel.add(riskmap);
 		}
@@ -633,7 +669,7 @@ public class RiskBoard extends JFrame {
 
 			nextPlayerButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-
+					GameData.ATTACK_RUNNING = false;
 					addArmyButton.setEnabled(false);
 					removeArmyButton.setEnabled(false);
 
