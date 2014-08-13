@@ -8,8 +8,16 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+/**
+ * Class responsible for loading the invisible image that has each province in
+ * just one colour. This class is used to make the provinces clickable in-game.
+ * 
+ * @author rogier_konings
+ * 
+ */
 public class NLmap {
 
+	// Loads simpler, one colour per-province, image file of the map
 	public String netherlands = "/img/maps/NL-coordinates.png";
 	public BufferedImage buffimg;
 
@@ -24,6 +32,13 @@ public class NLmap {
 
 	}
 
+	/**
+	 * Used to retrieve the color at a certain point
+	 * 
+	 * @param point
+	 *            location of the check for colour
+	 * @return the Color at the specific point
+	 */
 	public Color getPointColor(Point point) {
 
 		int x = point.x;

@@ -11,6 +11,12 @@ import data.GameData;
 import data.NedMapData;
 import data.Scenario;
 
+/**
+ * Class responsible for running the actual game
+ * 
+ * @author rogier_konings
+ * 
+ */
 public class RiskGame {
 
 	private GameData data;
@@ -33,29 +39,54 @@ public class RiskGame {
 
 	}
 
+	/**
+	 * Loads all the necessary data
+	 */
 	public void loadData() {
 		GameData data = new GameData(new NedMapData());
 	}
 
+	/**
+	 * Loads the selected map
+	 */
 	public void loadBoard() {
 		board = new RiskBoard();
 	}
 
+	/**
+	 * Sets the current players
+	 * 
+	 * @param amount
+	 *            the number of players
+	 */
 	public void loadPlayers(int amount) {
 
 		GameData.CURRENT_PLAYER = GameData.PLAYER_ONE;
 		GameData.PLAYER_AMOUNT = amount;
 	}
 
+	/**
+	 * Loads a scenario
+	 * 
+	 * @param scenario
+	 *            the String representation of the different scenarios eg.
+	 *            historical, random, germaninvasion
+	 */
 	public void loadScenario(String scenario) {
 		Scenario scen = new Scenario(scenario);
 	}
 
+	/**
+	 * Loads a new game
+	 */
 	public void newGame() {
 		GameData.GAME_RUNNING = true;
 		GameData.PLACE_ROUND = true;
 	}
 
+	/**
+	 * Initiates all the settings for a new attack
+	 */
 	public static void attackInitiated() {
 
 		if (GameData.PLACE_ROUND == false && GameData.ATTACK_RUNNING == true
@@ -135,19 +166,31 @@ public class RiskGame {
 			checkIfConquered();
 			checkIfGameWon();
 			// setUpPlayers(GameData.PLAYER_AMOUNT);
-			//setAttack(false);
+			// setAttack(false);
 			RiskBoard.getAttackSpinner().setEnabled(false);
 			RiskBoard.getDefenceSpinner().setEnabled(false);
 
 		}
 	}
 
+	/**
+	 * Set the GameData attack boolean
+	 * 
+	 * @param attack
+	 *            true or false
+	 */
 	public static void setAttack(boolean attack) {
 
 		GameData.ATTACK_RUNNING = attack;
 
 	}
 
+	/**
+	 * Checks whether there are still armies that the player has to place on the
+	 * map
+	 * 
+	 * @return true is case of armies that still have to be palced
+	 */
 	public static boolean unplacedArmies() {
 
 		if (GameData.PLAYER_AMOUNT == 2) {
@@ -170,6 +213,9 @@ public class RiskGame {
 
 	}
 
+	/**
+	 * Checks if the attacking player conquered the target province
+	 */
 	public static void checkIfConquered() {
 
 		if (GameData.TARGET_PROVINCE.getArmy() == 0) {
@@ -191,6 +237,10 @@ public class RiskGame {
 
 	}
 
+	/**
+	 * Checks whether or not the player receives a card afther their round -
+	 * only in case they attacked AND conquered an enemy province that round
+	 */
 	public static void checkIfReceiveCard() {
 
 		if (GameData.RECEIVE_CARD == true) {
@@ -217,6 +267,9 @@ public class RiskGame {
 
 	}
 
+	/**
+	 * Checks whether the player has won the game
+	 */
 	public static void checkIfGameWon() {
 
 		if (GameData.PLAYER_AMOUNT == 2) {
@@ -279,6 +332,13 @@ public class RiskGame {
 
 	}
 
+	/**
+	 * Simulates multiple dice throw
+	 * 
+	 * @param dice
+	 *            the amount of dice that are thrown
+	 * @return a list with all the throws, ordered from small to high values
+	 */
 	public static int[] diceThrow(int dice) {
 
 		int[] result = new int[dice];
@@ -297,6 +357,9 @@ public class RiskGame {
 		return result;
 	}
 
+	/**
+	 * Adds a unit to a province
+	 */
 	public static void addUnit() {
 
 		int armies = GameData.CURRENT_PLAYER.getUnplacedArmies();
@@ -327,6 +390,9 @@ public class RiskGame {
 
 	}
 
+	/**
+	 * Removes a unit from the province
+	 */
 	public static void removeUnit() {
 
 		int armies = GameData.CURRENT_PLAYER.getUnplacedArmies();
@@ -356,6 +422,9 @@ public class RiskGame {
 
 	}
 
+	/**
+	 * The next player is selected
+	 */
 	public static void nextPlayer() {
 		if (GameData.CURRENT_PLAYER == GameData.PLAYER_ONE) {
 			checkIfReceiveCard();
@@ -392,6 +461,9 @@ public class RiskGame {
 
 	}
 
+	/**
+	 * Calculates whether a new round has started
+	 */
 	public static void nextRound() {
 
 		GameData.ROUND++;
@@ -402,6 +474,9 @@ public class RiskGame {
 
 	}
 
+	/**
+	 * Updates the usefull statistics Panel on the left side of the screen
+	 */
 	public static void updateStatistics() {
 
 		String roundinfo = "";
@@ -413,11 +488,15 @@ public class RiskGame {
 			roundinfo = "Round <b>" + GameData.ROUND + "</b>";
 		}
 
-		String result = "" + roundinfo + "<br><br><b>"
+		String result = ""
+				+ roundinfo
+				+ "<br><br><b>"
 				+ GameData.CURRENT_PLAYER.getName()
 				+ " </b> can make a move! <br><br>You can place <b>"
 				+ GameData.CURRENT_PLAYER.getUnplacedArmies()
-				+ "</b> armies<br><br>You have <b>" + GameData.CURRENT_PLAYER.countPlayerArmies() + "</b> armies on the map <br><br><br> <i>Current Provinces:</i> <br><br>";
+				+ "</b> armies<br><br>You have <b>"
+				+ GameData.CURRENT_PLAYER.countPlayerArmies()
+				+ "</b> armies on the map <br><br><br> <i>Current Provinces:</i> <br><br>";
 		ArrayList<Province> prov = GameData.CURRENT_PLAYER.getPlayerProvince();
 		for (Province province : prov) {
 			result = result + "<b>" + province.getName() + "</b> - "

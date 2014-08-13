@@ -27,6 +27,7 @@ import javax.swing.event.ChangeListener;
 import data.GameData;
 
 /**
+ * Creates the Graphical User Interface
  * 
  * @author rogier_konings
  * 
@@ -118,6 +119,12 @@ public class RiskBoard extends JFrame {
 		return gameLabel;
 	}
 
+	/**
+	 * Creates the attack button and checks when pressed for the necessary
+	 * requirements before an attack can be initiated
+	 * 
+	 * @return the attack button
+	 */
 	public static JButton getAttackButton() {
 
 		if (attackButton == null) {
@@ -204,6 +211,12 @@ public class RiskBoard extends JFrame {
 
 	}
 
+	/**
+	 * Creates the move button and checks when pressed for the necessary
+	 * requirements before a move can be initiated
+	 * 
+	 * @return the move button
+	 */
 	public static JButton getMoveButton() {
 
 		if (moveButton == null) {
@@ -257,6 +270,12 @@ public class RiskBoard extends JFrame {
 
 	}
 
+	/**
+	 * Creates the collect button and checks when pressed for the necessary
+	 * requirements before a collect can be initiated
+	 * 
+	 * @return the collect button
+	 */
 	public static JButton getCollectButton() {
 
 		if (collectButton == null) {
@@ -278,10 +297,13 @@ public class RiskBoard extends JFrame {
 									.setText("<html>You cannot collect! <br><br> You have already attacked!!</html>");
 
 						} else {
-							
-							int armiestobereceived = GameData.CURRENT_PLAYER.countPlayerProvinces() / 3;
-							GameData.CURRENT_PLAYER.setUnplacedArmies(armiestobereceived);
-							gameLabel.setText("You get " + armiestobereceived + " armies!");
+
+							int armiestobereceived = GameData.CURRENT_PLAYER
+									.countPlayerProvinces() / 3;
+							GameData.CURRENT_PLAYER
+									.setUnplacedArmies(armiestobereceived);
+							gameLabel.setText("You get " + armiestobereceived
+									+ " armies!");
 							RiskGame.updateStatistics();
 
 							GameData.COLLECT_ROUND = true;
@@ -296,6 +318,11 @@ public class RiskBoard extends JFrame {
 		return collectButton;
 	}
 
+	/**
+	 * The list of possible destinations from the selected province
+	 * 
+	 * @return the list
+	 */
 	public static JComboBox getDestinationBox() {
 
 		if (destinationBox == null) {
@@ -305,6 +332,11 @@ public class RiskBoard extends JFrame {
 		return destinationBox;
 	}
 
+	/**
+	 * The label displaying all the statistics
+	 * 
+	 * @return the label
+	 */
 	public static JLabel getStatisticsLabel() {
 
 		if (statisticsLabel == null) {
@@ -316,6 +348,11 @@ public class RiskBoard extends JFrame {
 		return statisticsLabel;
 	}
 
+	/**
+	 * The board panel - the map image is added to this panel
+	 * 
+	 * @return the panel
+	 */
 	public JPanel getBoardPanel() {
 
 		if (boardPanel == null) {
@@ -329,17 +366,11 @@ public class RiskBoard extends JFrame {
 		return boardPanel;
 	}
 
-	public static SpinnerNumberModel getAttackDice() {
-		SpinnerNumberModel attackdice = new SpinnerNumberModel(1, 1, 3, 1);
-		attackdice.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent e) {
-
-			}
-		});
-
-		return attackdice;
-	}
-
+	/**
+	 * Creates a JSpinner for the attacking player to select the amount of dice
+	 * 
+	 * @return JSpinner
+	 */
 	public static JSpinner getAttackSpinner() {
 
 		if (attackSpinner == null) {
@@ -357,10 +388,11 @@ public class RiskBoard extends JFrame {
 		return attackSpinner;
 	}
 
-	public static SpinnerNumberModel getDefenceDice() {
-		return new SpinnerNumberModel(1, 1, 2, 1);
-	}
-
+	/**
+	 * Creates a JSpinner for the defending player to select the amount of dice
+	 * 
+	 * @return JSpinner
+	 */
 	public static JSpinner getDefenceSpinner() {
 
 		if (defenceSpinner == null) {
@@ -377,6 +409,12 @@ public class RiskBoard extends JFrame {
 		return defenceSpinner;
 	}
 
+	/**
+	 * The button to press in order to throw the attacking dice - the dice eyes
+	 * are collected in an array
+	 * 
+	 * @return JButton
+	 */
 	public static JButton getAttackThrowButton() {
 
 		if (attackThrowButton == null) {
@@ -459,6 +497,13 @@ public class RiskBoard extends JFrame {
 		return attackThrowButton;
 	}
 
+	/**
+	 * The button to press in order to throw the defending dice - the dice eyes
+	 * are collected in an array - afterwards a calculation is made who won/
+	 * lost the attack
+	 * 
+	 * @return JButton
+	 */
 	public static JButton getDefenceThrowButton() {
 
 		if (defenceThrowButton == null) {
@@ -594,6 +639,11 @@ public class RiskBoard extends JFrame {
 		return defenceResultLabel2;
 	}
 
+	/**
+	 * Button to add an army
+	 * 
+	 * @return JButton
+	 */
 	public static JButton getAddArmyButton() {
 
 		if (addArmyButton == null) {
@@ -618,6 +668,11 @@ public class RiskBoard extends JFrame {
 		return addArmyButton;
 	}
 
+	/**
+	 * Button to remove an army
+	 * 
+	 * @return JButton
+	 */
 	public static JButton getRemoveArmyButton() {
 
 		if (removeArmyButton == null) {
@@ -643,6 +698,11 @@ public class RiskBoard extends JFrame {
 		return removeArmyButton;
 	}
 
+	/**
+	 * Button to show the cards that the player currently has
+	 * 
+	 * @return JButton
+	 */
 	public JButton getShowCardsButton() {
 
 		if (showCardsButton == null) {
@@ -662,6 +722,11 @@ public class RiskBoard extends JFrame {
 		return showCardsButton;
 	}
 
+	/**
+	 * Button the press to go to the next player
+	 * 
+	 * @return JButton
+	 */
 	public JButton getNextPlayerButton() {
 
 		if (nextPlayerButton == null) {
@@ -689,6 +754,10 @@ public class RiskBoard extends JFrame {
 		return nextPlayerButton;
 	}
 
+	/**
+	 * Shows the destinations that can be moved/ attack to from the selected
+	 * province
+	 */
 	public static void showDestinations() {
 		if (GameData.GAME_RUNNING == true && GameData.SELECTED_PROVINCE != null) {
 
@@ -708,6 +777,9 @@ public class RiskBoard extends JFrame {
 
 	}
 
+	/**
+	 * Initiated when a player wins the game
+	 */
 	public static void endGameState() {
 
 		attackButton.setEnabled(false);

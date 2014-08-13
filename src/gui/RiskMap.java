@@ -15,6 +15,14 @@ import javax.swing.JPanel;
 import data.GameData;
 import data.NLmap;
 
+/**
+ * Class responsible for loading the map and painting the different graphics on
+ * the screen. Also responsible for loadding the invisible map so that provinces
+ * can easily be selected.
+ * 
+ * @author rogier_konings
+ * 
+ */
 public class RiskMap extends JPanel {
 
 	private static final long serialVersionUID = 4646851898036548618L;
@@ -29,11 +37,7 @@ public class RiskMap extends JPanel {
 		setMaximumSize(size);
 		setSize(size);
 		setLayout(null);
-		loadData();
 		drawProvinces();
-	}
-
-	public void loadData() {
 	}
 
 	protected void paintComponent(Graphics g) {
@@ -81,6 +85,10 @@ public class RiskMap extends JPanel {
 
 	}
 
+	/**
+	 * Gives the coordinates of the mouse click, and calculates which province
+	 * will be selected
+	 */
 	public void drawProvinces() {
 
 		addMouseListener(new MouseAdapter() {
@@ -127,17 +135,20 @@ public class RiskMap extends JPanel {
 
 							if (province.getPlayer() == GameData.CURRENT_PLAYER) {
 
-								if(GameData.PLACE_ROUND == false) {
-								
-								RiskBoard.getAttackButton().setEnabled(true);
-								RiskBoard.getDestinationBox().setEnabled(true);
-								RiskBoard.getMoveButton().setEnabled(true);
-								RiskBoard.getCollectButton().setEnabled(true);
+								if (GameData.PLACE_ROUND == false) {
+
+									RiskBoard.getAttackButton()
+											.setEnabled(true);
+									RiskBoard.getDestinationBox().setEnabled(
+											true);
+									RiskBoard.getMoveButton().setEnabled(true);
+									RiskBoard.getCollectButton().setEnabled(
+											true);
 								}
-								
-								RiskBoard.getRemoveArmyButton().setEnabled(false);
-								
-								
+
+								RiskBoard.getRemoveArmyButton().setEnabled(
+										false);
+
 								if (GameData.PLACE_ROUND == true) {
 									RiskBoard.getRemoveArmyButton().setEnabled(
 											true);

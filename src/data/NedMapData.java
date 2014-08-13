@@ -8,15 +8,17 @@ import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 
 /**
+ * Class contains database of all the provinces - for each province border
+ * provinces are created to which can be moved/ attacked.
  * 
  * @author rogier_konings
  * 
  */
-public class NedMapData extends CountryData{
-	
+public class NedMapData extends CountryData {
+
 	private static int circlesize = 20;
 
-	// creates an array of possible provinces to attack
+	// creates an array of possible provinces to move/ attack
 	private static Province[] desgroningen = new Province[2];
 	private static Province[] desfriesland = new Province[3];
 	private static Province[] desdrenthe = new Province[3];
@@ -36,9 +38,9 @@ public class NedMapData extends CountryData{
 	private static Province[] desnamen = new Province[4];
 	private static Province[] desluxemburg = new Province[2];
 
-	// creates an array with all the provinces
 	ArrayList<Province> provinces;
 
+	// Creates the provicne objects
 	public static Province GRONINGEN = new Province(1, null, "Groningen",
 			"Groningen", Nationality.NEDERLANDS, 1, new Ellipse2D.Double(497,
 					84, circlesize, circlesize), false, desgroningen,
@@ -88,8 +90,8 @@ public class NedMapData extends CountryData{
 					circlesize, circlesize), false, desantwerpen, new Color(
 					0xc0d671));
 	public static Province LIMBURG = new Province(13, null, "Limburg",
-			"Maastricht", Nationality.VLAAMS, 1, new Ellipse2D.Double(422,
-					562, circlesize, circlesize), false, deslimburg, new Color(
+			"Maastricht", Nationality.VLAAMS, 1, new Ellipse2D.Double(422, 562,
+					circlesize, circlesize), false, deslimburg, new Color(
 					0x6f9070));
 	public static Province ZUID_BRABANT = new Province(14, null,
 			"Zuid-Brabant", "Brussel", Nationality.VLAAMS, 1,
@@ -109,11 +111,8 @@ public class NedMapData extends CountryData{
 			"Luxemburg", Nationality.WAALS, 1, new Ellipse2D.Double(521, 813,
 					circlesize, circlesize), false, desluxemburg, new Color(
 					0xa9fed2));
-	
 
-	
-
-	//public Dimension NL_DIMENSIONS = new Dimension(742, 1042);
+	// public Dimension NL_DIMENSIONS = new Dimension(742, 1042);
 
 	public NedMapData() {
 

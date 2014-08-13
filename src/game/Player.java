@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import data.GameData;
 
 /**
+ * Class that creates player objects
  * 
  * @author rogier_konings
  * 
@@ -21,15 +22,20 @@ public class Player {
 	private ArrayList<Card> playercards;
 
 	/**
-	 * Creates a new player
 	 * 
-	 * @param playerid
-	 *            the number by which to identify the player
+	 * @param id
+	 *            number used to identify the player
+	 * @param name
+	 *            the name of the player
 	 * @param unplaced_armies
-	 *            the armies that this player still will have to place on their
-	 *            provinces
+	 *            the amount of armies that the player can still place of the
+	 *            board
 	 * @param score
-	 *            the score of the player
+	 *            the current score of the player
+	 * @param playercolor
+	 *            the colour the the player has currently chosen
+	 * @param playercards
+	 *            the cards that the player currently has
 	 */
 	public Player(int id, String name, int unplaced_armies, int score,
 			Color playercolor, ArrayList<Card> playercards) {
@@ -60,11 +66,16 @@ public class Player {
 	public void setUnplacedArmies(int armies) {
 		unplaced_armies = armies;
 	}
-	
+
 	public void addUnplacedArmies(int armies) {
 		unplaced_armies = unplaced_armies + armies;
 	}
 
+	/**
+	 * 
+	 * @return an ArrayList with the provinces that the player currently
+	 *         possesses
+	 */
 	public ArrayList<Province> getPlayerProvince() {
 
 		ArrayList<Province> playerprovinces = new ArrayList<Province>();
@@ -79,6 +90,13 @@ public class Player {
 		return playerprovinces;
 	}
 
+	/**
+	 * Check whether the player has this specific province
+	 * 
+	 * @param prov
+	 *            the province that is being checked
+	 * @return true in case of a possession, false otherwise
+	 */
 	public boolean isPlayerProvince(Province prov) {
 
 		if (getId() == prov.getPlayer().getId()) {
@@ -87,35 +105,50 @@ public class Player {
 
 		return false;
 	}
-	
+
+	/**
+	 * Counts the provinces that the player currently possesses
+	 * 
+	 * @return the number of provinces that the player possesses
+	 */
 	public int countPlayerProvinces() {
-		
+
 		int count = 0;
-		
-		for(Province province : GameData.provinces) {
-			
-			if(province.getPlayer().getId() == getId()) {
+
+		for (Province province : GameData.provinces) {
+
+			if (province.getPlayer().getId() == getId()) {
 				count++;
 			}
-			
-		}
-		return count;
-	}
-	
-	public int countPlayerArmies() {
-		
-		int count = 0;
-		
-		for(Province province : GameData.provinces){
-			
-			if(province.getPlayer().getId() == getId()) {
-				count = count + province.getArmy();
-			}
-			
+
 		}
 		return count;
 	}
 
+	/**
+	 * Counts the total amount of armies that the player currentl possesses
+	 * 
+	 * @return the number of armies that the player possesses
+	 */
+	public int countPlayerArmies() {
+
+		int count = 0;
+
+		for (Province province : GameData.provinces) {
+
+			if (province.getPlayer().getId() == getId()) {
+				count = count + province.getArmy();
+			}
+
+		}
+		return count;
+	}
+
+	/**
+	 * Returns a list of the player's cards
+	 * 
+	 * @return an ArrayList of the player's cards
+	 */
 	public ArrayList<Card> getPlayerCards() {
 
 		ArrayList<Card> playercards = new ArrayList<Card>();
@@ -132,6 +165,11 @@ public class Player {
 		return playercards;
 	}
 
+	/**
+	 * Counts the number of cards currently in the possession of the player
+	 * 
+	 * @return the number of cards
+	 */
 	public int getNumberOfCards() {
 
 		int numberofcards = 0;

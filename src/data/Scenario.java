@@ -4,6 +4,12 @@ import game.Province;
 
 import java.util.Collections;
 
+/**
+ * Class that loads the different possible scenario's for the game
+ * 
+ * @author rogier_konings
+ * 
+ */
 public class Scenario {
 
 	public Scenario(String scenario) {
@@ -18,6 +24,9 @@ public class Scenario {
 
 	}
 
+	/**
+	 * Divides the provinces randomly among the players
+	 */
 	public void divideProvincesRandomly() {
 
 		GameData.CURRENT_SCENARIO = "random";
@@ -56,6 +65,12 @@ public class Scenario {
 		}
 	}
 
+	/**
+	 * Divides the provinces among the players according to history. In case of
+	 * two players - NEDERLAND vs BELGIUM In case of three player - NEDERLAND vs
+	 * VLAANDEREN vs WALLONIE In the latter case, more placeable armies are
+	 * given to the player with lower amounts of provinces
+	 */
 	public void divideProvincesHistorically() {
 
 		GameData.CURRENT_SCENARIO = "historical";
@@ -89,6 +104,10 @@ public class Scenario {
 
 	}
 
+	/**
+	 * Simulates a German, or for the sake of being in 1815, a Prussian invasion
+	 * of the Netherlands. Only available for two players!
+	 */
 	public void divideProvincesGermanInvasion() {
 
 		GameData.CURRENT_SCENARIO = "germaninvasion";

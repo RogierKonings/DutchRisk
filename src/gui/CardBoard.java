@@ -16,6 +16,14 @@ import javax.swing.JOptionPane;
 import data.CardType;
 import data.GameData;
 
+/**
+ * Class responsible for displaying the players cards - this tactic is chosen so
+ * that the other player can look away when the current player is checking their
+ * cards.
+ * 
+ * @author rogier_konings
+ * 
+ */
 public class CardBoard extends JFrame {
 
 	private static Container cardBoard;
@@ -57,6 +65,20 @@ public class CardBoard extends JFrame {
 		cardTradeButton.setText("Trade your cards");
 		cardTradeButton.setEnabled(false);
 
+		/**
+		 * Elaborate algorithm to check how many armies a player receives when
+		 * submitting their cards.
+		 * 
+		 * Three cannons will yield four armies Three soldiers will yield six
+		 * armies Three horses will yield 8 armies Three different cards will
+		 * yield 10 armies
+		 * 
+		 * If the player is currently holding some of the provinces written on
+		 * the cards, the player will receive an extra army on THAT province A
+		 * maximum of five cards is set - not only would six cards
+		 * expontentially increase the line of coding of this Class, classic
+		 * Risk rules also constitute five cards maximum
+		 */
 		cardTradeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -274,11 +296,13 @@ public class CardBoard extends JFrame {
 							if (GameData.CURRENT_PLAYER.isPlayerProvince(card1
 									.getCardProvince()) == true) {
 								card1.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card3.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card3
+									.getCardProvince()) == true) {
 								card3.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card4.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card4
+									.getCardProvince()) == true) {
 								card4.getCardProvince().addArmy();
 							}
 							card1.setPlayer(null);
@@ -315,11 +339,13 @@ public class CardBoard extends JFrame {
 							if (GameData.CURRENT_PLAYER.isPlayerProvince(card2
 									.getCardProvince()) == true) {
 								card2.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card3.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card3
+									.getCardProvince()) == true) {
 								card3.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card4.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card4
+									.getCardProvince()) == true) {
 								card4.getCardProvince().addArmy();
 							}
 							card2.setPlayer(null);
@@ -374,11 +400,13 @@ public class CardBoard extends JFrame {
 							if (GameData.CURRENT_PLAYER.isPlayerProvince(card1
 									.getCardProvince()) == true) {
 								card1.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card2.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card2
+									.getCardProvince()) == true) {
 								card2.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card4.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card4
+									.getCardProvince()) == true) {
 								card4.getCardProvince().addArmy();
 							}
 							card1.setPlayer(null);
@@ -403,11 +431,13 @@ public class CardBoard extends JFrame {
 							if (GameData.CURRENT_PLAYER.isPlayerProvince(card1
 									.getCardProvince()) == true) {
 								card1.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card3.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card3
+									.getCardProvince()) == true) {
 								card3.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card4.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card4
+									.getCardProvince()) == true) {
 								card4.getCardProvince().addArmy();
 							}
 							card1.setPlayer(null);
@@ -432,11 +462,13 @@ public class CardBoard extends JFrame {
 							if (GameData.CURRENT_PLAYER.isPlayerProvince(card2
 									.getCardProvince()) == true) {
 								card2.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card3.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card3
+									.getCardProvince()) == true) {
 								card3.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card4.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card4
+									.getCardProvince()) == true) {
 								card4.getCardProvince().addArmy();
 							}
 							card2.setPlayer(null);
@@ -478,11 +510,13 @@ public class CardBoard extends JFrame {
 							if (GameData.CURRENT_PLAYER.isPlayerProvince(card1
 									.getCardProvince()) == true) {
 								card1.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card2.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card2
+									.getCardProvince()) == true) {
 								card2.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card3.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card3
+									.getCardProvince()) == true) {
 								card3.getCardProvince().addArmy();
 							}
 							card1.setPlayer(null);
@@ -518,11 +552,13 @@ public class CardBoard extends JFrame {
 							if (GameData.CURRENT_PLAYER.isPlayerProvince(card1
 									.getCardProvince()) == true) {
 								card1.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card2.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card2
+									.getCardProvince()) == true) {
 								card2.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card4.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card4
+									.getCardProvince()) == true) {
 								card4.getCardProvince().addArmy();
 							}
 							card1.setPlayer(null);
@@ -558,11 +594,13 @@ public class CardBoard extends JFrame {
 							if (GameData.CURRENT_PLAYER.isPlayerProvince(card1
 									.getCardProvince()) == true) {
 								card1.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card3.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card3
+									.getCardProvince()) == true) {
 								card3.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card4.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card4
+									.getCardProvince()) == true) {
 								card4.getCardProvince().addArmy();
 							}
 							card1.setPlayer(null);
@@ -598,11 +636,13 @@ public class CardBoard extends JFrame {
 							if (GameData.CURRENT_PLAYER.isPlayerProvince(card1
 									.getCardProvince()) == true) {
 								card1.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card2.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card2
+									.getCardProvince()) == true) {
 								card2.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card5.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card5
+									.getCardProvince()) == true) {
 								card5.getCardProvince().addArmy();
 							}
 							card1.setPlayer(null);
@@ -638,11 +678,13 @@ public class CardBoard extends JFrame {
 							if (GameData.CURRENT_PLAYER.isPlayerProvince(card1
 									.getCardProvince()) == true) {
 								card1.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card3.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card3
+									.getCardProvince()) == true) {
 								card3.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card5.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card5
+									.getCardProvince()) == true) {
 								card5.getCardProvince().addArmy();
 							}
 							card1.setPlayer(null);
@@ -678,11 +720,13 @@ public class CardBoard extends JFrame {
 							if (GameData.CURRENT_PLAYER.isPlayerProvince(card1
 									.getCardProvince()) == true) {
 								card1.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card4.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card4
+									.getCardProvince()) == true) {
 								card4.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card5.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card5
+									.getCardProvince()) == true) {
 								card5.getCardProvince().addArmy();
 							}
 							card1.setPlayer(null);
@@ -718,11 +762,13 @@ public class CardBoard extends JFrame {
 							if (GameData.CURRENT_PLAYER.isPlayerProvince(card2
 									.getCardProvince()) == true) {
 								card2.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card3.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card3
+									.getCardProvince()) == true) {
 								card3.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card4.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card4
+									.getCardProvince()) == true) {
 								card4.getCardProvince().addArmy();
 							}
 							card2.setPlayer(null);
@@ -758,11 +804,13 @@ public class CardBoard extends JFrame {
 							if (GameData.CURRENT_PLAYER.isPlayerProvince(card2
 									.getCardProvince()) == true) {
 								card2.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card3.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card3
+									.getCardProvince()) == true) {
 								card3.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card5.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card5
+									.getCardProvince()) == true) {
 								card5.getCardProvince().addArmy();
 							}
 							card2.setPlayer(null);
@@ -798,11 +846,13 @@ public class CardBoard extends JFrame {
 							if (GameData.CURRENT_PLAYER.isPlayerProvince(card2
 									.getCardProvince()) == true) {
 								card2.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card4.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card4
+									.getCardProvince()) == true) {
 								card4.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card5.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card5
+									.getCardProvince()) == true) {
 								card5.getCardProvince().addArmy();
 							}
 							card2.setPlayer(null);
@@ -839,11 +889,13 @@ public class CardBoard extends JFrame {
 							if (GameData.CURRENT_PLAYER.isPlayerProvince(card3
 									.getCardProvince()) == true) {
 								card3.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card4.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card4
+									.getCardProvince()) == true) {
 								card4.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card5.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card5
+									.getCardProvince()) == true) {
 								card5.getCardProvince().addArmy();
 							}
 							card3.setPlayer(null);
@@ -868,11 +920,13 @@ public class CardBoard extends JFrame {
 							if (GameData.CURRENT_PLAYER.isPlayerProvince(card1
 									.getCardProvince()) == true) {
 								card1.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card2.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card2
+									.getCardProvince()) == true) {
 								card2.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card3.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card3
+									.getCardProvince()) == true) {
 								card3.getCardProvince().addArmy();
 							}
 							card1.setPlayer(null);
@@ -897,11 +951,13 @@ public class CardBoard extends JFrame {
 							if (GameData.CURRENT_PLAYER.isPlayerProvince(card1
 									.getCardProvince()) == true) {
 								card1.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card2.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card2
+									.getCardProvince()) == true) {
 								card2.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card4.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card4
+									.getCardProvince()) == true) {
 								card4.getCardProvince().addArmy();
 							}
 							card1.setPlayer(null);
@@ -925,11 +981,13 @@ public class CardBoard extends JFrame {
 							if (GameData.CURRENT_PLAYER.isPlayerProvince(card1
 									.getCardProvince()) == true) {
 								card1.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card3.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card3
+									.getCardProvince()) == true) {
 								card3.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card4.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card4
+									.getCardProvince()) == true) {
 								card4.getCardProvince().addArmy();
 							}
 							card1.setPlayer(null);
@@ -953,11 +1011,13 @@ public class CardBoard extends JFrame {
 							if (GameData.CURRENT_PLAYER.isPlayerProvince(card2
 									.getCardProvince()) == true) {
 								card2.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card3.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card3
+									.getCardProvince()) == true) {
 								card3.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card4.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card4
+									.getCardProvince()) == true) {
 								card4.getCardProvince().addArmy();
 							}
 							card2.setPlayer(null);
@@ -981,11 +1041,13 @@ public class CardBoard extends JFrame {
 							if (GameData.CURRENT_PLAYER.isPlayerProvince(card1
 									.getCardProvince()) == true) {
 								card1.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card2.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card2
+									.getCardProvince()) == true) {
 								card2.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card5.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card5
+									.getCardProvince()) == true) {
 								card5.getCardProvince().addArmy();
 							}
 							card1.setPlayer(null);
@@ -1009,11 +1071,13 @@ public class CardBoard extends JFrame {
 							if (GameData.CURRENT_PLAYER.isPlayerProvince(card1
 									.getCardProvince()) == true) {
 								card1.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card3.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card3
+									.getCardProvince()) == true) {
 								card3.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card5.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card5
+									.getCardProvince()) == true) {
 								card5.getCardProvince().addArmy();
 							}
 							card1.setPlayer(null);
@@ -1037,11 +1101,13 @@ public class CardBoard extends JFrame {
 							if (GameData.CURRENT_PLAYER.isPlayerProvince(card1
 									.getCardProvince()) == true) {
 								card1.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card4.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card4
+									.getCardProvince()) == true) {
 								card4.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card5.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card5
+									.getCardProvince()) == true) {
 								card5.getCardProvince().addArmy();
 							}
 							card1.setPlayer(null);
@@ -1065,11 +1131,13 @@ public class CardBoard extends JFrame {
 							if (GameData.CURRENT_PLAYER.isPlayerProvince(card2
 									.getCardProvince()) == true) {
 								card2.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card3.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card3
+									.getCardProvince()) == true) {
 								card3.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card5.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card5
+									.getCardProvince()) == true) {
 								card5.getCardProvince().addArmy();
 							}
 							card2.setPlayer(null);
@@ -1093,11 +1161,13 @@ public class CardBoard extends JFrame {
 							if (GameData.CURRENT_PLAYER.isPlayerProvince(card2
 									.getCardProvince()) == true) {
 								card2.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card4.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card4
+									.getCardProvince()) == true) {
 								card4.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card5.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card5
+									.getCardProvince()) == true) {
 								card5.getCardProvince().addArmy();
 							}
 							card2.setPlayer(null);
@@ -1121,11 +1191,13 @@ public class CardBoard extends JFrame {
 							if (GameData.CURRENT_PLAYER.isPlayerProvince(card3
 									.getCardProvince()) == true) {
 								card3.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card4.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card4
+									.getCardProvince()) == true) {
 								card4.getCardProvince().addArmy();
-							} if (GameData.CURRENT_PLAYER
-									.isPlayerProvince(card5.getCardProvince()) == true) {
+							}
+							if (GameData.CURRENT_PLAYER.isPlayerProvince(card5
+									.getCardProvince()) == true) {
 								card5.getCardProvince().addArmy();
 							}
 							card3.setPlayer(null);
@@ -1154,6 +1226,9 @@ public class CardBoard extends JFrame {
 
 	}
 
+	/**
+	 * Shows the cards that the player is currently holding
+	 */
 	public void showCards() {
 
 		playercards = GameData.CURRENT_PLAYER.getPlayerCards();
@@ -1187,6 +1262,10 @@ public class CardBoard extends JFrame {
 		}
 	}
 
+	/**
+	 * Checks whether the playing is holding three or more cards - in the case
+	 * of a lower amount of cards, the button will not be enabled
+	 */
 	public void checkIfEnoughCards() {
 		if (playercards.size() >= 3) {
 
@@ -1195,6 +1274,7 @@ public class CardBoard extends JFrame {
 	}
 
 	public void removeUsedCards() {
-
+		// Under development - add code her so that the submitted cards are
+		// returned on the bottom of the pile
 	}
 }

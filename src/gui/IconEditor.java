@@ -9,9 +9,11 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 /**
+ * Class responsible for displaying an ImageIcon on the JSpinner objects of
+ * RiskBoard
  * 
  * @author rogier_konings
- *
+ * 
  */
 public class IconEditor extends JLabel implements ChangeListener {
 

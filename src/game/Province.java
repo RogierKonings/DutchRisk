@@ -9,9 +9,10 @@ import data.GameData;
 import data.Nationality;
 
 /**
+ * Class that creates the Province objects
  * 
  * @author rogier_konings
- *
+ * 
  */
 public class Province extends JPanel {
 
@@ -28,18 +29,33 @@ public class Province extends JPanel {
 	private Color color;
 
 	/**
-	 * Creates a new province
-	 * @param id unique number by which to identify the province
-	 * @param player the current owner
-	 * @param name signifies the name of the province
-	 * @param capital the capital city of the province
-	 * @param army the size of the army residing in the province
-	 * @param province the shape on which to click on in order to make the province selectable
-	 * @param SELECTED whether or not the province is selected
-	 * @param MOVETO whether or not the province is a target
+	 * 
+	 * @param id
+	 *            number by which to identify the province
+	 * @param player
+	 *            the current owner of this province
+	 * @param name
+	 *            the name of the province
+	 * @param capital
+	 *            the capital of the province
+	 * @param nation
+	 *            ENUM nationality to which this province historically belongs
+	 * @param army
+	 *            the size of the army currently residing on this province
+	 * @param capitallocation
+	 *            location of the capital - the shape is also used to display
+	 *            the army amount
+	 * @param SELECTED
+	 *            checks whether the province is currently selected
+	 * @param destinations
+	 *            a list of the possible destinations to move/ attack to from
+	 *            this province
+	 * @param color
+	 *            the current color of this province
 	 */
-	public Province(int id, Player player, String name, String capital, Nationality nation, int army,
-			Ellipse2D capitallocation, boolean SELECTED, Province[] destinations, Color color) {
+	public Province(int id, Player player, String name, String capital,
+			Nationality nation, int army, Ellipse2D capitallocation,
+			boolean SELECTED, Province[] destinations, Color color) {
 		this.id = id;
 		this.player = player;
 		this.name = name;
@@ -51,24 +67,23 @@ public class Province extends JPanel {
 		this.destinations = destinations;
 		this.color = color;
 	}
-	
 
 	public Player getPlayer() {
 		return player;
 	}
-	
+
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
-	
+
 	public String getCapital() {
 		return capital;
 	}
-	
+
 	public Nationality getNation() {
 		return nation;
 	}
@@ -76,7 +91,7 @@ public class Province extends JPanel {
 	public int getArmy() {
 		return army;
 	}
-	
+
 	public void addArmy() {
 		army++;
 	}
@@ -84,18 +99,17 @@ public class Province extends JPanel {
 	public void removeArmy() {
 		army--;
 	}
-	
+
 	public Ellipse2D getCapitalLocation() {
 		return capitallocation;
 	}
-	
+
 	public Province[] getDestinations() {
 		return destinations;
 	}
-	
+
 	public Color getColor() {
 		return color;
 	}
-	
-}
 
+}
