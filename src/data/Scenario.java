@@ -12,8 +12,12 @@ import java.util.Collections;
  */
 public class Scenario {
 
+	private String scenario;
+	
 	public Scenario(String scenario) {
 
+		this.scenario = scenario;
+		
 		if (scenario.equals("random")) {
 			divideProvincesRandomly();
 		} else if (scenario.equals("historical")) {
@@ -22,6 +26,12 @@ public class Scenario {
 			divideProvincesGermanInvasion();
 		}
 
+	}
+	
+	public String getScenario() {
+		
+		return scenario;
+		
 	}
 
 	/**

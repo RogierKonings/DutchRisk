@@ -20,36 +20,36 @@ import data.Scenario;
 public class RiskGame {
 
 	private GameData data;
-	private RiskBoard board;
+	private static RiskBoard board;
 
 	public RiskGame() {
 
-		initialize();
+//		initialize();
 		newGame();
 
 	}
 
 	public void initialize() {
 
-		loadData();
-		loadBoard();
-		loadPlayers(2);
-		loadScenario("historical");
-		updateStatistics();
+//		loadData();
+//		loadBoard();
+//		loadPlayers(2);
+//		loadScenario("historical");
+//		updateStatistics();
 
 	}
 
 	/**
 	 * Loads all the necessary data
 	 */
-	public void loadData() {
+	public static void loadData() {
 		GameData data = new GameData(new NedMapData());
 	}
 
 	/**
 	 * Loads the selected map
 	 */
-	public void loadBoard() {
+	public static void loadBoard() {
 		board = new RiskBoard();
 	}
 
@@ -508,19 +508,5 @@ public class RiskGame {
 
 	}
 
-	public static void main(String[] args) {
-
-		RiskGame game = new RiskGame();
-
-		for (Card card : GameData.gamecards) {
-
-			if (card.getPlayer() != null) {
-
-				System.out.println(card.getPlayer().getName());
-			}
-
-		}
-
-	}
 
 }

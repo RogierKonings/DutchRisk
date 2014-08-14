@@ -5,7 +5,6 @@ import game.Dice;
 import game.Player;
 import game.Province;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -24,17 +23,17 @@ public class GameData {
 	public static int STARTING_ARMIES = 36 / PLAYER_AMOUNT;
 
 	// this variables store the player information
-	public final static Player PLAYER_ONE = new Player(1, "Rogier",
-			STARTING_ARMIES, 0, Color.BLUE, null);
-	public final static Player PLAYER_TWO = new Player(2, "Jeroen",
-			STARTING_ARMIES, 0, Color.RED, null);
-	public final static Player PLAYER_THREE = new Player(3, "Isaac",
-			STARTING_ARMIES, 0, Color.MAGENTA, null);
+	public static Player PLAYER_ONE;
+	public static Player PLAYER_TWO;
+	public static Player PLAYER_THREE;
 
 	private CountryData data;
 
 	// database of provinces
 	public static ArrayList<Province> provinces;
+	
+	// database of scenario's
+	public static ArrayList<Scenario> scenarios;
 
 	// database of gamecards
 	public static ArrayList<Card> gamecards;
@@ -48,7 +47,10 @@ public class GameData {
 
 	public static Player CURRENT_PLAYER;
 
-	// indicates which scenario is currently loaded
+	// scenario settings
+	public static Scenario random;
+	public static Scenario historical;
+	public static Scenario germaninvasion;
 	public static String CURRENT_SCENARIO;
 
 	public static boolean GAME_RUNNING;
@@ -94,6 +96,7 @@ public class GameData {
 		loadProvinces();
 		loadDice();
 		loadGameCards();
+		loadScenarios();
 	}
 
 	public void loadProvinces() {
@@ -129,24 +132,20 @@ public class GameData {
 		}
 
 	}
-
-	// /**
-	// *
-	// * @return
-	// */
-	// public Province getSelectedProvince() {
-	//
-	// for (Province province : provinces) {
-	// if (province.SELECTED == true) {
-	// SELECTED_PROVINCE = province;
-	// }
-	// }
-	// return SELECTED_PROVINCE;
-	// }
-
-	// public Player getCurrentPlayer() {
-	// return CURRENT_PLAYER;
-	// }
+	
+	public void loadScenarios() {
+		
+		scenarios = new ArrayList<Scenario>();
+		
+		random = new Scenario("random");
+		historical = new Scenario("historical");
+		germaninvasion = new Scenario("germaninvasion");
+		
+		scenarios.add(random);
+		scenarios.add(historical);
+		scenarios.add(germaninvasion);
+		
+	}
 
 	/**
 	 * Sets the province that will be attacked
