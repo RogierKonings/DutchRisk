@@ -3,7 +3,6 @@ package data;
 import game.Province;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 
@@ -19,24 +18,24 @@ public class NedMapData extends CountryData {
 	private static int circlesize = 20;
 
 	// creates an array of possible provinces to move/ attack
-	private static Province[] desgroningen = new Province[2];
-	private static Province[] desfriesland = new Province[3];
-	private static Province[] desdrenthe = new Province[3];
-	private static Province[] desoverijssel = new Province[3];
-	private static Province[] desgelderland = new Province[5];
-	private static Province[] desutrecht = new Province[2];
-	private static Province[] desholland = new Province[5];
-	private static Province[] desnoordbrabant = new Province[5];
-	private static Province[] deszeeland = new Province[5];
-	private static Province[] deswestvlaanderen = new Province[3];
-	private static Province[] desoostvlaanderen = new Province[5];
-	private static Province[] desantwerpen = new Province[5];
-	private static Province[] deslimburg = new Province[5];
-	private static Province[] deszuidbrabant = new Province[6];
-	private static Province[] desluik = new Province[4];
-	private static Province[] deshenegouwen = new Province[4];
-	private static Province[] desnamen = new Province[4];
-	private static Province[] desluxemburg = new Province[2];
+	private static ArrayList<Province> desgroningen = new ArrayList<Province>();
+	private static ArrayList<Province> desfriesland = new ArrayList<Province>();
+	private static ArrayList<Province> desdrenthe = new ArrayList<Province>();
+	private static ArrayList<Province> desoverijssel = new ArrayList<Province>();
+	private static ArrayList<Province> desgelderland = new ArrayList<Province>();
+	private static ArrayList<Province> desutrecht = new ArrayList<Province>();
+	private static ArrayList<Province> desholland = new ArrayList<Province>();
+	private static ArrayList<Province> desnoordbrabant = new ArrayList<Province>();
+	private static ArrayList<Province> deszeeland = new ArrayList<Province>();
+	private static ArrayList<Province> deswestvlaanderen = new ArrayList<Province>();
+	private static ArrayList<Province> desoostvlaanderen = new ArrayList<Province>();
+	private static ArrayList<Province> desantwerpen = new ArrayList<Province>();
+	private static ArrayList<Province> deslimburg = new ArrayList<Province>();
+	private static ArrayList<Province> deszuidbrabant = new ArrayList<Province>();
+	private static ArrayList<Province> desluik = new ArrayList<Province>();
+	private static ArrayList<Province> deshenegouwen = new ArrayList<Province>();
+	private static ArrayList<Province> desnamen = new ArrayList<Province>();
+	private static ArrayList<Province> desluxemburg = new ArrayList<Province>();
 
 	ArrayList<Province> provinces;
 
@@ -165,94 +164,94 @@ public class NedMapData extends CountryData {
 	 * Adds the possible destinations to an array for each province
 	 */
 	public void addDestinations() {
-		desgroningen[0] = DRENTHE;
-		desgroningen[1] = FRIESLAND;
+		desgroningen.add(DRENTHE);
+		desgroningen.add(FRIESLAND);
 
-		desfriesland[0] = GRONINGEN;
-		desfriesland[1] = DRENTHE;
-		desfriesland[2] = OVERIJSSEL;
+		desfriesland.add(GRONINGEN);
+		desfriesland.add(DRENTHE);
+		desfriesland.add(OVERIJSSEL);
 
-		desdrenthe[0] = GRONINGEN;
-		desdrenthe[1] = FRIESLAND;
-		desdrenthe[2] = OVERIJSSEL;
+		desdrenthe.add(GRONINGEN);
+		desdrenthe.add(FRIESLAND);
+		desdrenthe.add(OVERIJSSEL);
 
-		desoverijssel[0] = DRENTHE;
-		desoverijssel[1] = GELDERLAND;
-		desoverijssel[2] = FRIESLAND;
+		desoverijssel.add(DRENTHE);
+		desoverijssel.add(GELDERLAND);
+		desoverijssel.add(FRIESLAND);
 
-		desgelderland[0] = OVERIJSSEL;
-		desgelderland[1] = UTRECHT;
-		desgelderland[2] = HOLLAND;
-		desgelderland[3] = NOORD_BRABANT;
-		desgelderland[4] = LIMBURG;
+		desgelderland.add(OVERIJSSEL);
+		desgelderland.add(UTRECHT);
+		desgelderland.add(HOLLAND);
+		desgelderland.add(NOORD_BRABANT);
+		desgelderland.add(LIMBURG);
 
-		desutrecht[0] = GELDERLAND;
-		desutrecht[1] = HOLLAND;
+		desutrecht.add(GELDERLAND);
+		desutrecht.add(HOLLAND);
 
-		desholland[0] = UTRECHT;
-		desholland[1] = NOORD_BRABANT;
-		desholland[2] = ZEELAND;
-		desholland[3] = FRIESLAND;
-		desholland[4] = GELDERLAND;
+		desholland.add(UTRECHT);
+		desholland.add(NOORD_BRABANT);
+		desholland.add(ZEELAND);
+		desholland.add(FRIESLAND);
+		desholland.add(GELDERLAND);
 
-		deszeeland[0] = HOLLAND;
-		deszeeland[1] = NOORD_BRABANT;
-		deszeeland[2] = ANTWERPEN;
-		deszeeland[3] = OOST_VLAANDEREN;
-		deszeeland[4] = WEST_VLAANDEREN;
+		deszeeland.add(HOLLAND);
+		deszeeland.add(NOORD_BRABANT);
+		deszeeland.add(ANTWERPEN);
+		deszeeland.add(OOST_VLAANDEREN);
+		deszeeland.add(WEST_VLAANDEREN);
 
-		desnoordbrabant[0] = GELDERLAND;
-		desnoordbrabant[1] = HOLLAND;
-		desnoordbrabant[2] = LIMBURG;
-		desnoordbrabant[3] = ANTWERPEN;
-		desnoordbrabant[4] = ZEELAND;
+		desnoordbrabant.add(GELDERLAND);
+		desnoordbrabant.add(HOLLAND);
+		desnoordbrabant.add(LIMBURG);
+		desnoordbrabant.add(ANTWERPEN);
+		desnoordbrabant.add(ZEELAND);
 
-		deswestvlaanderen[0] = ZEELAND;
-		deswestvlaanderen[1] = OOST_VLAANDEREN;
-		deswestvlaanderen[2] = HENEGOUWEN;
+		deswestvlaanderen.add(ZEELAND);
+		deswestvlaanderen.add(OOST_VLAANDEREN);
+		deswestvlaanderen.add(HENEGOUWEN);
 
-		desoostvlaanderen[0] = ZEELAND;
-		desoostvlaanderen[1] = WEST_VLAANDEREN;
-		desoostvlaanderen[2] = ANTWERPEN;
-		desoostvlaanderen[3] = ZUID_BRABANT;
-		desoostvlaanderen[4] = HENEGOUWEN;
+		desoostvlaanderen.add(ZEELAND);
+		desoostvlaanderen.add(WEST_VLAANDEREN);
+		desoostvlaanderen.add(ANTWERPEN);
+		desoostvlaanderen.add(ZUID_BRABANT);
+		desoostvlaanderen.add(HENEGOUWEN);
 
-		desantwerpen[0] = ZEELAND;
-		desantwerpen[1] = NOORD_BRABANT;
-		desantwerpen[2] = LIMBURG;
-		desantwerpen[3] = ZUID_BRABANT;
-		desantwerpen[4] = OOST_VLAANDEREN;
+		desantwerpen.add(ZEELAND);
+		desantwerpen.add(NOORD_BRABANT);
+		desantwerpen.add(LIMBURG);
+		desantwerpen.add(ZUID_BRABANT);
+		desantwerpen.add(OOST_VLAANDEREN);
 
-		deslimburg[0] = GELDERLAND;
-		deslimburg[1] = NOORD_BRABANT;
-		deslimburg[2] = ANTWERPEN;
-		deslimburg[3] = ZUID_BRABANT;
-		deslimburg[4] = LUIK;
+		deslimburg.add(GELDERLAND);
+		deslimburg.add(NOORD_BRABANT);
+		deslimburg.add(ANTWERPEN);
+		deslimburg.add(ZUID_BRABANT);
+		deslimburg.add(LUIK);
 
-		deszuidbrabant[0] = OOST_VLAANDEREN;
-		deszuidbrabant[1] = ANTWERPEN;
-		deszuidbrabant[2] = LIMBURG;
-		deszuidbrabant[3] = NAMEN;
-		deszuidbrabant[4] = HENEGOUWEN;
-		deszuidbrabant[5] = LUIK;
+		deszuidbrabant.add(OOST_VLAANDEREN);
+		deszuidbrabant.add(ANTWERPEN);
+		deszuidbrabant.add(LIMBURG);
+		deszuidbrabant.add(NAMEN);
+		deszuidbrabant.add(HENEGOUWEN);
+		deszuidbrabant.add(LUIK);
 
-		deshenegouwen[0] = WEST_VLAANDEREN;
-		deshenegouwen[1] = OOST_VLAANDEREN;
-		deshenegouwen[2] = ZUID_BRABANT;
-		deshenegouwen[3] = NAMEN;
+		deshenegouwen.add(WEST_VLAANDEREN);
+		deshenegouwen.add(OOST_VLAANDEREN);
+		deshenegouwen.add(ZUID_BRABANT);
+		deshenegouwen.add(NAMEN);
 
-		desnamen[0] = HENEGOUWEN;
-		desnamen[1] = ZUID_BRABANT;
-		desnamen[2] = LUIK;
-		desnamen[3] = LUXEMBURG;
+		desnamen.add(HENEGOUWEN);
+		desnamen.add(ZUID_BRABANT);
+		desnamen.add(LUIK);
+		desnamen.add(LUXEMBURG);
 
-		desluik[0] = LIMBURG;
-		desluik[1] = ZUID_BRABANT;
-		desluik[2] = NAMEN;
-		desluik[3] = LUXEMBURG;
+		desluik.add(LIMBURG);
+		desluik.add(ZUID_BRABANT);
+		desluik.add(NAMEN);
+		desluik.add(LUXEMBURG);
 
-		desluxemburg[0] = NAMEN;
-		desluxemburg[1] = LUIK;
+		desluxemburg.add(NAMEN);
+		desluxemburg.add(LUIK);
 	}
 
 }

@@ -2,6 +2,7 @@ package game;
 
 import java.awt.Color;
 import java.awt.geom.Ellipse2D;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
@@ -25,7 +26,7 @@ public class Province extends JPanel {
 	private Nationality nation;
 	private Ellipse2D capitallocation;
 	public boolean SELECTED = false;
-	private Province[] destinations;
+	private ArrayList<Province> destinations;
 	private Color color;
 
 	/**
@@ -55,7 +56,7 @@ public class Province extends JPanel {
 	 */
 	public Province(int id, Player player, String name, String capital,
 			Nationality nation, int army, Ellipse2D capitallocation,
-			boolean SELECTED, Province[] destinations, Color color) {
+			boolean SELECTED, ArrayList<Province> destinations, Color color) {
 		this.id = id;
 		this.player = player;
 		this.name = name;
@@ -104,8 +105,37 @@ public class Province extends JPanel {
 		return capitallocation;
 	}
 
-	public Province[] getDestinations() {
+	public ArrayList<Province> getDestinations() {
 		return destinations;
+	}
+
+	public ArrayList<Province> getAttackProvinces() {
+
+		ArrayList<Province> attackdestinations = new ArrayList<Province>();
+
+		for (Province province : destinations) {
+
+			if (province.getPlayer() != GameData.CURRENT_PLAYER) {
+				attackdestinations.add(province);
+			}
+
+		}
+		return attackdestinations;
+	}
+
+	public ArrayList<Province> getMoveProvinces() {
+
+		ArrayList<Province> movedestinations = new ArrayList<Province>();
+
+		for (Province province : destinations) {
+
+			if (province.getPlayer() == GameData.CURRENT_PLAYER) {
+				movedestinations.add(province);
+			}
+
+		}
+		return movedestinations;
+
 	}
 
 	public Color getColor() {

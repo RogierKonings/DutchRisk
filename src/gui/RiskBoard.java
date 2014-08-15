@@ -9,6 +9,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,10 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerListModel;
-import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import data.GameData;
 
@@ -61,7 +59,7 @@ public class RiskBoard extends JFrame {
 	private static JButton removeArmyButton;
 	public static JButton showCardsButton;
 	private static JButton nextPlayerButton;
-	private static JComboBox destinationBox;
+	private static JComboBox<String> destinationBox;
 
 	public RiskBoard() {
 		initialize();
@@ -323,10 +321,10 @@ public class RiskBoard extends JFrame {
 	 * 
 	 * @return the list
 	 */
-	public static JComboBox getDestinationBox() {
+	public static JComboBox<String> getDestinationBox() {
 
 		if (destinationBox == null) {
-			destinationBox = new JComboBox();
+			destinationBox = new JComboBox<String>();
 			destinationBox.setBounds(SCREEN_WIDTH - 225, 370, 140, 50);
 		}
 		return destinationBox;
@@ -763,14 +761,13 @@ public class RiskBoard extends JFrame {
 
 			getDestinationBox().removeAllItems();
 
-			Province[] des = new Province[GameData.SELECTED_PROVINCE
-					.getDestinations().length - 1];
+			ArrayList<Province> des = new ArrayList<Province>();
 
 			des = GameData.SELECTED_PROVINCE.getDestinations();
 
-			for (int i = 0; i < des.length; i++) {
+			for (int i = 0; i < des.size() / 2; i++) {
 
-				getDestinationBox().addItem(des[i].getName());
+				getDestinationBox().addItem(des.get(i).getName());
 
 			}
 		}
